@@ -18,11 +18,14 @@ class Inicio extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$this->load->view('header');
+		$this->load->view('inicio');
+		$this->load->view('footer');
 	}
 
 	function admin1()
 	{
 		$this->load->view('admin1');
 	}
+
 }
