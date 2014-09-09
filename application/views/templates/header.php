@@ -56,7 +56,7 @@
             </div>
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="login.html">Cerrar Sesión</a></li>
+                    <li><a class="logout" href=<?php echo '"' . site_url("/sesion/cerrar") . '"' ?>>Cerrar Sesión</a></li>
                 </ul>
             </div>
         </header>

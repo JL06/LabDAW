@@ -30,8 +30,8 @@
                           <span>Usuario</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="#">Agregar</a></li>
-                          <li><a  href="#">Ver</a></li>
+                          <li><a  href=<?php echo '"' . site_url("/usuarios/agregar") . '"' ?>>Agregar</a></li>
+                          <li><a  href=<?php echo '"' . site_url("/usuarios") . '"' ?>>Ver</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
