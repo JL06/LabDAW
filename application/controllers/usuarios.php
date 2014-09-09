@@ -3,7 +3,11 @@ class Usuarios extends CI_Controller {
 	public function index()
 	{
 		$this->comprueba_sesion();
-		$query = $this->db->query("SELECT * FROM usuario;");
+		$this->db->select('usuario.nombre as nom, rol.nombre as tipo, email, genero, telefono');
+		$this->db->from('usuario');
+		$this->db->join('rol', 'usuario.idRol = rol.id');
+		$query = $this->db->get();
+		//$query = $this->db->query("SELECT * FROM usuario;");
 		foreach ($query->result() as $row) {
 			$res[] = $row;
 		}
@@ -16,7 +20,7 @@ class Usuarios extends CI_Controller {
 	function agregar ($error = null) 
 	{
 		$this->comprueba_sesion();
-		$rol = $this->db->query("SELECT * FROM rol;");
+		$rol = $this->db->get("rol");
 		foreach ($rol->result() as $row) {
 			$res[] = $row;
 		}
@@ -47,7 +51,6 @@ class Usuarios extends CI_Controller {
 		$data['idrol'] = $_POST['rol'];
 		$data['telefono'] = $_POST['telefono'];
 		
-
 		$this->db->insert('usuario',$data);
 		$red = "Location: " . site_url("/usuarios");
 		header($red);

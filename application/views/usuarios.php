@@ -20,11 +20,11 @@
                                 <?php 
                                 foreach ($usuarios as $usuario) {
                                     echo "<tr>";
-                                    echo "<td>".$usuario->nombre."</td>";
+                                    echo "<td>".$usuario->nom."</td>";
                                     echo "<td>".$usuario->genero."</td>";
                                     echo "<td>".$usuario->email."</td>";
                                     echo "<td>".$usuario->telefono."</td>";
-                                    echo "<td>".$usuario->idRol."</td>";
+                                    echo "<td>".$usuario->tipo."</td>";
                                     echo "</tr>";
                                 }
                                 ?>
