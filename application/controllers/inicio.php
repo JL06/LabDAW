@@ -18,9 +18,10 @@ class Inicio extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('header');
-		$this->load->view('inicio');
-		$this->load->view('footer');
+		$data=array(
+			'main_content'=>'inicio'
+			);
+		$this->load->view('template',$data);
 	}
 
 	function admin1()

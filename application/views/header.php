@@ -63,5 +63,6 @@
       <!--header end-->
       
 <?php
-  $this->load->view('sidebar')
+  $role='admin';
+  $this->load->view('sidebars/'.$role);
 ?>
