@@ -9,25 +9,26 @@
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Nombre</label>
                               <div class="col-sm-10">
-                                  <input type="text" name="nombre" class="form-control round-form" required>
+                                  <input type="text" name="nombre" class="form-control round-form" maxlength="40" required>
                               </div>
                           </div>
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Correo eléctronico</label>
                               <div class="col-sm-10">
-                                  <input type="text" name="correo" class="form-control round-form" required>
+                                  <input type="email" name="correo" class="form-control round-form" maxlength="50" required>
                               </div>
                           </div>
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Contraseña</label>
                               <div class="col-sm-10">
-                              	<input type="password" name="clave" class="form-control round-form" required>
+                              	<input type="password" name="clave" class="form-control round-form" maxlength="50" required>
+                                <?php echo $errorclave ?>
                               </div>
                           </div>
                           <div class="form-group">
                           	<label class="col-sm-2 col-sm-2 control-label">Repite Contraseña</label>
                           	<div class="col-sm-10">
-                          		<input type="password" name="clave2" class="form-control round-form" required>
+                          		<input type="password" name="clave2" class="form-control round-form" maxlength="50" required>
                           	</div>
                           </div>
                           <div class="form-group">
@@ -48,7 +49,7 @@
                           <div class="form-group">
                           	<label class="col-sm-2 col-sm-2 control-label">Teléfono</label>
                           	<div class="col-sm-10">
-                          		<input type="text" name="telefono" class="form-control round-form">
+                          		<input type="text" name="telefono" class="form-control round-form" maxlength="12" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                           	</div>
                           </div>
                           
