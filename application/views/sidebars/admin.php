@@ -13,7 +13,7 @@
                       </a>
                       <ul class="sub">
                           <li><a  href="#">Agregar</a></li>
-                          <li><a  href="#">Ver</a></li>
+                          <li><a  href="ventas/listar">Ver</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
@@ -40,7 +40,7 @@
                       </a>
                       <ul class="sub">
                           <li><a  href="#">Agregar</a></li>
-                          <li><a  href="#">Ver</a></li>
+                          <li><a  href="ventas/listar">Ver</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">

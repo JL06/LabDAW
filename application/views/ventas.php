@@ -13,8 +13,9 @@
 								<th>Vendedor</th>
 								<th>Lugar</th>
 								<th class="numeric">Precio unitario</th>
-								<th>Fecha</th>
 								<th class="numerc">Cantidad</th>
+								<th class="numeric">Total</th>
+								<th>Fecha</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -24,9 +25,10 @@
 									<td><?php echo $v['producto'] ?></td>
 									<td><?php echo $v['usuario'] ?></td>
 									<td><?php echo $v['lugar'] ?></td>
-									<td class="numeric"><?php echo $v['precio'] ?></td>
-									<td><?php echo $v['fecha'] ?></td>
+									<td class="numeric">$ <?php echo $v['precio'] ?></td>
 									<td><?php echo $v['cantidad'] ?></td>
+									<td class="numeric">$ <?php echo $v['total'] ?></td>
+									<td><?php echo $v['fecha'] ?></td>
 								</tr>
 							<?php endforeach; ?>
 						</tbody>
