@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
 
-    <title>Sistema de administracion</title>
+    <title><?php echo $title ?></title>
 
     <?php
     echo link_tag('files/css/bootstrap.css');
@@ -61,6 +61,7 @@
             </div>
         </header>
       <!--header end-->
+
       
 <?php
   $role='admin';

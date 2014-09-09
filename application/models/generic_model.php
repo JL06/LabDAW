@@ -1,34 +1,33 @@
 <?php
 
 class Generic_model extends CI_Model {
-	function create($entity, $param){
+	function crear($entity, $param){
 		return $this->db->insert($entity,$param);
 	}
-	
-	function read($entity, $param){
+
+	function leer($entity, $param){
 		$query = $this->db->get_where($entity,$param);
-		foreach ($query->result() as $row)
-		{
-		   $result[]=$row;
-		}
-		return $result;
+		return $this->query_to_array($query);
 	}
 
-	function list($entity){
+	function listar($entity){
 		$query = $this->db->get($entity);
-		foreach ($query->result() as $row)
-		{
-		   $result[]=$row;
-		}
-		return $result;
+		return $this->query_to_array($query);
 	}
 
-	function delete($entity,$param){
+	function borrar($entity,$param){
 		return $this->db->delete($entity,$param);
 	}
 
-	function update($entity,$param,$new_data){
+	function actualizar($entity,$param,$new_data){
 		return $this->db->update($entity,$new_data,$param);
+	}
+	function query_to_array($query){
+		foreach ($query->result_array() as $row)
+		{
+		   $result[]=$row;
+		}
+		return $result;
 	}
 }
 ?>
