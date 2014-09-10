@@ -5,8 +5,10 @@ class Generic_model extends CI_Model {
 		return $this->db->insert($entity,$param);
 	}
 
-	function leer($entity, $param){
-		$query = $this->db->get_where($entity,$param);
+	function leer($entity, $param=""){
+		if ($param != "")
+			$this->db->where($param);
+		$query = $this->db->get_where($entity);
 		return $this->query_to_array($query);
 	}
 
