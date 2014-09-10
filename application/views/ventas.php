@@ -6,10 +6,11 @@
 		<div class="col-lg-12">
 			<div class="content-panel">
 				<section id="unseen">
-					<table class="table table-bordered table-sthiped table-condensed">
+					<table class="table table-bordered table-sthiped table-condensed display" id="table-ventas">
 						<thead>
 							<tr>
 								<th>Producto</th>
+								<th>Tipo</th>
 								<th>Vendedor</th>
 								<th>Lugar</th>
 								<th class="numeric">Precio unitario</th>
@@ -23,6 +24,7 @@
 							foreach ($ventas as $v):?>
 								<tr>
 									<td><?php echo $v['producto'] ?></td>
+									<td><?php echo $v['tipo'] ?></td>
 									<td><?php echo $v['usuario'] ?></td>
 									<td><?php echo $v['lugar'] ?></td>
 									<td class="numeric">$ <?php echo $v['precio'] ?></td>
@@ -39,4 +41,8 @@
 	</div>
 	</section><!--/wrapper -->
 </section>
-
+<script type="text/javascript">
+$(document).ready( function () {
+    $("#table-ventas").DataTable();
+} );
+</script>

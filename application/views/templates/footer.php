@@ -13,8 +13,6 @@
 
   <?php 
     echo '<script src="';
-    echo base_url("files/js/jquery.js") . '"></script>' ;
-    echo '<script src="';
     echo base_url("files/js/jquery-1.8.3.min.js") . '"></script>' ;
     echo '<script src="';
     echo base_url("files/js/bootstrap.min.js") . '"></script>' ;
@@ -39,6 +37,8 @@
     echo base_url("files/js/sparkline-chart.js") . '"></script>' ;
     echo '<script src="';
     echo base_url("files/js/zabuto_calendar.js") . '"></script>' ;
+    echo '<script src="'.base_url("files/js/datatables/jquery.dataTables.js").'"></script>';
+
     ?>
 
       </body>
