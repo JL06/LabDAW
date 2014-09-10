@@ -13,5 +13,16 @@
 			$data['title']="Productos";
 			$this->load->view('templates/template',$data);
 		}
+		public function register_form(){
+			$data['tipo']=$this->productos_model->leer('tipoproducto');
+			$data['main_content']="producto_form";
+			$data['title']="Registrar Producto";
+			$this->load->view('templates/template',$data);
+		}
+		public function insertar_producto(){
+			$form_values=$this->input->post();
+			if($this->productos_model->crear('productos',$form_values))
+				redirect('productos/listar');
+		}
 	}
 ?>
