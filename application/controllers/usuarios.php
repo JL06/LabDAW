@@ -40,19 +40,17 @@ class Usuarios extends CI_Controller {
 	}
 
 	function guardar () {
-		$clave = $this->input->post('correo');
-		$clave2 = $this->input->post('correo');
-		if (strcmp($clave, $clave2 != 0) {
+		if (strcmp($_POST['clave'], $_POST['clave2']) != 0) {
 			$red = "Location: " . site_url("/usuarios/agregar/1");
 			header($red);
 			return;
 		}
 		$data['password'] = password_hash($_POST['clave'], PASSWORD_DEFAULT);
-		$data['nombre'] = $this->input->post('nombre');
-		$data['email'] = $this->input->post('correo');
-		$data['genero'] = $this->input->post('genero');
-		$data['idrol'] = $this->input->post('rol');
-		$data['telefono'] = $this->input->post('telefono');
+		$data['nombre'] = $_POST['nombre'];
+		$data['email'] = $_POST['correo'];
+		$data['genero'] = $_POST['genero'];
+		$data['idrol'] = $_POST['rol'];
+		$data['telefono'] = $_POST['telefono'];
 		
 		$this->db->insert('usuario',$data);
 		$red = "Location: " . site_url("/usuarios");
