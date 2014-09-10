@@ -37,21 +37,23 @@ class Usuarios extends MY_Controller {
 	}
 
 	function guardar () {
-		if (strcmp($_POST['clave'], $_POST['clave2']) != 0) {
+		if (strcmp($_POST['clave'], $this->input->post('clave2')) != 0) {
 			$red = "Location: " . site_url("/usuarios/agregar/1");
 			header($red);
 			return;
 		}
-		$data['password'] = password_hash($_POST['clave'], PASSWORD_DEFAULT);
-		$data['nombre'] = $_POST['nombre'];
-		$data['email'] = $_POST['correo'];
-		$data['genero'] = $_POST['genero'];
-		$data['idrol'] = $_POST['rol'];
-		$data['telefono'] = $_POST['telefono'];
+		$data['password'] = password_hash($this->input->post('clave'), PASSWORD_DEFAULT);
+		$data['nombre'] = $this->input->post('nombre');
+		$data['email'] = $this->input->post('correo');
+		$data['genero'] =$this->input->post('genero');
+		$data['idrol'] = $this->input->post('rol');
+		$data['telefono'] = $this->input->post('telefono');
 		
-		$this->db->insert('usuario',$data);
-		$red = "Location: " . site_url("/usuarios");
-		header($red);
+		if($this->db->insert('usuario',$data)){
+			$this->session->set_flashdata('mensaje', 'El usuario fue agregado');
+			redirect("/usuarios");
+		}
+
 	}
 
 }

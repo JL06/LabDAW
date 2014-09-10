@@ -5,6 +5,13 @@
 			<div class="col-lg-12">
 				<div class="col-md-12 mt">
                     <div class="content-panel">
+
+                    <?php if($this->session->flashdata('mensaje') != ""): ?>
+                      <div class="col-lg-12">
+                        <div class="alert alert-success"><?php echo $this->session->flashdata('mensaje');?></div>
+                      </div>
+                    <?php endif;?>
+                    
                         <table class="table table-hover">
                             <h4></h4>
                             <thead>
