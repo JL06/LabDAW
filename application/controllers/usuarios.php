@@ -19,16 +19,14 @@ class Usuarios extends CI_Controller {
 
 	function agregar ($error = null) 
 	{
-		$this->comprueba_sesion();
+		//$this->comprueba_sesion();
 		$rol = $this->db->get("rol");
 		foreach ($rol->result() as $row) {
 			$res[] = $row;
 		}
 
 		if ($error == 1) {
-			$data['errorclave'] = '<span class="help-block">Error, ambos campos de contraseña deben ser identicos</span>';
-		} else {
-			$data['errorclave'] = $error;
+			$data['errorclave'] = true;
 		}
 
 		$data['title'] = "Nuevo Usuario";
@@ -38,18 +36,18 @@ class Usuarios extends CI_Controller {
 	}
 
 	function guardar () {
-		$this->comprueba_sesion();
-		if (strcmp($_POST['clave'], $_POST['clave2']) != 0) {
+		//$this->comprueba_sesion();
+		if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0) {
 			$red = "Location: " . site_url("/usuarios/agregar/1");
 			header($red);
 			return;
 		}
-		$data['password'] = password_hash($_POST['clave'], PASSWORD_DEFAULT);
-		$data['nombre'] = $_POST['nombre'];
-		$data['email'] = $_POST['correo'];
-		$data['genero'] = $_POST['genero'];
-		$data['idrol'] = $_POST['rol'];
-		$data['telefono'] = $_POST['telefono'];
+		$data['password'] = password_hash($this->input->post('clave'), PASSWORD_DEFAULT);
+		$data['nombre'] = $this->input->post('nombre');
+		$data['email'] = $this->input->post('correo');
+		$data['genero'] = $this->input->post('genero');
+		$data['idrol'] = $this->input->post('rol');
+		$data['telefono'] = $this->input->post('telefono');
 		
 		$this->db->insert('usuario',$data);
 		$red = "Location: " . site_url("/usuarios");

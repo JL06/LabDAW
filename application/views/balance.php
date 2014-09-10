@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
 <section id="main-content">
           <section class="wrapper site-min-height">
-          <h3><i class="fa fa-angle-right"></i> Morris Charts</h3>
+          <h3><i class="fa fa-angle-right"></i>Balance</h3>
               <!-- page start-->
               <div id="morris">
                   <div class="row mt">

@@ -32,7 +32,7 @@
 		            <br>
 		            <input type="password" name="clave" class="form-control" placeholder="Contraseña" required>
 		            <label class="checkbox">
-		            	<?php if (isset($error)) echo $error; ?>
+		            	<?php if (isset($error)) echo "<span>Usuario o contraseña inválida</span>"; ?>
 		                <!-- <span class="pull-right">
 		                    <a data-toggle="modal" href="login.html#myModal"> Forgot Password?</a>
 

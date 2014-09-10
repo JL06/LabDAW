@@ -22,7 +22,7 @@
                               <label class="col-sm-2 col-sm-2 control-label">Contraseña</label>
                               <div class="col-sm-10">
                               	<input type="password" name="clave" class="form-control round-form" maxlength="50" required>
-                                <?php echo $errorclave ?>
+                                <?php if (isset($errorclave)) echo '<span class="help-block">Error, ambos campos de contraseña deben ser identicos</span>'; ?>
                               </div>
                           </div>
                           <div class="form-group">
