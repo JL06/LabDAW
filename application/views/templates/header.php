@@ -16,7 +16,6 @@
     echo link_tag('files/css/style.css');
     echo link_tag('files/css/style-responsive.css');
     echo link_tag('files/css/jquery.dataTables.css');
-    echo link_tag('//cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.css');
     echo '<script src="';
     echo base_url("files/js/jquery.js") . '"></script>' ;
     ?>  
