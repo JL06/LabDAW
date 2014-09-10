@@ -75,6 +75,15 @@
                           <span>Asignar Producto</span>
                       </a>
                   </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <span>Reportes</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href=<?php echo '"' . site_url("/reportes/balance") . '"' ?>>Balance</a></li>
+                          <li><a  href="#">Otro</a></li>
+                      </ul>
+                  </li>
               </ul>
               <!-- sidebar menu end-->
           </div>
