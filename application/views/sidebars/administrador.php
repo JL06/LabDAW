@@ -39,7 +39,7 @@
                           <span>Ventas</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="#">Agregar</a></li>
+                          <li><a  href="<?php echo base_url('ventas/register_form')?>">Agregar</a></li>
                           <li><a  href="<?php echo base_url('ventas/listar')?>">Ver</a></li>
                       </ul>
                   </li>

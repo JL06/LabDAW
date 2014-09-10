@@ -8,14 +8,16 @@
            
            <div class="form-group">
              <label class="control-label col-md-3">Producto</label>
-             <select name="idProducto">
-               <?php if($productos != NULL):?>
-                <?php foreach ($productos as $p):?>
-                  <option value="<?php echo $p['id'] ?>"><?php echo $p['nombre'] ?></option>
-                <?php endforeach;?>
-              <?php endif; ?>
+             <div class="col-md-5">
+               <select name="idProducto" class="form-control">
+                 <?php if($productos != NULL):?>
+                  <?php foreach ($productos as $p):?>
+                    <option value="<?php echo $p['id'] ?>"><?php echo $p['nombre'] ?></option>
+                  <?php endforeach;?>
+                <?php endif; ?>
 
-            </select>
+              </select>
+             </div>
           </div>
 
           <div class="form-group">

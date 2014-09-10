@@ -25,6 +25,7 @@
 		public function insertar_venta(){
 			$form_values=$this->input->post();
 			if( $this->ventas_model->crear('ventas',$form_values)){
+				$this->session->set_flashdata('mensaje', 'La venta se registró exitosamente');
 				redirect('ventas/listar');
 			}
 		}

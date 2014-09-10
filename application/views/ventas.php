@@ -6,6 +6,11 @@
 		<div class="col-lg-12">
 			<div class="content-panel">
 				<section id="unseen">
+				<?php if($this->session->flashdata('mensaje') != ""): ?>
+		          <div class="col-lg-12">
+		          	<div class="alert alert-success"><?php echo $this->session->flashdata('mensaje');?></div>
+		          </div>
+		        <?php endif;?>
 					<table class="table table-bordered table-sthiped table-condensed display" id="table-ventas">
 						<thead>
 							<tr>
@@ -38,6 +43,7 @@
 					</table>
 				</section>	
 			</div>
+			
 		</div>
 	</div>
 	</section><!--/wrapper -->
