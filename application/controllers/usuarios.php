@@ -4,7 +4,7 @@ class Usuarios extends CI_Controller {
        {
             parent::__construct();
             //$this->load->model('user_model');
-            $this->comprueba_sesion();
+            //$this->comprueba_sesion();
 
        }
 	public function index()
@@ -13,7 +13,6 @@ class Usuarios extends CI_Controller {
 		$this->db->from('usuario');
 		$this->db->join('rol', 'usuario.idRol = rol.id');
 		$query = $this->db->get();
-		//$query = $this->db->query("SELECT * FROM usuario;");
 		foreach ($query->result() as $row) {
 			$res[] = $row;
 		}
@@ -25,17 +24,15 @@ class Usuarios extends CI_Controller {
 
 	function agregar ($error = null) 
 	{
-<<<<<<< HEAD
-		//$this->comprueba_sesion();
-=======
->>>>>>> FETCH_HEAD
 		$rol = $this->db->get("rol");
 		foreach ($rol->result() as $row) {
 			$res[] = $row;
 		}
 
 		if ($error == 1) {
-			$data['errorclave'] = true;
+			$data['errorclave'] = '<span class="help-block">Error, ambos campos de contraseña deben ser identicos</span>';
+		} else {
+			$data['errorclave'] = $error;
 		}
 
 		$data['title'] = "Nuevo Usuario";
@@ -45,22 +42,17 @@ class Usuarios extends CI_Controller {
 	}
 
 	function guardar () {
-<<<<<<< HEAD
-		//$this->comprueba_sesion();
-		if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0) {
-=======
 		if (strcmp($_POST['clave'], $_POST['clave2']) != 0) {
->>>>>>> FETCH_HEAD
 			$red = "Location: " . site_url("/usuarios/agregar/1");
 			header($red);
 			return;
 		}
-		$data['password'] = password_hash($this->input->post('clave'), PASSWORD_DEFAULT);
-		$data['nombre'] = $this->input->post('nombre');
-		$data['email'] = $this->input->post('correo');
-		$data['genero'] = $this->input->post('genero');
-		$data['idrol'] = $this->input->post('rol');
-		$data['telefono'] = $this->input->post('telefono');
+		$data['password'] = password_hash($_POST['clave'], PASSWORD_DEFAULT);
+		$data['nombre'] = $_POST['nombre'];
+		$data['email'] = $_POST['correo'];
+		$data['genero'] = $_POST['genero'];
+		$data['idrol'] = $_POST['rol'];
+		$data['telefono'] = $_POST['telefono'];
 		
 		$this->db->insert('usuario',$data);
 		$red = "Location: " . site_url("/usuarios");
