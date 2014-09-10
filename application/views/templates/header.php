@@ -67,6 +67,7 @@
 
       
 <?php
-  $role='admin';
+  $role='Administrador';
+  $role=strtolower($role);
   $this->load->view('sidebars/'.$role);
 ?>
