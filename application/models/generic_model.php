@@ -23,6 +23,7 @@ class Generic_model extends CI_Model {
 		return $this->db->update($entity,$new_data,$param);
 	}
 	function query_to_array($query){
+		$result=array();
 		foreach ($query->result_array() as $row)
 		{
 		   $result[]=$row;

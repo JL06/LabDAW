@@ -20,8 +20,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php 
-							foreach ($ventas as $v):?>
+						<?php if($ventas != NULL): ?>
+							<?php foreach ($ventas as $v):?>
 								<tr>
 									<td><?php echo $v['producto'] ?></td>
 									<td><?php echo $v['tipo'] ?></td>
@@ -33,6 +33,7 @@
 									<td><?php echo $v['fecha'] ?></td>
 								</tr>
 							<?php endforeach; ?>
+						<?php endif; ?>
 						</tbody>
 					</table>
 				</section>	

@@ -1,8 +1,14 @@
 <?php
 class Usuarios extends CI_Controller {
+	public function __construct()
+       {
+            parent::__construct();
+            //$this->load->model('user_model');
+            $this->comprueba_sesion();
+
+       }
 	public function index()
 	{
-		$this->comprueba_sesion();
 		$this->db->select('usuario.nombre as nom, rol.nombre as tipo, email, genero, telefono');
 		$this->db->from('usuario');
 		$this->db->join('rol', 'usuario.idRol = rol.id');
@@ -19,7 +25,6 @@ class Usuarios extends CI_Controller {
 
 	function agregar ($error = null) 
 	{
-		$this->comprueba_sesion();
 		$rol = $this->db->get("rol");
 		foreach ($rol->result() as $row) {
 			$res[] = $row;
@@ -38,7 +43,6 @@ class Usuarios extends CI_Controller {
 	}
 
 	function guardar () {
-		$this->comprueba_sesion();
 		if (strcmp($_POST['clave'], $_POST['clave2']) != 0) {
 			$red = "Location: " . site_url("/usuarios/agregar/1");
 			header($red);
