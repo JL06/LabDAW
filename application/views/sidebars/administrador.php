@@ -4,7 +4,7 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
               
-                  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+                  <div class="centered"><span class="glyphicon glyphicon-user"></span></div>
                   <h5 class="centered"><?php echo $this->session->userdata('nombre'); ?></h5>
                     
                   <li class="sub-menu">
