@@ -13,7 +13,7 @@
                       </a>
                       <ul class="sub">
                           <li><a  href="#">Agregar</a></li>
-                          <li><a  href="ventas/listar">Ver</a></li>
+                          <li><a  href="<?php echo base_url('productos/listar')?>">Ver</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
