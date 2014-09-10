@@ -18,14 +18,16 @@
                             </thead>
                             <tbody>
                                 <?php 
-                                foreach ($usuarios as $usuario) {
-                                    echo "<tr>";
-                                    echo "<td>".$usuario->nom."</td>";
-                                    echo "<td>".$usuario->genero."</td>";
-                                    echo "<td>".$usuario->email."</td>";
-                                    echo "<td>".$usuario->telefono."</td>";
-                                    echo "<td>".$usuario->tipo."</td>";
-                                    echo "</tr>";
+                                if ($usuarios != false) {
+                                    foreach ($usuarios as $usuario) {
+                                        echo "<tr>";
+                                        echo "<td>".$usuario->nom."</td>";
+                                        echo "<td>".$usuario->genero."</td>";
+                                        echo "<td>".$usuario->email."</td>";
+                                        echo "<td>".$usuario->telefono."</td>";
+                                        echo "<td>".$usuario->tipo."</td>";
+                                        echo "</tr>";
+                                    }
                                 }
                                 ?>
                             </tbody>

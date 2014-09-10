@@ -1,13 +1,17 @@
 <?php
-class Usuarios extends CI_Controller {
+class Usuarios extends MY_Controller {
 	public function index()
 	{
 		$this->db->select('usuario.nombre as nom, rol.nombre as tipo, email, genero, telefono');
 		$this->db->from('usuario');
 		$this->db->join('rol', 'usuario.idRol = rol.id');
 		$query = $this->db->get();
-		foreach ($query->result() as $row) {
-			$res[] = $row;
+		if ($query->num_rows() > 0) {
+			foreach ($query->result() as $row) {
+				$res[] = $row;
+			}
+		} else {
+			$res = false;
 		}
 		$data['title'] = "Usuarios";
 		$data['main_content'] = "usuarios";
@@ -48,14 +52,6 @@ class Usuarios extends CI_Controller {
 		$this->db->insert('usuario',$data);
 		$red = "Location: " . site_url("/usuarios");
 		header($red);
-	}
-
-	private function comprueba_sesion() {
-		if ($this->session->userdata('id') === FALSE) {
-			$red = "Location: " . site_url("/sesion");
-			header($red);
-			die();
-		}
 	}
 
 }
