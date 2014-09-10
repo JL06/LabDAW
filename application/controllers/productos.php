@@ -21,8 +21,10 @@
 		}
 		public function insertar_producto(){
 			$form_values=$this->input->post();
-			if($this->productos_model->crear('productos',$form_values))
+			if($this->productos_model->crear('productos',$form_values)){
+				$this->session->set_flashdata('mensaje','El producto se agregó exitosamente');
 				redirect('productos/listar');
+			}
 		}
 	}
 ?>

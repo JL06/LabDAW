@@ -1,6 +1,6 @@
 <section id="main-content">
 	<section class="wrapper site-min-height">
-		<h3><i class="fa fa-angle-right"></i>Registro de venta</h3>
+		<h3><i class="fa fa-angle-right"></i><?php echo $title ?> </h3>
 		<div class="row mt">
 			<div class="col-lg-12">
 				<div class="form-panel">
