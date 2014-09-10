@@ -6,8 +6,10 @@ class Sesion extends CI_Controller {
 	}
 
 	function iniciar () {
-		if (isset($_POST['correo']) && isset($_POST['clave'])) {
-			$correo['email'] = $_POST['correo'];
+		$mail = $this->input->post('correo');
+		$clave = $this->input->post('clave');
+		if ($mail != false && $clave != false) {
+			$correo['email'] = $mail;
 			$res = $this->db->get_where("usuario", $correo);
 			if ($res->num_rows() == 0) {
 				$red = "Location: " . site_url("/sesion/error");
@@ -17,7 +19,7 @@ class Sesion extends CI_Controller {
 				$usuario = $row;
 			}
 
-			if (password_verify($_POST['clave'], $usuario['password'])) {
+			if (password_verify($clave, $usuario['password'])) {
 
 				$info['nombre'] = $usuario['nombre'];
 				$info['id'] = $usuario['id'];
@@ -38,7 +40,7 @@ class Sesion extends CI_Controller {
 	}
 
 	function error() {
-		$datos['error'] = '<span>Usuario o contraseña inválida</span>';
+		$datos['error'] = true;
 		$this->load->view('inicio_sesion', $datos);
 	}
 

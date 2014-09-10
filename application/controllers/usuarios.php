@@ -1,5 +1,13 @@
 <?php
 class Usuarios extends CI_Controller {
+<<<<<<< HEAD
+=======
+	public function __construct()
+       {
+            parent::__construct();
+            //$this->load->model('user_model');
+            //$this->comprueba_sesion();
+>>>>>>> origin/master
 
 	public function index()
 	{
@@ -7,7 +15,6 @@ class Usuarios extends CI_Controller {
 		$this->db->from('usuario');
 		$this->db->join('rol', 'usuario.idRol = rol.id');
 		$query = $this->db->get();
-		//$query = $this->db->query("SELECT * FROM usuario;");
 		foreach ($query->result() as $row) {
 			$res[] = $row;
 		}
@@ -25,9 +32,7 @@ class Usuarios extends CI_Controller {
 		}
 
 		if ($error == 1) {
-			$data['errorclave'] = '<span class="help-block">Error, ambos campos de contraseña deben ser identicos</span>';
-		} else {
-			$data['errorclave'] = $error;
+			$data['errorclave'] = true;
 		}
 
 		$data['title'] = "Nuevo Usuario";
