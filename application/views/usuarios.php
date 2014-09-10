@@ -12,7 +12,7 @@
                       </div>
                     <?php endif;?>
                     
-                        <table class="table table-hover">
+                        <table class="table table-hover" id="table-users">
                             <h4></h4>
                             <thead>
                                 <tr>
@@ -45,3 +45,8 @@
 		</div>
 	</section>
 </section>
+<script type="text/javascript">
+$(document).ready( function () {
+    $("#table-users").DataTable();
+} );
+</script>
