@@ -1,12 +1,6 @@
 <?php
 class Usuarios extends CI_Controller {
-	public function __construct()
-       {
-            parent::__construct();
-            //$this->load->model('user_model');
-            $this->comprueba_sesion();
 
-       }
 	public function index()
 	{
 		$this->db->select('usuario.nombre as nom, rol.nombre as tipo, email, genero, telefono');
@@ -58,14 +52,6 @@ class Usuarios extends CI_Controller {
 		$this->db->insert('usuario',$data);
 		$red = "Location: " . site_url("/usuarios");
 		header($red);
-	}
-
-	private function comprueba_sesion() {
-		if ($this->session->userdata('id') === FALSE) {
-			$red = "Location: " . site_url("/sesion");
-			header($red);
-			die();
-		}
 	}
 
 }
