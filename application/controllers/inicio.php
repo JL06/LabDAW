@@ -1,5 +1,5 @@
 <?php
-class Inicio extends CI_Controller {
+class Inicio extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.

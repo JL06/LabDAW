@@ -24,12 +24,22 @@
                 </select>
               </div>
             </div>
+
             <div class="form-group">
               <label class="control-label col-md-2">Descripción</label>
               <div class="col-md-5">
                 <input type="text" name="descripcion" class="form-control">
               </div>
             </div>
+
+            <div class="form-group">
+              <label class="control-label col-md-2">Materiales</label>
+              <div class="col-md-5">
+                <a href="#"data-toggle="modal" data-target="#basicModal"> + Agregar materiales</a>
+                <input type="hidden" name="materiales" id="materiales">
+              </div>
+            </div>
+
             <div class="form-group">
               <label class="control-label col-md-2">Precio</label>
               <div class="col-md-2">
@@ -47,3 +57,5 @@
     </div>
   </section>
 </section>
+
+<?php $this->load->view("modals/agregar_mat");?>

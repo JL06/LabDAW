@@ -16,11 +16,11 @@
     echo link_tag('files/css/style.css');
     echo link_tag('files/css/style-responsive.css');
     echo link_tag('files/css/jquery.dataTables.css');
-    echo '<script src="';
-    echo base_url("files/js/jquery.js") . '"></script>' ;
-    ?>  
-    <?php echo '<script src="';
-    echo base_url("files/js/chart-master/Chart.js") . '"></script>' ;
+
+    echo '<script src="'.base_url("files/js/jquery.js") . '"></script>' ;
+    echo'<script src="'.base_url("files/js/bootstrap.min.js") . '"></script>' ;
+    echo '<script src="'.base_url("files/js/zabuto_calendar.js") . '"></script>' ;
+    echo '<script src="'. base_url("files/js/chart-master/Chart.js") . '"></script>' ;
     ?>
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.css">
     <script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
