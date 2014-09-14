@@ -10,7 +10,7 @@
                           <h3>¿De qué está hecho el producto?</h3>
                           <?php if ($materiales != NULL): ?>
                             <form class="form-horizontal style-form" name="materiales-producto">
-	                            <table class="table" id="table-materiales">
+	                            <table class="table table-hover" id="table-materiales">
 		                            <thead>
 		                            	<tr>
 		                            		<th></th>
@@ -43,7 +43,7 @@
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                          <button type="button" class="btn btn-primary" id="guardar-modal">Guardar</button>
+                          <button type="button" class="btn btn-primary" id="guardar-modal" data-dismiss="modal">Guardar</button>
                   </div>
               </div>
             </div>

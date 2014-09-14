@@ -2,7 +2,10 @@
 class Sesion extends CI_Controller {
 	public function index()
 	{
-		$this->load->view('inicio_sesion');
+		if ($this->session->userdata('id') === FALSE) 
+			$this->load->view('inicio_sesion');
+		else
+			redirect('inicio');
 	}
 
 	function iniciar () {
