@@ -14,6 +14,7 @@
                       <ul class="sub">
                           <li><a  href="<?php echo base_url('productos/register_form')?>">Agregar</a></li>
                           <li><a  href="<?php echo base_url('productos/listar')?>">Ver</a></li>
+                          <li><a  href="#">Agendar</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
