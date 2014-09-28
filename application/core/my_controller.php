@@ -13,8 +13,5 @@ class MY_Controller extends CI_Controller{
 			die();
 		}
 	}
-	public function validar_forma() {
-		
-	}
 }
 ?>

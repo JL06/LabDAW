@@ -24,6 +24,14 @@ class Generic_model extends CI_Model {
 	function actualizar($entity,$param,$new_data){
 		return $this->db->update($entity,$new_data,$param);
 	}
+	function repite($entity,$column,$element){
+		$this->db->where_in($column, $element);
+		$repetitions=$this->query_to_array($this->db->get($entity));
+		if (count($repetitions) > 0) {
+			return true;
+		}
+		return false;
+	}
 	function query_to_array($query){
 		$result=array();
 		foreach ($query->result_array() as $row)

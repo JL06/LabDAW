@@ -28,10 +28,15 @@
     
     echo '<script src="'.base_url("files/js/gritter-conf.js") . '"></script>' ;
 
+    echo '<script src="'.base_url("files/js/bootstrap-datepicker.js").'"></script>';
+    
+    echo '<script src="'.base_url("files/js/advanced-form-components.js").'"></script>';
+
     //script for this page
     echo '<script src="'. base_url("files/js/sparkline-chart.js") . '"></script>' ;
     
     echo '<script src="'.base_url("files/js/datatables/jquery.dataTables.js").'"></script>';
+
 
     ?>
 

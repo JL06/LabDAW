@@ -27,7 +27,7 @@
 									<td><?php echo $p['nombre'] ?></td>
 									<td><?php echo $p['tipo'] ?></td>
 									<td><?php echo $p['descripcion'] ?></td>
-									<td class="numeric"><?php echo $p['precio'] ?></td>
+									<td class="numeric"> $<?php echo $p['precio']?></td>
 								</tr>
 							<?php endforeach; ?>
 						<?php endif; ?>

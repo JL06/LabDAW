@@ -13,5 +13,17 @@
 
 			return $this->query_to_array($query);
 		}
+
+		public function asignar_material($prodId,$mat) {
+			$insertData=array();
+			
+			foreach ($mat as $m) {
+				$m=explode(":", $m);
+				$insertData[]=array('idProducto'=>$prodId,'idMaterial'=>$m[0],'cantidad'=>$m[1]);	
+			}
+			if($this->db->insert_batch('productomaterial',$insertData))
+				return true;
+
+		}
 	}
 ?>

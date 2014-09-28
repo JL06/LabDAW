@@ -21,22 +21,27 @@
                                     <th>Correo</th>
                                     <th>Telefono</th>
                                     <th>Rol</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
-                                if ($usuarios != false) {
-                                    foreach ($usuarios as $usuario) {
-                                        echo "<tr>";
-                                        echo "<td>".$usuario->nom."</td>";
-                                        echo "<td>".$usuario->genero."</td>";
-                                        echo "<td>".$usuario->email."</td>";
-                                        echo "<td>".$usuario->telefono."</td>";
-                                        echo "<td>".$usuario->tipo."</td>";
-                                        echo "</tr>";
-                                    }
-                                }
-                                ?>
+                            <?php if ($usuarios != false): ?>
+                                <?php foreach ($usuarios as $usuario): ?>
+                                <tr>
+                                       <td><?php echo $usuario->nom ?></td>
+                                       <td><?php echo $usuario->genero ?></td>
+                                       <td><?php echo $usuario->email ?></td>
+                                       <td><?php echo $usuario->telefono ?></td>
+                                       <td><?php echo $usuario->tipo ?></td>
+                                       <td>
+                                            <div class="pull-right hidden-phone">
+                                                <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+                                                <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+                                            </div>
+                                        </td>
+                                </tr>
+                               <?php endforeach;?>
+                            <?php endif;?>
                             </tbody>
                         </table>
                     </div>

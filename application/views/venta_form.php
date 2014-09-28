@@ -58,9 +58,7 @@
     <div class="form-group">
       <label class="control-label col-md-2">Fecha</label>
       <div class="col-md-5 col-xs-11">
-        <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="01-01-2014" class="input-append date dpYears">
-        <input name="fecha" class="form-control form-control-inline input-medium default-date-picker" required size="16" type="text" value="<?php echo date('d-m-y') ?>" >
-        </div>
+        <input name="fecha" class="form-control form-control-inline input-medium default-date-picker" required size="16" type="text" value="<?php echo date('m-d-Y')?>">
     </div>
       
     </div>

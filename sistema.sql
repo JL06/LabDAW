@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2014 at 11:05 PM
+-- Generation Time: Sep 19, 2014 at 01:45 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `pma_column_info` (
   `transformation_options` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `db_name` (`db_name`,`table_name`,`column_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Column information for phpMyAdmin' AUTO_INCREMENT=41 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Column information for phpMyAdmin' AUTO_INCREMENT=44 ;
 
 --
 -- Dumping data for table `pma_column_info`
@@ -119,13 +119,15 @@ INSERT INTO `pma_column_info` (`id`, `db_name`, `table_name`, `column_name`, `co
 (31, 'sistema', 'gastos', 'idTipoGasto', '', '', '_', ''),
 (32, 'sistema', 'ventas', 'idProductos', '', '', '_', ''),
 (33, 'sistema', 'tipomaterial', 'unidad', '', '', '_', ''),
-(34, 'sistema', 'productos', 'cantidadMaterial', '', '', '_', ''),
+(43, 'sistema', 'productos', 'cantidadProducto', '', '', '_', ''),
 (35, 'sistema', 'productos', 'tiempo', '', '', '_', ''),
 (36, 'sistema', 'color', 'activo', '', '', '_', ''),
 (37, 'sistema', 'lugar', 'activo', '', '', '_', ''),
 (38, 'sistema', 'material', 'activo', '', '', '_', ''),
 (39, 'sistema', 'productos', 'activo', '', '', '_', ''),
-(40, 'sistema', 'usuario', 'activo', '', '', '_', '');
+(40, 'sistema', 'usuario', 'activo', '', '', '_', ''),
+(41, 'sistema', 'productomaterial', 'cantidad', '', '', '_', ''),
+(42, 'sistema', 'productos', 'precio', '', '', '_', '');
 
 -- --------------------------------------------------------
 
@@ -191,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `pma_recent` (
 --
 
 INSERT INTO `pma_recent` (`username`, `tables`) VALUES
-('root', '[{"db":"sistema","table":"usuario"},{"db":"sistema","table":"tipomaterial"},{"db":"sistema","table":"tipogasto"},{"db":"sistema","table":"rol"},{"db":"sistema","table":"productos"},{"db":"sistema","table":"productomaterial"},{"db":"sistema","table":"permiso"},{"db":"sistema","table":"material"},{"db":"sistema","table":"lugar"},{"db":"sistema","table":"color"}]');
+('root', '[{"db":"sistema","table":"usuario"},{"db":"sistema","table":"ventas"},{"db":"sistema","table":"tipomaterial"},{"db":"sistema","table":"tipoproducto"},{"db":"sistema","table":"productos"},{"db":"sistema","table":"productomaterial"},{"db":"sistema","table":"permiso"},{"db":"sistema","table":"material"},{"db":"sistema","table":"lugar"},{"db":"sistema","table":"gastos"}]');
 
 -- --------------------------------------------------------
 
@@ -318,7 +320,7 @@ CREATE TABLE IF NOT EXISTS `asignacion` (
 CREATE TABLE IF NOT EXISTS `color` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(20) NOT NULL,
-  `activo` int(11) NOT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
@@ -327,14 +329,14 @@ CREATE TABLE IF NOT EXISTS `color` (
 --
 
 INSERT INTO `color` (`id`, `nombre`, `activo`) VALUES
-(1, 'rojo', 0),
-(2, 'azul', 0),
-(3, 'blanco', 0),
-(4, 'dorado', 0),
-(5, 'amarillo', 0),
-(6, 'naranja', 0),
-(7, 'negro', 0),
-(8, 'gris', 0);
+(1, 'rojo', 1),
+(2, 'azul', 1),
+(3, 'blanco', 1),
+(4, 'dorado', 1),
+(5, 'amarillo', 1),
+(6, 'naranja', 1),
+(7, 'negro', 1),
+(8, 'gris', 1);
 
 -- --------------------------------------------------------
 
@@ -389,7 +391,7 @@ CREATE TABLE IF NOT EXISTS `gastos` (
 CREATE TABLE IF NOT EXISTS `lugar` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) NOT NULL,
-  `activo` int(11) NOT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
@@ -398,7 +400,7 @@ CREATE TABLE IF NOT EXISTS `lugar` (
 --
 
 INSERT INTO `lugar` (`id`, `nombre`, `activo`) VALUES
-(1, 'kichink', 0);
+(1, 'kichink', 1);
 
 -- --------------------------------------------------------
 
@@ -410,7 +412,7 @@ CREATE TABLE IF NOT EXISTS `material` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idTipo` int(11) NOT NULL,
   `idColor` int(11) NOT NULL,
-  `activo` int(11) NOT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `color` (`idColor`),
   KEY `color_2` (`idColor`),
@@ -422,12 +424,12 @@ CREATE TABLE IF NOT EXISTS `material` (
 --
 
 INSERT INTO `material` (`id`, `idTipo`, `idColor`, `activo`) VALUES
-(1, 1, 1, 0),
-(2, 1, 2, 0),
-(3, 5, 5, 0),
-(4, 2, 6, 0),
-(5, 3, 8, 0),
-(6, 6, 1, 0);
+(1, 1, 1, 1),
+(2, 1, 2, 1),
+(3, 5, 5, 1),
+(4, 2, 6, 1),
+(5, 3, 8, 1),
+(6, 6, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -450,21 +452,9 @@ CREATE TABLE IF NOT EXISTS `permiso` (
 CREATE TABLE IF NOT EXISTS `productomaterial` (
   `idProducto` int(11) NOT NULL,
   `idMaterial` int(11) NOT NULL,
+  `cantidad` float DEFAULT '0',
   PRIMARY KEY (`idProducto`,`idMaterial`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `productomaterial`
---
-
-INSERT INTO `productomaterial` (`idProducto`, `idMaterial`) VALUES
-(6, 1),
-(6, 2),
-(7, 3),
-(7, 5),
-(7, 6),
-(8, 2),
-(8, 4);
 
 -- --------------------------------------------------------
 
@@ -475,29 +465,15 @@ INSERT INTO `productomaterial` (`idProducto`, `idMaterial`) VALUES
 CREATE TABLE IF NOT EXISTS `productos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
-  `precio` float NOT NULL,
+  `precio` float DEFAULT '0',
   `descripcion` varchar(100) DEFAULT NULL,
   `idTipo` int(11) NOT NULL,
-  `cantidadMaterial` float NOT NULL,
   `tiempo` float NOT NULL,
-  `activo` int(11) NOT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `cantidadProducto` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `tipo` (`idTipo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
-
---
--- Dumping data for table `productos`
---
-
-INSERT INTO `productos` (`id`, `nombre`, `precio`, `descripcion`, `idTipo`, `cantidadMaterial`, `tiempo`, `activo`) VALUES
-(1, 'Llavero gato', 35.5, '10cm x 10cm', 1, 0, 0, 0),
-(2, 'Collar de cuentas', 52, '30 cm de radio', 2, 0, 0, 0),
-(3, 'Taza', 32, 'llavero de taza', 1, 0, 0, 0),
-(4, 'llavero flor', 23, '', 1, 0, 0, 0),
-(5, 'Bolsa hippie', 50, '30 cm de ancho', 3, 0, 0, 0),
-(6, 'Llavero de estambre', 20, '', 1, 0, 0, 0),
-(7, 'Bolsa hippie 2', 70, '45 cm', 3, 0, 0, 0),
-(8, 'collar fashion', 40, '', 2, 0, 0, 0);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -550,11 +526,11 @@ CREATE TABLE IF NOT EXISTS `tipomaterial` (
 
 INSERT INTO `tipomaterial` (`id`, `nombre`, `unidad`) VALUES
 (1, 'estambre', 'm'),
-(2, 'hilo', ''),
-(3, 'tela', ''),
-(4, 'pintura', ''),
-(5, 'diamantina', ''),
-(6, 'cinta', '');
+(2, 'hilo', 'm'),
+(3, 'tela', 'm2'),
+(4, 'pintura', 'litro'),
+(5, 'diamantina', 'gr'),
+(6, 'cinta', 'm');
 
 -- --------------------------------------------------------
 
@@ -591,7 +567,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `password` varchar(300) NOT NULL,
   `telefono` varchar(20) DEFAULT NULL,
   `idRol` int(15) NOT NULL,
-  `activo` int(11) NOT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `genero` (`genero`,`idRol`),
   KEY `rol` (`idRol`)
@@ -623,18 +599,7 @@ CREATE TABLE IF NOT EXISTS `ventas` (
   KEY `producto` (`idProducto`,`idVendedor`,`idLugar`),
   KEY `vendedor` (`idVendedor`),
   KEY `lugar` (`idLugar`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
-
---
--- Dumping data for table `ventas`
---
-
-INSERT INTO `ventas` (`id`, `idProducto`, `idVendedor`, `idLugar`, `fecha`, `cantidad`) VALUES
-(1, 1, 1, 1, '2010-09-14', 3),
-(2, 1, 1, 1, '2010-09-14', 2),
-(3, 2, 1, 1, '2008-09-14', 1),
-(4, 1, 1, 1, '2010-09-14', 3),
-(5, 2, 1, 1, '2006-09-14', 5);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Constraints for dumped tables

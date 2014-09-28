@@ -5,6 +5,7 @@ class Usuarios extends MY_Controller {
 		$this->db->select('usuario.nombre as nom, rol.nombre as tipo, email, genero, telefono');
 		$this->db->from('usuario');
 		$this->db->join('rol', 'usuario.idRol = rol.id');
+		$this->db->where('activo',1);
 		$query = $this->db->get();
 		if ($query->num_rows() > 0) {
 			foreach ($query->result() as $row) {
@@ -54,6 +55,13 @@ class Usuarios extends MY_Controller {
 			redirect("/usuarios");
 		}
 
+	}
+	function editar_usuario(){
+		$data=array(
+			'main_content'=>'edit_user',
+			'title'=>'Editar usuario'
+			);
+		$this->load->view('templates/template',$data);
 	}
 
 }

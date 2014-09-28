@@ -3,7 +3,7 @@
 class Materiales_model extends Generic_model{
 
 	function get_materiales($filter=""){
-		$this->db->select('material.id as id, tipomaterial.nombre as nombre, color.nombre as color');
+		$this->db->select('material.id as id, tipomaterial.nombre as nombre, color.nombre as color, unidad');
 		$this->db->from('material');
 		$this->db->join('tipomaterial', 'tipomaterial.id = material.idTipo');
 		$this->db->join('color', 'color.id=material.idColor'); 
