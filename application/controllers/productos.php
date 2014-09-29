@@ -23,35 +23,12 @@ class Productos extends MY_Controller
 		$data['materiales']=$this->materiales_model->get_materiales();
 		$this->load->view('templates/template',$data);
 	}
-	public function validate_form($rules,$form_values){
-		$valid=1;
-		$unique_error="";
-		foreach ($rules as $r) {
-			if($r['rules'] == 'unique'){
-				$rep=$this->productos_model->repite('productos',$r['field'], $form_values[$r['field']] );
-				
-				if ($rep){
-					$unique_error='El '.$r['label'].' no está disponible';
-					$valid=false;
-				}
 
-			}else{
-				$this->form_validation->set_rules($r['field'], $r['label'], $r['rules']);
-			}
-		}
-
-		if ($this->form_validation->run() == FALSE){
-			$valid=validation_errors();
-		}
-		if ($valid != 1)
-			$valid.=$unique_error;
-
-		return $valid;
-	}
 
 	public function insertar_producto() {
 
 		$form_values=$this->input->post();
+		//separo los materiales del resto de los valores de la forma
 		$mat=$form_values['materiales'];
 		unset($form_values['materiales']);
 		
@@ -62,18 +39,29 @@ class Productos extends MY_Controller
 				'label' =>'Nombre de producto'
 				),
 			array('field' => 'nombre', 
-				'rules' => 'required',
+				'rules' => 'required|min_length[2]|max_length[50]',
 				'label' =>'Nombre de producto'
 				),
 			array(
 				'field' => 'tiempo',
-				'rules' => 'required',
+				'rules' => 'required|greater_than[0]|numeric',
 				'label' => 'Tiempo de elaboración'
 
+				),
+			array(
+				'field' => 'cantidad',
+				'rules'=>'numeric|is_natural',
+				'label' => 'Cantidad'
+				),
+			array(
+				'field' => 'precio',
+				'rules'=>'numeric|greater_than[0]',
+				'label' =>'Precio'
 				)
 			);
+
 		//valid es true si la forma pasó la validación y un arreglo de mensajes de error si no pasó
-		$valid=$this->validate_form($rules,$form_values);
+		$valid=$this->validate_form($rules,$form_values,'productos');
 
 		if ( $valid != 1){
 			$this->session->set_flashdata('mensaje',$valid);
@@ -84,8 +72,16 @@ class Productos extends MY_Controller
 		if($this->productos_model->crear('productos',$form_values)) {
 
 			$prod=$this->productos_model->leer('productos',array('nombre'=>$form_values['nombre']));
-			if ($mat != "") {
+			
+			if ($mat != "" && isset($prod)) {
 				$mat=explode(',',$mat);
+
+				if (!$this->validate_materials($mat)){
+					$this->session->set_flashdata('mensaje','La cantidad de material debe ser mayor a 0');
+					$this->session->set_flashdata('class','alert alert-danger');
+					redirect("productos/register_form");
+				}
+
 				$this->productos_model->asignar_material($prod[0]['id'],$mat);
 			}
 			$this->session->set_flashdata('class','alert alert-success');
@@ -94,7 +90,14 @@ class Productos extends MY_Controller
 			redirect('productos/listar');
 		}
 	}
-	
+	public function validate_materials($materials){
+		foreach ($materials as $m) {
+			$m=explode(":", $m);
+			if( !isset($m[1]) || !is_numeric($m[1]) || $m[1] <= 0 )
+				return false;
+		}
+		return true;	
+	}
 	public function schedule(){
 		$data = array('main_content' => 'schedule' , 'title'=>'Agendar producción' );
 		$this->load->view('templates/template',$data);
