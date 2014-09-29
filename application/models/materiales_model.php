@@ -14,9 +14,17 @@ class Materiales_model extends Generic_model{
 		$this->db->distinct();
 		$query=$this->db->get();
 
-			return $this->query_to_array($query);
-
-
+		return $this->query_to_array($query);
 	}	
+
+	function get_materiales_producto($prodId){
+		$this->db->select('material.id as id,cantidad');
+		$this->db->from('material');
+		$this->db->join('productomaterial', 'material.id = productomaterial.idMaterial');
+		$this->db->where(array('activo'=>1, 'idProducto'=>$prodId));
+		$query=$this->db->get();
+		
+		return $this->query_to_array($query);
+	}
 }
 ?>

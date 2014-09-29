@@ -4,6 +4,13 @@
 		<div class="row mt">
 			<div class="col-lg-12">
 				<div class="form-panel">
+          <?php if($this->session->flashdata('mensaje') != ""): ?>
+            <div class="col-lg-12">
+              <div class="<?php echo $this->session->flashdata('class');?>">
+                <?php echo $this->session->flashdata('mensaje');?>
+              </div>
+            </div>
+          <?php endif;?>
           <form name="venta" class="form-horizontal style-form" method="post" action=<?php echo site_url("ventas/insertar_venta") ?>>
            
            <div class="form-group">
@@ -17,7 +24,7 @@
                 <?php endif; ?>
 
               </select>
-             </div>
+            </div>
           </div>
 
           <div class="form-group">
@@ -37,10 +44,10 @@
               <?php endforeach;?>
             <?php endif; ?>
           </select>
-            
-          </div>
+          
+        </div>
       </div>
-     
+      
       <div class="form-group">
         <label class="control-label col-md-2">Lugar</label>
         <div class="col-md-5">
@@ -52,19 +59,19 @@
           <?php endif; ?>
 
         </select>
-          
-        </div>
+        
+      </div>
     </div>
     <div class="form-group">
       <label class="control-label col-md-2">Fecha</label>
       <div class="col-md-5 col-xs-11">
         <input name="fecha" class="form-control form-control-inline input-medium default-date-picker" required size="16" type="text" value="<?php echo date('m-d-Y')?>">
-    </div>
+      </div>
       
     </div>
     <div class="form-group">
       <label class="col-sm-2 col-sm-2 control-label">&nbsp;</label>
-    <button type="submit" class="btn btn-round btn-primary">Guardar</button>
+      <button type="submit" class="btn btn-round btn-primary">Guardar</button>
     </div>
   </form>
 </div>
