@@ -176,5 +176,14 @@ class Productos extends MY_Controller
 
 
 	}
+
+	public function borrar($prodId){
+		
+		if ($this->productos_model->actualizar('productos',array('id'=>$prodId),array('activo'=>0))) {
+			$this->session->set_flashdata('class','alert alert-success');
+			$this->session->set_flashdata('mensaje','El producto se eliminó exitosamente');
+			redirect("productos/listar");
+		}
+	}
 }
 ?>
