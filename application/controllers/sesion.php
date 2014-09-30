@@ -13,6 +13,7 @@ class Sesion extends CI_Controller {
 		$clave = $this->input->post('clave');
 		if ($mail != false && $clave != false) {
 			$correo['email'] = $mail;
+			$this->db->where("activo",1);
 			$res = $this->db->get_where("usuario", $correo);
 			if ($res->num_rows() == 0) {
 				$red = "Location: " . site_url("/sesion/error");

@@ -55,7 +55,7 @@
 		$("a#borrar").click(function(e){
 			e.preventDefault();
 			var url=$(this).attr("href");
-			if (confirm("¿Deseas borrar el producto?")) {
+			if (confirm("¿Deseas eliminar el producto?")) {
 				window.location.replace(url);
 			};
 

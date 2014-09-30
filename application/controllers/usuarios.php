@@ -1,19 +1,13 @@
 <?php
 class Usuarios extends MY_Controller {
+	public function __construct() {
+		parent::__construct();
+		$this->load->model('usuario_model');
+		$this->load->library('form_validation');
+	}
 	public function index()
 	{
-		$this->db->select('usuario.nombre as nom, rol.nombre as tipo, email, genero, telefono');
-		$this->db->from('usuario');
-		$this->db->join('rol', 'usuario.idRol = rol.id');
-		$this->db->where('activo',1);
-		$query = $this->db->get();
-		if ($query->num_rows() > 0) {
-			foreach ($query->result() as $row) {
-				$res[] = $row;
-			}
-		} else {
-			$res = false;
-		}
+		$res=$this->usuario_model->listar(array("activo"=>1));
 		$data['title'] = "Usuarios";
 		$data['main_content'] = "usuarios";
 		$data['usuarios'] = $res;
@@ -62,6 +56,16 @@ class Usuarios extends MY_Controller {
 			'title'=>'Editar usuario'
 			);
 		$this->load->view('templates/template',$data);
+	}
+	public function borrar($userId){
+		
+		if ($this->usuario_model->actualizar('usuario',array('id'=>$userId),array('activo'=>0))) {
+			$this->session->set_flashdata('class','alert alert-success');
+			$this->session->set_flashdata('mensaje','El usuario se eliminó exitosamente');
+			redirect("usuarios");
+
+
+		}
 	}
 
 }
