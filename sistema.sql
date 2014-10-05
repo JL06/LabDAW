@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2014 at 02:08 AM
+-- Generation Time: Oct 05, 2014 at 10:25 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -112,6 +112,31 @@ CREATE TABLE IF NOT EXISTS `gastos` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `log`
+--
+
+CREATE TABLE IF NOT EXISTS `log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `accion` varchar(100) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `hora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fecha` (`fecha`),
+  KEY `accion` (`accion`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `log`
+--
+
+INSERT INTO `log` (`id`, `accion`, `idUsuario`, `fecha`, `hora`) VALUES
+(1, 'materiales/listar', 1, '2014-10-05', '2014-10-05 08:20:19'),
+(2, 'inicio', 1, '2014-10-05', '2014-10-05 08:22:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `lugar`
 --
 
@@ -170,6 +195,16 @@ CREATE TABLE IF NOT EXISTS `permiso` (
   PRIMARY KEY (`idRol`,`permiso`),
   KEY `idRol` (`idRol`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `permiso`
+--
+
+INSERT INTO `permiso` (`idRol`, `permiso`) VALUES
+(1, 'materiales/listar'),
+(1, 'productos/listar'),
+(1, 'sesion/acceso_denegado'),
+(2, 'sesion/acceso_denegado');
 
 -- --------------------------------------------------------
 
