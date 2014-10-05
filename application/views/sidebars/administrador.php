@@ -3,7 +3,7 @@
         <div id="sidebar"  class="nav-collapse ">
           <!-- sidebar menu start-->
           <ul class="sidebar-menu" id="nav-accordion">
-            
+
             <div class="centered"><span class="glyphicon glyphicon-user"></span></div>
             <h5 class="centered"><?php echo $this->session->userdata('nombre'); ?></h5>
             
@@ -12,7 +12,7 @@
                 <span>Producto</span>
               </a>
               <ul class="sub">
-                <li><a  href="<?php echo base_url('productos/register_form')?>">Agregar</a></li>
+                <li><a  href="<?php echo base_url('productos/registrar')?>">Agregar</a></li>
                 <li><a  href="<?php echo base_url('productos/listar')?>">Ver</a></li>
                 <li><a  href="#">Agendar</a></li>
               </ul>
@@ -40,7 +40,7 @@
                 <span>Ventas</span>
               </a>
               <ul class="sub">
-                <li><a  href="<?php echo base_url('ventas/register_form')?>">Agregar</a></li>
+                <li><a  href="<?php echo base_url('ventas/registrar')?>">Agregar</a></li>
                 <li><a  href="<?php echo base_url('ventas/listar')?>">Ver</a></li>
               </ul>
             </li>

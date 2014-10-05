@@ -16,7 +16,7 @@ class Productos extends MY_Controller
 		$this->load->view('templates/template',$data);
 	}
 
-	public function register_form() {
+	public function registrar() {
 		$data['tipo']=$this->productos_model->leer('tipoproducto');
 		$data['main_content']="producto_form";
 		$data['title']="Registrar Producto";
@@ -66,7 +66,7 @@ class Productos extends MY_Controller
 		if ( $valid != 1){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
-			redirect('productos/register_form');
+			redirect('productos/registrar');
 		}
 
 		if($this->productos_model->crear('productos',$form_values)) {
@@ -79,7 +79,7 @@ class Productos extends MY_Controller
 				if (!$this->validate_materials($mat)){
 					$this->session->set_flashdata('mensaje','La cantidad de material debe ser mayor a 0');
 					$this->session->set_flashdata('class','alert alert-danger');
-					redirect("productos/register_form");
+					redirect("productos/registrar");
 				}
 
 				$this->productos_model->asignar_material($prod[0]['id'],$mat);
