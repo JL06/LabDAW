@@ -47,7 +47,13 @@
               <div class="form-group">
                 <label class="control-label col-md-2">Materiales</label>
                 <div class="col-md-5">
-                  <a href="#"data-toggle="modal" data-target="#basicModal"> + Agregar materiales</a>
+                  <a href="#"data-toggle="modal" data-target="#basicModal"> 
+                    <?php if (!isset($producto)):?>
+                      + Agregar materiales
+                    <?php else: ?>
+                      + Editar materiales
+                    <?php endif;?>
+                  </a>
                   <input type="hidden" name="materiales" id="materiales">
                 </div>
               </div>

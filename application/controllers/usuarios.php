@@ -30,7 +30,6 @@ class Usuarios extends MY_Controller {
 		$data['roles'] = $res;
 		$this->load->view('templates/template',$data);
 	}
-
 	function guardar () {
 		if (strcmp($_POST['clave'], $this->input->post('clave2')) != 0) {
 			$red = "Location: " . site_url("/usuarios/agregar/1");
@@ -50,6 +49,7 @@ class Usuarios extends MY_Controller {
 		}
 
 	}
+
 	function editar_usuario(){
 		$data=array(
 			'main_content'=>'edit_user',
@@ -57,6 +57,7 @@ class Usuarios extends MY_Controller {
 			);
 		$this->load->view('templates/template',$data);
 	}
+
 	public function borrar($userId){
 		
 		if ($this->usuario_model->actualizar('usuario',array('id'=>$userId),array('activo'=>0))) {
@@ -67,5 +68,4 @@ class Usuarios extends MY_Controller {
 
 		}
 	}
-
 }
