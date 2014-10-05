@@ -25,7 +25,9 @@
 								<?php if($productos != NULL): ?>
 									<?php foreach($productos as $p): ?>
 										<tr>
-											<td><?php echo $p['nombre'] ?></td>
+											<td  class="dropdown-toggle">
+												<a href="<?php echo base_url('productos/detalle').'/'.$p['id'] ;?>"><?php echo $p['nombre'] ?></a>
+											</td>
 											<td><?php echo $p['tipo'] ?></td>
 											<td><?php echo $p['descripcion'] ?></td>
 											<td class="numeric"> $<?php echo $p['precio']?></td>
@@ -59,6 +61,7 @@
 				window.location.replace(url);
 			};
 
-		})
+		});
+
 	} );
 </script>

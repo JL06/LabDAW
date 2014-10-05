@@ -23,7 +23,7 @@ class MY_Controller extends CI_Controller{
 		if (!$this->permission_model->has_permission($rol, $accion) && $accion != "/"){
 			redirect("sesion/acceso_denegado");			
 		}else{
-			$this->log();
+			//$this->log();
 		}
 	}
 
