@@ -29,6 +29,7 @@ class Sesion extends CI_Controller {
 				$info['id'] = $usuario['id'];
 				$info['correo'] = $usuario['email'];
 				$info['genero'] = $usuario['genero'];
+				$info['rol'] = $usuario['idRol'];
 				$this->session->set_userdata($info);
 
 				$red = "Location: " . site_url("/inicio");
@@ -52,5 +53,9 @@ class Sesion extends CI_Controller {
 		$this->session->sess_destroy();
 		$red = "Location: " . site_url("/sesion");
 		header($red);
+	}
+	function acceso_denegado(){
+		$data=array("main_content"=>"permission_denied","title"=>"Acceso denegado");
+		$this->load->view("templates/template",$data);
 	}
 }

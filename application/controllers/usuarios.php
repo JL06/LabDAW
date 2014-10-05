@@ -31,7 +31,7 @@ class Usuarios extends MY_Controller {
 		$this->load->view('templates/template',$data);
 	}
 	function guardar () {
-		if (strcmp($_POST['clave'], $this->input->post('clave2')) != 0) {
+		if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0) {
 			$red = "Location: " . site_url("/usuarios/agregar/1");
 			header($red);
 			return;
@@ -65,7 +65,7 @@ class Usuarios extends MY_Controller {
 			$this->session->set_flashdata('mensaje','El usuario se eliminó exitosamente');
 			redirect("usuarios");
 
-
 		}
 	}
+
 }

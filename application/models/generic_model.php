@@ -1,6 +1,8 @@
 <?php
 
 class Generic_model extends CI_Model {
+
+
 	function crear($entity, $param){
 		return $this->db->insert($entity,$param);
 	}
@@ -32,11 +34,17 @@ class Generic_model extends CI_Model {
 		}
 		return false;
 	}
+	function contar($entity, $param){
+		$this->db->from($entity);
+		$this->db->where($param);
+		return $this->db->count_all_results();
+	}
+
 	function query_to_array($query){
 		$result=array();
 		foreach ($query->result_array() as $row)
 		{
-		   $result[]=$row;
+			$result[]=$row;
 		}
 		return $result;
 	}

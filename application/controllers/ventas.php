@@ -14,7 +14,7 @@ class Ventas extends MY_Controller{
 		$this->load->view('templates/template',$data);
 	}
 
-	public function register_form(){
+	public function registrar(){
 		$productos=$this->ventas_model->leer('productos');
 		$vendors=$this->ventas_model->leer('usuario');
 		$lugares=$this->ventas_model->leer('lugar');
@@ -44,7 +44,7 @@ class Ventas extends MY_Controller{
 		if ( $valid != 1){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
-			redirect('ventas/register_form');
+			redirect('ventas/registrar');
 		}
 
 		$form_values['fecha']=date("Y-m-d",strtotime($form_values['fecha']));
@@ -52,6 +52,10 @@ class Ventas extends MY_Controller{
 		if( $this->ventas_model->crear('ventas',$form_values)){
 			$this->session->set_flashdata('mensaje', 'La venta se registró exitosamente');
 			redirect('ventas/listar');
+		}else{
+			$this->session->set_flashdata('mensaje',"Ocurrió un error, inténtelo nuevamente.");
+			$this->session->set_flashdata('class','alert alert-danger');
+			redirect('ventas/registrar');
 		}
 	}
 }
