@@ -5,8 +5,8 @@ class MY_Controller extends CI_Controller{
 	{
 		parent::__construct();
 		$this->comprueba_sesion();
-		//$this->comprueba_permiso();
 
+		//$this->comprueba_permiso();
 	}
 	protected function comprueba_sesion() {
 		if ($this->session->userdata('id') === FALSE) {
