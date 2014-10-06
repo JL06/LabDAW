@@ -49,6 +49,8 @@
 							<!-- Default panel contents -->
 							<div class="panel-heading">Materiales</div>
 							<!-- List group -->
+							<div class="panel-body"></div>
+
 							<table class="table table-hover" id="table-materiales">
 								<thead>
 									<tr>
@@ -80,3 +82,8 @@
 	</section>
 	<!--/wrapper -->
 </section>
+<script type="text/javascript">
+	$(document).ready( function () {
+		$("#table-materiales").DataTable();
+	} );
+</script>
