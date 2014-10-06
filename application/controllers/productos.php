@@ -25,7 +25,7 @@ class Productos extends MY_Controller
 	}
 
 
-	private function insertar_producto() {
+	public function insertar_producto() {
 
 		$form_values=$this->input->post();
 		//separo los materiales del resto de los valores de la forma
@@ -112,7 +112,7 @@ class Productos extends MY_Controller
 		$data['mat_actuales']=json_encode($this->materiales_model->get_materiales_producto($prodId));
 		$this->load->view('templates/template',$data);
 	}
-	private function actualizar($id){
+	public function actualizar($id){
 		$form_values=$this->input->post();
 		$mat=$form_values['materiales'];
 		unset($form_values['materiales']);
@@ -177,7 +177,7 @@ class Productos extends MY_Controller
 
 	}
 
-	private function borrar($prodId){
+	public function borrar($prodId){
 		
 		if ($this->productos_model->actualizar('productos',array('id'=>$prodId),array('activo'=>0))) {
 			$this->session->set_flashdata('class','alert alert-success');

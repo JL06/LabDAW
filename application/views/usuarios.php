@@ -35,8 +35,8 @@
                       <td><?php echo $usuario["tipo"] ?></td>
                       <td>
                         <div class="pull-right hidden-phone">
-                          <a class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-                          <a id="borrar" class="btn btn-danger btn-xs" href="<?php echo base_url('usuarios/borrar/'.$usuario['id'])?>"><i class="fa fa-trash-o "></i></a>
+                          <a class="btn btn-theme03"><i class="fa fa-pencil"></i></a>
+                          <a id="borrar" class="btn btn-theme04" href="<?php echo base_url('usuarios/borrar/'.$usuario['id'])?>"><i class="fa fa-trash-o "></i></a>
                         </div>
                       </td>
                     </tr>

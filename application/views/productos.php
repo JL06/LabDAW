@@ -26,15 +26,16 @@
 									<?php foreach($productos as $p): ?>
 										<tr>
 											<td  class="dropdown-toggle">
-												<a href="<?php echo base_url('productos/detalle').'/'.$p['id'] ;?>"><?php echo $p['nombre'] ?></a>
+												<?php echo $p['nombre'] ?>
 											</td>
 											<td><?php echo $p['tipo'] ?></td>
 											<td><?php echo $p['descripcion'] ?></td>
 											<td class="numeric"> $<?php echo $p['precio']?></td>
 											<td>
 												<div class="pull-right hidden-phone">
-													<a class="btn btn-primary btn-xs" href="<?php echo base_url('productos/actualizar/'.$p['id'])?>"><i class="fa fa-pencil"></i></a>
-													<a class="btn btn-danger btn-xs" id="borrar" href="<?php echo base_url('productos/borrar/'.$p['id'])?>"><i class="fa fa-trash-o "></i></a>
+													<a href="<?php echo base_url('productos/detalle').'/'.$p['id'] ;?>"><span class="glyphicon glyphicon-eye-open btn btn-theme"></span></a>
+													<a class="btn btn-theme03" href="<?php echo base_url('productos/actualizar_producto/'.$p['id'])?>"><i class="fa fa-pencil"></i></a>
+													<a class="btn btn-theme04" id="borrar" href="<?php echo base_url('productos/borrar/'.$p['id'])?>"><i class="fa fa-trash-o "></i></a>
 												</div>
 											</td>
 
