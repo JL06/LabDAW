@@ -22,6 +22,7 @@
 								<th class="numerc">Cantidad</th>
 								<th class="numeric">Total</th>
 								<th>Fecha</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -36,6 +37,12 @@
 									<td><?php echo $v['cantidad'] ?></td>
 									<td class="numeric">$ <?php echo $v['total'] ?></td>
 									<td><?php echo $v['fecha'] ?></td>
+									<td>
+										<div class="pull-right hidden-phone">
+											<a class="btn btn-theme03" href="<?php echo base_url('ventas/actualizar_venta/'.$v['id'])?>"><i class="fa fa-pencil"></i></a>
+											<a class="btn btn-theme04" id="borrar" href="<?php echo base_url('ventas/borrar/'.$v['id'])?>"><i class="fa fa-trash-o "></i></a>
+										</div>
+									</td>
 								</tr>
 							<?php endforeach; ?>
 						<?php endif; ?>
@@ -51,5 +58,15 @@
 <script type="text/javascript">
 $(document).ready( function () {
     $("#table-ventas").DataTable();
+
+    		$("a#borrar").click(function(e){
+			e.preventDefault();
+			var url=$(this).attr("href");
+			if (confirm("¿Deseas eliminar la venta?")) {
+				window.location.replace(url);
+			};
+
+		});
+
 } );
 </script>
