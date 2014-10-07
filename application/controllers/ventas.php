@@ -58,5 +58,23 @@ class Ventas extends MY_Controller{
 			redirect('ventas/registrar');
 		}
 	}
+	public function borrar($venta_id){
+		if( $this->ventas_model->borrar('ventas', array('id' => $venta_id))) {
+			$this->session->set_flashdata('mensaje', 'La venta se eliminó exitosamente');
+			redirect('ventas/listar');			
+		}else{
+			$this->session->set_flashdata('mensaje',"Ocurrió un error, inténtelo nuevamente.");
+			$this->session->set_flashdata('class','alert alert-danger');
+			redirect('ventas/listar');			
+		}
+	}
+
+	public function actualizar_venta($venta_id){
+		$data['main_content']="venta_form";
+		$data['title']="Actualizar Venta";
+		$data['venta']=json_encode($this->ventas_model->actualizar_venta(array('ventas.id' => $venta_id))[0]);
+		$data['venta_id']=$venta_id;
+		$this->load->view('templates/template',$data);
+	}
 }
 ?>

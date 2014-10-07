@@ -11,8 +11,11 @@
               </div>
             </div>
           <?php endif;?>
-          <form name="venta" class="form-horizontal style-form" method="post" action=<?php echo site_url("ventas/insertar_venta") ?>>
-           
+          <?php if(!isset($venta)): ?>
+          <form id="form-venta" name="venta" class="form-horizontal style-form" method="post" action=<?php echo site_url("ventas/insertar_venta") ?>>
+          <?php else:?>
+          <form id="form-venta" name="venta" class="form-horizontal style-form" method="post" action=<?php echo site_url("ventas/actualizar") ?>>
+          <?php endif;?>
            <div class="form-group">
              <label class="control-label col-md-2">Producto</label>
              <div class="col-md-5">
@@ -79,3 +82,16 @@
 </div>
 </section>
 </section>
+
+<?php if(isset($venta)): ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var venta=jQuery.parseJSON('<?php echo $venta; ?>');
+
+    $.each(venta, function(key, value){
+      $("input[name="+key+"]").val(value);
+      $("select[name="+key+"]").find("option[value="+value+"]").prop("selected",true);
+    });
+  });
+</script>
+<?php endif; ?>
