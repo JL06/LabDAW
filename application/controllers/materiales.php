@@ -1,5 +1,6 @@
 <?php
-class Materiales extends MY_Controller{
+class Materiales extends MY_Controller
+{
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('materiales_model');
@@ -13,4 +14,3 @@ class Materiales extends MY_Controller{
 	}
 
 }
-?>
