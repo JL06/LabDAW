@@ -51,8 +51,6 @@ class Ventas extends MY_Controller{
 		
 		if( $this->ventas_model->crear('ventas',$form_values)){
 			$this->session->set_flashdata('mensaje', 'La venta se registró exitosamente');
-			$this->session->set_flashdata('class','alert alert-success');
-
 			redirect('ventas/listar');
 		}else{
 			$this->session->set_flashdata('mensaje',"Ocurrió un error, inténtelo nuevamente.");
@@ -61,3 +59,4 @@ class Ventas extends MY_Controller{
 		}
 	}
 }
+?>

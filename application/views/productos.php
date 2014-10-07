@@ -1,19 +1,16 @@
 <!--wrapper -->
 <section id="main-content">
 	<section class="wrapper site-min-height">
-		<h3><i class="fa fa-angle-right"></i> <?php echo $title?>
-			<span class="inline">
-				<a href="<?php echo base_url('productos/registrar')?>" class="btn btn-success">
-					<span class="glyphicon glyphicon-plus-sign"></span>
-					Agregar
-				</a>
-			</span>
-		</h3>
+		<h3><i class="fa fa-angle-right"></i> <?php echo $title?></h3>
 		<div class="row mt">
 			<div class="col-lg-12">
 				<div class="content-panel">
 					<section id="unseen">
-						<?php $this->load->view('notifications/mensaje')?>
+						<?php if($this->session->flashdata('mensaje')!=''): ?>
+							<div class="col-lg-12">
+								<div class="alert alert-success"><?php echo $this->session->flashdata('mensaje');?></div>
+							</div>
+						<?php endif;?>
 						<table class="table table-bordered table-sthiped table-condensed display" id="table-ventas">
 							<thead>
 								<tr>

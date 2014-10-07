@@ -1,10 +1,8 @@
 <?php
 
-class Materiales_model extends Generic_model
-{
+class Materiales_model extends Generic_model{
 
-	function get_materiales($filter="")
-	{
+	function get_materiales($filter=""){
 		$this->db->select('material.id as id, tipomaterial.nombre as nombre, color.nombre as color, unidad, cantidadMaterial');
 		$this->db->from('material');
 		$this->db->join('tipomaterial', 'tipomaterial.id = material.idTipo');
@@ -19,8 +17,7 @@ class Materiales_model extends Generic_model
 		return $this->query_to_array($query);
 	}	
 
-	function get_materiales_producto($prodId)
-	{
+	function get_materiales_producto($prodId){
 		$this->db->select('material.id as id,cantidad,tipomaterial.nombre as nombre, color.nombre as color, unidad, cantidadMaterial');
 		$this->db->from('material');
 		$this->db->join('productomaterial', 'material.id = productomaterial.idMaterial');

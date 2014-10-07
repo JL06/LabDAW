@@ -12,10 +12,10 @@
               </div>
             </div>
           <?php endif;?>
-          <?php if ( ! isset($producto)): ?>
+          <?php if (!isset($producto)): ?>
             <form id="form-producto" class="form-horizontal style-form" name="producto" method="post" action=<?php echo site_url("/productos/insertar_producto") ?>> 
             <?php else:?>
-              <form id="form-producto" class="form-horizontal style-form" name="producto" method="post" action=<?php echo site_url("/productos/actualizar/".$prod_id) ?>>           
+              <form id="form-producto" class="form-horizontal style-form" name="producto" method="post" action=<?php echo site_url("/productos/actualizar/".$prodId) ?>>           
               <?php endif;?>
               <div class="form-group" id="nombre-input">
                 <label class="control-label col-md-2" for="nombre">Nombre</label>
@@ -102,7 +102,6 @@
 
         $.each(producto,function(key,value){
           $("input[name="+key+"]").val(value);
-          $("select[name="+key+"]").find("option[value="+value+"]").prop("selected",true);
         });
 
         $.each(materiales,function(key,value){

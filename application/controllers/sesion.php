@@ -32,7 +32,7 @@ class Sesion extends CI_Controller {
 				$info['rol'] = $usuario['idRol'];
 				$this->session->set_userdata($info);
 
-				redirect("inicio");
+				$red = "Location: " . site_url("/inicio");
 				header($red);
 			} else {
 				$red = "Location: " . site_url("/sesion/error");
