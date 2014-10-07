@@ -22,8 +22,8 @@
                 <span>Material</span>
               </a>
               <ul class="sub">
-                <li><a  href="#">Agregar</a></li>
-                <li><a  href="<?php echo base_url('materiales/listar')?>">Ver</a></li>
+                <li><a  href="<?php echo base_url('materiales/agregar')?>">Agregar</a></li>
+                <li><a  href="<?php echo base_url('materiales')?>">Ver</a></li>
               </ul>
             </li>
             <li class="sub-menu">
