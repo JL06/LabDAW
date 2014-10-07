@@ -45,6 +45,7 @@ class Usuarios extends MY_Controller {
 		
 		if($this->db->insert('usuario',$data)){
 			$this->session->set_flashdata('mensaje', 'El usuario fue agregado');
+			$this->session->set_flashdata('class', 'alert alert-success');
 			redirect("/usuarios");
 		}
 

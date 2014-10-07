@@ -12,7 +12,7 @@ Premium: http://www.gridgum.com
 /* BASIC THEME CONFIGURATION */
 body {
     color: #797979;
-	background: #f2f2f2;
+    background: #f2f2f2;
     font-family: 'Ruda', sans-serif;
     padding: 0px !important;
     margin: 0px !important;
@@ -193,7 +193,7 @@ hr {
 
 .ml {
 	margin-left: 5px;
-	}
+}
 
 .no-padding {
 	padding: 0 !important;
@@ -511,7 +511,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     .dropdown-menu.extended  {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.176) !important;
     };
-    }
+}
 
 .dropdown-menu.extended li p {
     background-color: #F1F2F7;
@@ -881,7 +881,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 .border-head h3 {
     margin-top: 20px;
     margin-bottom: 20px;
-	margin-left: 15px;	
+    margin-left: 15px;	
     padding-bottom: 5px;
     font-weight: normal;
     font-size: 18px;
@@ -1136,15 +1136,15 @@ PANELS CONFIGURATIONS
 	color: #4fd98b
 }
 .stock .current-price .changes .value {
-      font-size: 1.8em;
-      font-weight: 700; 
+  font-size: 1.8em;
+  font-weight: 700; 
 }
 .stock .summary {
     color: #2f2f2f;
     display: block;
     background: #f2f2f2;
     padding: 10px;
-	text-align: center;
+    text-align: center;
 }
 .stock .summary strong {
 	font-weight: 900;
@@ -1694,14 +1694,14 @@ PANELS CONFIGURATIONS
 
 .project:hover .photo-wrapper {
   background-color: #68dff0;
-	background-image:url(../img/zoom.png);
-	background-repeat:no-repeat;
-	background-position:center;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	position: relative;
+  background-image:url(../img/zoom.png);
+  background-repeat:no-repeat;
+  background-position:center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: relative;
 }
 .project:hover .photo {
   opacity: 10;
@@ -1729,7 +1729,7 @@ PANELS CONFIGURATIONS
 }
 
 .brand-highlight {
-background: #fffbcc !important;
+    background: #fffbcc !important;
 }
 
 
@@ -1758,9 +1758,9 @@ label {
 }
 
 @media (min-width: 768px) {
-		.form-horizontal .control-label {
-		text-align: left;
-	}
+  .form-horizontal .control-label {
+      text-align: left;
+  }
 }
 
 #focusedInput {
@@ -2102,7 +2102,7 @@ label {
     .panel-footer.revenue-foot {
         margin-bottom: -4px;
     };
-    }
+}
 
 
 .panel-footer.revenue-foot ul  {
@@ -2239,5 +2239,4 @@ label {
 .site-min-height {
     min-height: 900px;
 }
-
-
+.inline{display: inline-block;float: right}
