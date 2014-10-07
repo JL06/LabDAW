@@ -82,4 +82,44 @@ class Ventas extends MY_Controller{
 
 		$this->load->view('templates/template',$data);
 	}
+
+	public function actualizar($venta_id){
+		$form_values=$this->input->post();
+		$rules=array(
+			array(
+				'field'=>'cantidad',
+				'rules'=>'required|numeric|is_natural_no_zero',
+				'label'=>'Cantidad'
+				),
+			array(
+				'field'=>'fecha',
+				'rules'=>'required|alpha_dash',
+				'label'=>'Fecha'
+				)
+			);
+
+		//valid es true si la forma pasó la validación y un arreglo de mensajes de error si no pasó
+		$valid=$this->validate_form($rules,$form_values,'ventas');
+
+		if ( $valid != 1){
+			$this->session->set_flashdata('mensaje',$valid);
+			$this->session->set_flashdata('class','alert alert-danger');
+			redirect('ventas/registrar');
+		}
+
+		$form_values['fecha']=date("Y-m-d",strtotime($form_values['fecha']));
+
+		if ( $valid != 1){
+			$this->session->set_flashdata('mensaje',$valid);
+			$this->session->set_flashdata('class','alert alert-danger');
+			redirect('ventas/actualizar_venta/'.$id);
+		}
+
+		if($this->ventas_model->actualizar('ventas', array('id' => $venta_id), $form_values)){
+			$this->session->set_flashdata('class','alert alert-success');
+			$this->session->set_flashdata('mensaje','La venta se actualizó exitosamente');
+
+			redirect('ventas/listar');
+		}
+	}
 }
