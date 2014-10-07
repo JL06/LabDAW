@@ -74,6 +74,10 @@ class Ventas extends MY_Controller{
 		$data['title']="Actualizar Venta";
 		$data['venta']=json_encode($this->ventas_model->actualizar_venta(array('ventas.id' => $venta_id))[0]);
 		$data['venta_id']=$venta_id;
+		$data['productos']=$this->ventas_model->leer('productos');
+		$data['vendedor']=$this->ventas_model->leer('usuario');
+		$data['lugar']=$this->ventas_model->leer('lugar');
+
 		$this->load->view('templates/template',$data);
 	}
 }
