@@ -1,6 +1,6 @@
 <section id="main-content">
-	<section class="wrapper site-min-height">
-		<h3><i class="fa fa-angle-right"></i>Usuarios
+  <section class="wrapper site-min-height">
+    <h3><i class="fa fa-angle-right"></i>Usuarios
       <span class="inline">
         <a href="<?php echo base_url('usuarios/agregar')?>" class="btn btn-success">
           <span class="glyphicon glyphicon-plus-sign"></span>
@@ -8,9 +8,17 @@
         </a>
       </span>
     </h3>
-
     <div class="row mt">
-      <?php $this->load->view('notifications/mensaje')?>
+      <div class="col-lg-12">
+        <div class="col-md-12 mt">
+          <div class="content-panel">
+
+            <?php if($this->session->flashdata('mensaje') != ""): ?>
+              <div class="col-lg-12">
+                <div class="alert alert-success"><?php echo $this->session->flashdata('mensaje');?></div>
+              </div>
+            <?php endif;?>
+
             <table class="table table-hover" id="table-users">
               <h4></h4>
               <thead>
