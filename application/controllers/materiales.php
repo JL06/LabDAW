@@ -32,6 +32,17 @@ class Materiales extends MY_Controller {
 	}
 
 	public function guardar() {
+		$this->form_validation->set_rules('nombre', 'Nombre', 'required');
+		$this->form_validation->set_rules('unidad', 'Unidad', 'required');
+		$this->form_validation->set_rules('cantidad', 'Cantidad', 'numeric');
+		if ($this->form_validation->run() == FALSE)
+		{
+			$errores = validation_errors();
+			$this->session->set_flashdata('mensaje', 'Error:'.$errores);
+			redirect("materiales/agregar");
+			return;
+		}
+
 		$data1['nombre'] = $this->input->post('nombre');
 		$data1['unidad'] = $this->input->post('unidad');
 		$data['cantidadMaterial'] =$this->input->post('cantidad');
@@ -69,6 +80,17 @@ class Materiales extends MY_Controller {
 
 	public function guarda_actual ($id = NULL) {
 		if ($id != NULL) {
+			$this->form_validation->set_rules('nombre', 'Nombre', 'required');
+			$this->form_validation->set_rules('unidad', 'Unidad', 'required');
+			$this->form_validation->set_rules('cantidad', 'Cantidad', 'numeric');
+			if ($this->form_validation->run() == FALSE)
+			{
+				$errores = validation_errors();
+				$this->session->set_flashdata('mensaje', 'Error:'.$errores);
+				redirect("materiales/actualizar".$id);
+				return;
+			}
+
 			$data1['nombre'] = $this->input->post('nombre');
 			$data1['unidad'] = $this->input->post('unidad');
 			$data['cantidadMaterial'] =$this->input->post('cantidad');

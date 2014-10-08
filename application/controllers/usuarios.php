@@ -28,11 +28,18 @@ class Usuarios extends MY_Controller {
 		$this->load->view('templates/template',$data);
 	}
 	function guardar () {
-		if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0) {
-			$this->session->set_flashdata('mensaje', 'Error: los dos campos de contraseña deben ser iguales');
+		$this->form_validation->set_rules('nombre', 'Nombre', 'required');
+		$this->form_validation->set_rules('correo', 'Correo eléctronico', 'valid_email');
+		$this->form_validation->set_rules('correo', 'Correo eléctronico', 'required');
+		$this->form_validation->set_rules('clave', 'Contraseña', 'required');
+		$this->form_validation->set_rules('clave2', 'Contraseña', 'required');
+		if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0 OR $this->form_validation->run() == FALSE) {
+			$errores = validation_errors();
+			$this->session->set_flashdata('mensaje', 'Error: los dos campos de contraseña deben ser iguales'.$errores);
 			redirect("usuarios/agregar");
 			return;
 		}
+
 		$data['password'] = password_hash($this->input->post('clave'), PASSWORD_DEFAULT);
 		$data['nombre'] = $this->input->post('nombre');
 		$data['email'] = $this->input->post('correo');
@@ -66,13 +73,18 @@ class Usuarios extends MY_Controller {
 
 	function guarda_actual ($id = NULL) {
 		if ($id != NULL) {
-			if (strlen($this->input->post('clave')) > 0) {
-				if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0) {
-					$this->session->set_flashdata('mensaje', 'Error: los dos campos de contraseña deben ser iguales');
-					redirect("usuarios/actualizar/".$id);
-					return;
-				}
+			$this->form_validation->set_rules('nombre', 'Nombre', 'required');
+			$this->form_validation->set_rules('correo', 'Correo eléctronico', 'valid_email');
+			$this->form_validation->set_rules('correo', 'Correo eléctronico', 'required');
+			$this->form_validation->set_rules('clave', 'Contraseña', 'required');
+			$this->form_validation->set_rules('clave2', 'Contraseña', 'required');
+			if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0 OR $this->form_validation->run() == FALSE) {
+				$errores = validation_errors();
+				$this->session->set_flashdata('mensaje', 'Error: los dos campos de contraseña deben ser iguales'.$errores);
+				redirect("usuarios/agregar");
+				return;
 			}
+			
 			$data['password'] = password_hash($this->input->post('clave'), PASSWORD_DEFAULT);
 			$data['nombre'] = $this->input->post('nombre');
 			$data['email'] = $this->input->post('correo');
