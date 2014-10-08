@@ -1,6 +1,7 @@
 <?php
-class Usuario_model extends Generic_Model{
-	function listar($filter = NULL){
+class Usuario_model extends Generic_Model {
+	function listar($filter = NULL) 
+	{
 		$this->db->select('usuario.id as id,usuario.nombre as nom, rol.nombre as tipo, email, genero, telefono');
 		$this->db->from('usuario');
 		$this->db->join('rol', 'usuario.idRol = rol.id');
@@ -11,7 +12,8 @@ class Usuario_model extends Generic_Model{
 
 	}
 
-	function usuario ($id) {
+	function usuario ($id) 
+	{
 		$this->db->select('usuario.id as id,usuario.nombre as nom, rol.nombre as tipo, email, genero, telefono, rol.id as rolid');
 		$this->db->from('usuario');
 		$this->db->join('rol', 'usuario.idRol = rol.id');
@@ -25,3 +27,5 @@ class Usuario_model extends Generic_Model{
 		return $usuario;
 	}
 }
+/* End of file usuarios_model.php */
+/* Location: models/usuarios_model.php */

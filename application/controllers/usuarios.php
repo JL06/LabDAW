@@ -1,11 +1,14 @@
 <?php
 class Usuarios extends MY_Controller {
-	public function __construct() {
+
+	public function __construct() 
+	{
 		parent::__construct();
 		$this->load->model('usuario_model');
 		$this->load->model('generic_model');
 		$this->load->library('form_validation');
 	}
+
 	public function index()
 	{
 		$res=$this->usuario_model->listar(array("activo"=>1));
@@ -27,13 +30,16 @@ class Usuarios extends MY_Controller {
 		$data['link'] = "guardar";
 		$this->load->view('templates/template',$data);
 	}
-	function guardar () {
+
+	function guardar () 
+	{
 		$this->form_validation->set_rules('nombre', 'Nombre', 'required');
 		$this->form_validation->set_rules('correo', 'Correo eléctronico', 'valid_email');
 		$this->form_validation->set_rules('correo', 'Correo eléctronico', 'required');
 		$this->form_validation->set_rules('clave', 'Contraseña', 'required');
 		$this->form_validation->set_rules('clave2', 'Contraseña', 'required');
-		if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0 OR $this->form_validation->run() == FALSE) {
+		if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0 OR $this->form_validation->run() == FALSE) 
+		{
 			$errores = validation_errors();
 			$this->session->set_flashdata('mensaje', 'Error: los dos campos de contraseña deben ser iguales'.$errores);
 			redirect("usuarios/agregar");
@@ -47,15 +53,17 @@ class Usuarios extends MY_Controller {
 		$data['idrol'] = $this->input->post('rol');
 		$data['telefono'] = $this->input->post('telefono');
 		
-		if($this->db->insert('usuario',$data)){
+		if($this->db->insert('usuario',$data))
+		{
 			$this->session->set_flashdata('mensaje', 'El usuario fue agregado');
 			redirect("usuarios");
 		}
-
 	}
 
-	function actualizar($id = NULL) {
-		if ($id != NULL) {
+	function actualizar($id = NULL) 
+	{
+		if ($id != NULL) 
+		{
 			$roles = $this->generic_model->listar("rol");
 			$data = $this->usuario_model->usuario(array("usuario.id"=> $id));
 			$data['main_content'] = 'forma_usuario';
@@ -65,20 +73,25 @@ class Usuarios extends MY_Controller {
 			$data['link'] = "guarda_actual/".$id;
 			$data['roles'] = $roles;
 			$this->load->view('templates/template',$data);
-		} else {
+		} 
+		else 
+		{
 			redirect("usuarios");
 		}
 
 	}
 
-	function guarda_actual ($id = NULL) {
-		if ($id != NULL) {
+	function guarda_actual ($id = NULL) 
+	{
+		if ($id != NULL) 
+		{
 			$this->form_validation->set_rules('nombre', 'Nombre', 'required');
 			$this->form_validation->set_rules('correo', 'Correo eléctronico', 'valid_email');
 			$this->form_validation->set_rules('correo', 'Correo eléctronico', 'required');
 			$this->form_validation->set_rules('clave', 'Contraseña', 'required');
 			$this->form_validation->set_rules('clave2', 'Contraseña', 'required');
-			if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0 OR $this->form_validation->run() == FALSE) {
+			if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0 OR $this->form_validation->run() == FALSE) 
+			{
 				$errores = validation_errors();
 				$this->session->set_flashdata('mensaje', 'Error: los dos campos de contraseña deben ser iguales'.$errores);
 				redirect("usuarios/agregar");
@@ -91,26 +104,35 @@ class Usuarios extends MY_Controller {
 			$data['genero'] =$this->input->post('genero');
 			$data['idrol'] = $this->input->post('rol');
 			$data['telefono'] = $this->input->post('telefono');
-			if ($this->usuario_model->actualizar("usuario", array('id' => $id), $data)) {
+			if ($this->usuario_model->actualizar("usuario", array('id' => $id), $data)) 
+			{
 				$this->session->set_flashdata('mensaje', 'El usuario fue actualizado');
 				redirect("usuarios");
 			}
-		} else {
+		} 
+		else 
+		{
 			redirect("usuarios");
 		}
 	}
 
-	public function borrar($id = NULL){
-		if ($id != NULL) {
-			if ($this->usuario_model->actualizar('usuario',array('id'=>$id),array('activo'=>0))) {
+	public function borrar($id = NULL)
+	{
+		if ($id != NULL) 
+		{
+			if ($this->usuario_model->actualizar('usuario',array('id'=>$id),array('activo'=>0))) 
+			{
 				$this->session->set_flashdata('class','alert alert-success');
 				$this->session->set_flashdata('mensaje','El usuario se eliminó exitosamente');
 				redirect("usuarios");
 			}
-		} else {
+		} 
+		else 
+		{
 			redirect("usuarios");
 		}
 	}
-
-
 }
+
+/* End of file usuarios.php */
+/* Location: controllers/usuarios.php */
