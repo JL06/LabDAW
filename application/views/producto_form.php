@@ -82,8 +82,13 @@
               </div>
 
               <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">&nbsp;</label>
+                <label class="control-label col-md-2" for="tiempo"></label>
+
                 <button type="submit" class="btn btn-round btn-primary">Guardar</button>
+                <?php if(isset($producto)): ?>
+                  <a href="<?php echo base_url('productos/listar') ?>" class="btn btn-round btn-default">Cancelar</a>
+                <?php endif; ?>
+
               </div>
             </form>
           </div>

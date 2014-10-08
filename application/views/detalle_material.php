@@ -1,7 +1,9 @@
 <!--wrapper -->
 <section id="main-content">
 	<section class="wrapper site-min-height">
-		<h3><i class="fa fa-angle-right"></i> <?php echo $title?></h3>
+		<h3><i class="fa fa-angle-right"></i> <?php echo $title?>
+		</h3>
+		<p><a href="<?php echo base_url('productos/listar')?>"><i class="fa fa-angle-right"></i> Regresar a Productos</a></p>
 		<div class="row mt">
 			<div class="col-lg-12">
 				<div class="content-panel">
@@ -74,6 +76,15 @@
 									<?php endif; ?>
 								</tbody>
 							</table>
+						</div>
+						<div class="row mt">
+							<div class="col-lg-12">
+								<a href="<?php echo base_url('productos/actualizar_producto/'. $producto["id"])?>" class="btn btn-success">
+									<span class="glyphicon glyphicon-pencil"></span>
+									Actualizar
+								</a>
+							</div>
+
 						</div>
 					</section>	
 				</div>

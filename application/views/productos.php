@@ -21,6 +21,7 @@
 									<th>Tipo</th>
 									<th>Descripción</th>
 									<th class="numeric">Precio</th>
+									<th>Cantidad</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -34,6 +35,7 @@
 											<td><?php echo $p['tipo'] ?></td>
 											<td><?php echo $p['descripcion'] ?></td>
 											<td class="numeric"> $<?php echo $p['precio']?></td>
+											<td class="numeric"><?php echo $p['cantidadProducto']?></td>
 											<td>
 												<div class="pull-right hidden-phone">
 													<a href="<?php echo base_url('productos/detalle').'/'.$p['id'] ;?>"><span class="glyphicon glyphicon-eye-open btn btn-theme"></span></a>

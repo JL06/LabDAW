@@ -48,30 +48,27 @@
           <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
         </div>
         <!--logo start-->
-        <a href="index.html" class="logo"><b>Sistema de Administración</b></a>
+        <a href="<?php echo base_url()?>" class="logo"><b>Sistema de Administración</b></a>
         <!--logo end-->
-        <div class="nav notify-row" id="top_menu">
+        <div class="nav" id="top_menu">
+
           <!--  notification start -->
-          <ul class="nav top-menu">
-            <!-- settings start -->
-            
-            <!-- settings end -->
-            <!-- inbox dropdown start-->
-            
-            <!-- inbox dropdown end -->
-          </ul>
+          <div class="top-menu">
+            <ul class="nav pull-right top-menu">
+              <li><a class="logout" href="<?php echo base_url('sesion/cerrar')?>"> Cerrar Sesión</a></li>
+            </ul>
+          </div>
+
+
           <!--  notification end -->
         </div>
-        <div class="top-menu">
-          <ul class="nav pull-right top-menu">
-            <li><a class="logout" href=<?php echo '"' . site_url("/sesion/cerrar") . '"' ?>>Cerrar Sesión</a></li>
-          </ul>
-        </div>
+
+
       </header>
-      
+
       <!--header end-->
 
-      
+
       <?php
       $role='Administrador';
       $role=strtolower($role);
