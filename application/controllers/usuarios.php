@@ -15,13 +15,9 @@ class Usuarios extends MY_Controller {
 		$this->load->view('templates/template',$data);
 	}
 
-	function agregar ($error = NULL) 
+	function agregar () 
 	{
 		$res = $this->generic_model->listar("rol");
-
-		if ($error == 1) {	//Comprueba error?
-			$data['errorclave'] = true;
-		}
 
 		$data['title'] = "Nuevo Usuario";
 		$data['main_content'] = "forma_usuario";
@@ -33,8 +29,8 @@ class Usuarios extends MY_Controller {
 	}
 	function guardar () {
 		if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0) {
-			$red = "Location: " . site_url("/usuarios/agregar/1");
-			header($red);
+			$this->session->set_flashdata('mensaje', 'Error: los dos campos de contraseña deben ser iguales');
+			redirect("usuarios/agregar");
 			return;
 		}
 		$data['password'] = password_hash($this->input->post('clave'), PASSWORD_DEFAULT);
@@ -70,10 +66,12 @@ class Usuarios extends MY_Controller {
 
 	function guarda_actual ($id = NULL) {
 		if ($id != NULL) {
-			if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0) {
-				$red = "Location: " . site_url("/usuarios/agregar/1");
-				header($red);
-				return;
+			if (strlen($this->input->post('clave')) > 0) {
+				if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0) {
+					$this->session->set_flashdata('mensaje', 'Error: los dos campos de contraseña deben ser iguales');
+					redirect("usuarios/actualizar/".$id);
+					return;
+				}
 			}
 			$data['password'] = password_hash($this->input->post('clave'), PASSWORD_DEFAULT);
 			$data['nombre'] = $this->input->post('nombre');

@@ -2,6 +2,11 @@
 	<section class="wrapper site-min-height">
 		<h3><i class="fa fa-angle-right"></i><?php echo $title; ?></h3>
 		<div class="row mt">
+			<?php if($this->session->flashdata('mensaje')!=''): ?>
+				<div class="col-lg-12">
+					<div class="alert alert-danger"><?php echo $this->session->flashdata('mensaje');?></div>
+				</div>
+			<?php endif;?>
 			<div class="col-lg-12">
 				<div class="form-panel">
 				 <form class="form-horizontal style-form" method="post" action=<?php echo '"' . site_url("/usuarios/".$link) . '"' ?>>
@@ -21,7 +26,6 @@
 						<label class="col-sm-2 col-sm-2 control-label">Contraseña</label>
 						<div class="col-md-5">
 						 <input type="password" name="clave" class="form-control" maxlength="50" required>
-						 <?php if (isset($errorclave)) echo '<span class="help-block">Error, ambos campos de contraseña deben ser identicos</span>'; ?>
 						</div>
 					</div>
 					<div class="form-group">
