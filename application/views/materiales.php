@@ -34,8 +34,8 @@
 											<td><?php echo $m['unidad']?></td>
 											<td>
 												<div class="pull-right hidden-phone">
-													<a class="btn btn-theme03" href="#"><i class="fa fa-pencil"></i></a>
-													<a class="btn btn-theme04" id="borrar" href="#"><i class="fa fa-trash-o "></i></a>
+													<a class="btn btn-theme03" href="<?php echo base_url('materiales/actualizar/'.$m['id'])?>"><i class="fa fa-pencil"></i></a>
+													<a class="btn btn-theme04" id="borrar" href="<?php echo base_url('materiales/borrar/'.$m['id'])?>"><i class="fa fa-trash-o "></i></a>
 												</div>
 											</td>
 

@@ -59,3 +59,5 @@ class Sesion extends CI_Controller {
 		$this->load->view("templates/template",$data);
 	}
 }
+/* End of file sesion.php */
+/* Location: controllers/sesion.php */
