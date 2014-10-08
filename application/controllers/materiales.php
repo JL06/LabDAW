@@ -1,14 +1,8 @@
 <?php
-<<<<<<< HEAD
-class Materiales extends MY_Controller
-{
-	public function __construct() {
-=======
 class Materiales extends MY_Controller {
 
 	public function __construct() 
 	{
->>>>>>> UD-Usuario-Material
 		parent::__construct();
 		$this->load->model('materiales_model');
 		$this->load->model('generic_model');
@@ -23,9 +17,6 @@ class Materiales extends MY_Controller {
 		$this->load->view('templates/template',$data);
 	}
 
-<<<<<<< HEAD
-}
-=======
 	public function listar() 
 	{
 		$data['materiales']=$this->materiales_model->get_materiales(array('material.activo'=>1));
@@ -173,4 +164,3 @@ class Materiales extends MY_Controller {
 }
 /* End of file materiales.php */
 /* Location: controllers/materiales.php */
->>>>>>> UD-Usuario-Material

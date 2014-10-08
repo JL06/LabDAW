@@ -1,15 +1,6 @@
 <?php
-
-<<<<<<< HEAD
-class Materiales_model extends Generic_model
-{
-
-	function get_materiales($filter="")
-=======
 class Materiales_model extends Generic_model {
-
-	function get_materiales($filter="") 
->>>>>>> UD-Usuario-Material
+	function get_materiales($filter="")
 	{
 		$this->db->select('material.id as id, tipomaterial.nombre as nombre, color.nombre as color, unidad, cantidadMaterial');
 		$this->db->from('material');

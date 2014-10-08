@@ -1,12 +1,7 @@
 <?php
-<<<<<<< HEAD
-class Usuario_model extends Generic_Model
-{
-	function listar($filter="")
-=======
 class Usuario_model extends Generic_Model {
-	function listar($filter = NULL) 
->>>>>>> UD-Usuario-Material
+	
+	function listar($filter = NULL)
 	{
 		$this->db->select('usuario.id as id,usuario.nombre as nom, rol.nombre as tipo, email, genero, telefono');
 		$this->db->from('usuario');
