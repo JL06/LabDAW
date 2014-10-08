@@ -3,7 +3,7 @@
 	<section class="wrapper site-min-height">
 		<h3><i class="fa fa-angle-right"></i> <?php echo $title?>
 			<span class="inline">
-				<a href="<?php echo base_url('materiales/registrar')?>" class="btn btn-success">
+				<a href="<?php echo base_url('materiales/agregar')?>" class="btn btn-success">
 					<span class="glyphicon glyphicon-plus-sign"></span>
 					Agregar
 				</a>

@@ -45,6 +45,7 @@ class Materiales extends MY_Controller {
 		{
 			$errores = validation_errors();
 			$this->session->set_flashdata('mensaje', 'Error:'.$errores);
+			$this->session->set_flashdata('class', 'alert alert-danger');
 			redirect("materiales/agregar");
 			return;
 		}
@@ -71,6 +72,7 @@ class Materiales extends MY_Controller {
 		if ($this->generic_model->crear('material', $data)) 
 		{
 			$this->session->set_flashdata('mensaje','El material se agregó exitosamente');
+			$this->session->set_flashdata('class','alert alert-success');
 			redirect("materiales");
 		}
 	}
@@ -103,6 +105,7 @@ class Materiales extends MY_Controller {
 			{
 				$errores = validation_errors();
 				$this->session->set_flashdata('mensaje', 'Error:'.$errores);
+				$this->session->set_flashdata('class', 'alert alert-danger:');
 				redirect("materiales/actualizar".$id);
 				return;
 			}
@@ -133,6 +136,7 @@ class Materiales extends MY_Controller {
 			if ($this->materiales_model->actualizar("material", array('id' => $id), $data)) 
 			{
 				$this->session->set_flashdata('mensaje', 'El material fue actualizado exitosamente');
+				$this->session->set_flashdata('class', 'alert alert-success');
 				redirect("materiales");
 			}
 
@@ -149,10 +153,12 @@ class Materiales extends MY_Controller {
 			if ($this->materiales_model->actualizar('material',array('id'=>$id),array('activo'=>0))) 
 			{
 				$this->session->set_flashdata('mensaje','El material se eliminó exitosamente');
+				$this->session->set_flashdata('class', 'alert alert-success');
 			} 
 			else 
 			{
 				$this->session->set_flashdata('mensaje','El material no se pudo eliminar');
+				$this->session->set_flashdata('class', 'alert alert-danger');
 			}
 			redirect("materiales");
 		} 

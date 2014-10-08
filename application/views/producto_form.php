@@ -5,13 +5,8 @@
       <div class="col-lg-12">
 
         <div class="form-panel">
-          <?php if($this->session->flashdata('mensaje') != ""): ?>
-            <div class="col-lg-12">
-              <div class="<?php echo $this->session->flashdata('class');?>">
-                <?php echo $this->session->flashdata('mensaje');?>
-              </div>
-            </div>
-          <?php endif;?>
+          <?php $this->load->view("notifications/mensaje"); ?>
+
           <?php if ( ! isset($producto)): ?>
             <form id="form-producto" class="form-horizontal style-form" name="producto" method="post" action=<?php echo site_url("/productos/insertar_producto") ?>> 
             <?php else:?>
@@ -82,7 +77,7 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-2" for="tiempo"></label>
+                <label class="control-label col-md-2" ></label>
 
                 <button type="submit" class="btn btn-round btn-primary">Guardar</button>
                 <?php if(isset($producto)): ?>

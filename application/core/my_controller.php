@@ -6,7 +6,7 @@ class MY_Controller extends CI_Controller
 	{
 		parent::__construct();
 		$this->comprueba_sesion();
-
+		$this->load->model("generic_model");
 		//$this->comprueba_permiso();
 	}
 	protected function comprueba_sesion()
@@ -42,7 +42,7 @@ class MY_Controller extends CI_Controller
 		{
 			if($r['rules'] == 'unique')
 			{
-				$rep = $this->productos_model->repite($entity,$r['field'],$form_values[$r['field']]);
+				$rep = $this->generic_model->repite($entity,$r['field'],$form_values[$r['field']]);
 
 				if ($rep)
 				{

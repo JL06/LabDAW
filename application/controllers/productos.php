@@ -133,6 +133,7 @@ class Productos extends MY_Controller
 
 	public function actualizar($id)
 	{
+		$error="";
 		$form_values=$this->input->post();
 		$mat=$form_values['materiales'];
 		unset($form_values['materiales']);
@@ -161,21 +162,26 @@ class Productos extends MY_Controller
 				'label' =>'Precio'
 				)
 			);
-
 		//valid es true si la forma pasó la validación y un arreglo de mensajes de error si no pasó
 		$valid=$this->validate_form($rules,$form_values,'productos');
-
-		if ( $valid !== 1)
+		$existe = $this->productos_model->repite('productos','nombre',$form_values['nombre']);
+		if ($existe)
 		{
-			$this->session->set_flashdata('mensaje',$valid);
+			$original=$this->productos_model->leer('productos',array('id'=>$id));
+			if ( $original[0]['nombre'] !== $form_values['nombre']){
+				$error = "El nombre de producto no está disponible\n";
+			}
+		}
+		
+		if ( $valid !== 1 OR $error !== "")
+		{
+			$this->session->set_flashdata('mensaje',$error.$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('productos/actualizar_producto/'.$id);
 		}
 
 		if($this->productos_model->actualizar('productos',array('id' => $id),$form_values))
-		{
-
-			
+		{			
 			if ($mat != "")
 			{
 				$mat=explode(',',$mat);
