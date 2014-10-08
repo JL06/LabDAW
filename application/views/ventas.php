@@ -1,7 +1,14 @@
 <!--wrapper -->
 <section id="main-content">
   <section class="wrapper site-min-height">
-	<h3><i class="fa fa-angle-right"></i> <?php echo $title?></h3>
+		<h3><i class="fa fa-angle-right"></i> <?php echo $title?>
+			<span class="inline">
+				<a href="<?php echo base_url('ventas/registrar')?>" class="btn btn-success">
+					<span class="glyphicon glyphicon-plus-sign"></span>
+					Agregar
+				</a>
+			</span>
+		</h3>
 	<div class="row mt">
 		<div class="col-lg-12">
 			<div class="content-panel">

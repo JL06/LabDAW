@@ -14,7 +14,7 @@
           <?php if(!isset($venta)): ?>
           <form id="form-venta" name="venta" class="form-horizontal style-form" method="post" action=<?php echo site_url("ventas/insertar_venta") ?>>
           <?php else:?>
-          <form id="form-venta" name="venta" class="form-horizontal style-form" method="post" action=<?php echo site_url("ventas/actualizar") ?>>
+          <form id="form-venta" name="venta" class="form-horizontal style-form" method="post" action=<?php echo site_url("ventas/actualizar/".$venta_id) ?>>
           <?php endif;?>
            <div class="form-group">
              <label class="control-label col-md-2">Producto</label>
