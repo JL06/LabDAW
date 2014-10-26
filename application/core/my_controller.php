@@ -7,6 +7,7 @@ class MY_Controller extends CI_Controller
 		parent::__construct();
 		$this->comprueba_sesion();
 		$this->load->model("generic_model");
+		$this->load->helper('form');
 		//$this->comprueba_permiso();
 	}
 	protected function comprueba_sesion()
@@ -34,7 +35,7 @@ class MY_Controller extends CI_Controller
 		}
 	}
 
-	protected function validate_form($rules,$form_values,$entity)
+	protected function validate_form($rules,$form_values,$entity="")
 	{
 		$valid=1;
 		$unique_error="";
@@ -76,5 +77,24 @@ class MY_Controller extends CI_Controller
 		if($accion == "/")
 			$accion="inicio";
 		$this->permission_model->crear("log",array("accion"=>$accion, "idUsuario"=>$user,"fecha"=>$date));
+	}
+
+	protected function ymd_mdy($fecha)
+	{
+		$date = explode('-', $fecha);
+		return $date[1].'-'.$date[2].'-'.$date[0];
+	}
+
+	protected function mdy_ymd($fecha)
+	{
+		$date = explode('-', $fecha);
+		return $date[2].'-'.$date[0].'-'.$date[1];
+	}
+
+
+	protected function mdy_dmy($fecha)
+	{
+		$date = explode('-', $fecha);
+		return $date[1].'-'.$date[0].'-'.$date[2];
 	}
 }

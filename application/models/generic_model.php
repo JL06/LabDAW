@@ -8,9 +8,9 @@ class Generic_model extends CI_Model {
 	}
 
 	function leer($entity, $param=""){
-		if ($param != "")
+		if ($param !== "")
 			$this->db->where($param);
-		$query = $this->db->get_where($entity);
+		$query = $this->db->get($entity);
 		return $this->query_to_array($query);
 	}
 
