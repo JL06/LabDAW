@@ -35,8 +35,8 @@
                 <table class="table table-bordered table-sthiped table-condensed display">
                   <thead>
                     <tr>
-                      <th><?php echo $fecha1." - ".$fecha2;?></th>
-                      <th></th>
+                      <td>Periodo</td>
+                      <td><?php echo $fecha1." - ".$fecha2;?></td>
                     </tr>
                   </thead>
                   <tbody>

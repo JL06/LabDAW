@@ -31,6 +31,7 @@ class Materiales extends MY_Controller {
 		$data['title'] = "Nuevo Material";
 		$data['main_content'] = "forma_material";
 		$data['colores'] = $colores;
+		$data['materiales']=$this->materiales_model->leer("tipomaterial");
 		$data['link'] = "guardar";
 
 		$this->load->view('templates/template',$data);
@@ -38,38 +39,39 @@ class Materiales extends MY_Controller {
 
 	public function guardar() 
 	{
-		$this->form_validation->set_rules('nombre', 'Nombre', 'required');
-		$this->form_validation->set_rules('unidad', 'Unidad', 'required');
+
 		$this->form_validation->set_rules('cantidad', 'Cantidad', 'numeric');
+		$nombre=$this->input->post('nombre');
 		if ($this->form_validation->run() == FALSE)
 		{
 			$errores = validation_errors();
-			$this->session->set_flashdata('mensaje', 'Error:'.$errores);
+			$this->session->set_flashdata('mensaje', $errores);
 			$this->session->set_flashdata('class', 'alert alert-danger');
 			redirect("materiales/agregar");
 			return;
 		}
 
-		$data1['nombre'] = $this->input->post('nombre');
-		$data1['unidad'] = $this->input->post('unidad');
+		if ($nombre === ""){
+			$data['idTipo'] = $this->input->post("idMaterial");
+
+		}
+		else
+		{
+			$data1['nombre'] = $nombre;
+			
+			$data1['unidad'] = $this->input->post('unidad');
+			if ($this->materiales_model->crear('tipomaterial', $data1)) {
+				$data['idTipo']=$this->materiales_model->leer("tipomaterial",array("nombre"=>$nombre))[0]['nombre'];
+			}else{
+				//inform error graciously
+			}
+			
+		}
 		$data['cantidadMaterial'] =$this->input->post('cantidad');
 		$data['idColor'] =$this->input->post('color');
 
-		$material = $this->materiales_model->existe($data1['nombre']);
-		if ($material == NULL) 
-		{
-			if ($this->generic_model->crear('tipomaterial', $data1)) 
-			{
-				$material = $this->materiales_model->existe($data1['nombre']);
-			} 
-			else 
-			{
-				//Error
-			}
-		}
-		$data['idTipo'] = $material['id'];
-
-		if ($this->generic_model->crear('material', $data)) 
+		
+		if ($this->materiales_model->crear('material', $data)) 
 		{
 			$this->session->set_flashdata('mensaje','El material se agregó exitosamente');
 			$this->session->set_flashdata('class','alert alert-success');
@@ -166,6 +168,13 @@ class Materiales extends MY_Controller {
 		{
 			redirect("materiales");
 		}
+	}
+
+	public function get_unidad(){
+		$idMaterial=$this->input->post("selMat");
+
+		echo $this->materiales_model->leer("tipomaterial",array("id"=>$idMaterial)) [0]["unidad"];
+
 	}
 }
 /* End of file materiales.php */

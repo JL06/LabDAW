@@ -1,0 +1,6 @@
+.disabled{
+	background-color: #eee;
+	opacity: 1;
+}
+.inline{display: inline-block;float: right}
+.material-name{cursor:default !important;}

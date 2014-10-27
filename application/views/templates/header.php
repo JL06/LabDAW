@@ -17,6 +17,7 @@
   echo link_tag('files/css/style-responsive.css');
   echo link_tag('files/css/jquery.dataTables.css');
   echo link_tag('files/css/jquery.dataTables.css');
+  echo link_tag('files/css/style2.css');
 
   echo '<script src="'.base_url("files/js/jquery.js") . '"></script>' ;
   echo'<script src="'.base_url("files/js/bootstrap.min.js") . '"></script>' ;
