@@ -234,4 +234,23 @@ class Productos extends MY_Controller
 		$this->load->view("templates/template",$data);		
 
 	}
+
+	public function costo()
+	{
+		$materiales = $this->input->post("materiales");
+		if ($materiales == NULL) {
+			echo 0;
+			return;
+		}
+		$mats = explode(",", $materiales);
+		$costo_total = 0;
+		foreach ($mats as $mat) {
+			list($idmat, $cantidad) = explode(":", $mat);
+			$ultimo = $this->materiales_model->ultimo_comprado($idmat);
+			$costo = $ultimo["cantidad"]/$ultimo["costo"];
+			$costo_producto = $costo * floatval($cantidad);
+			$costo_total += $costo_producto;
+		}
+		echo round($costo_total, 2);
+	}
 }
