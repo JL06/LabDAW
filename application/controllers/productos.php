@@ -135,12 +135,12 @@ class Productos extends MY_Controller
 		$materiales=$this->materiales_model->get_materiales_producto($prod_id);
 
 		$compra="Necesitas comprar: <br>
-			<ul>";
+		<ul>";
 		$flag_compra=0;
 
 		$msg="Para crear ".$cantidad." ".$prod_nombre." necesitas: <br>
-			<ul>
-				<li>".$tiempo." horas</li>";
+		<ul>
+		<li>".$tiempo." horas</li>";
 		foreach($materiales as $m){
 			$c=$m['cantidad']*$cantidad;
 			$msg.="<li>".$c." ".$m['unidad']." de ".$m['nombre']." ".$m['color']."</li>";
@@ -271,7 +271,7 @@ class Productos extends MY_Controller
 		$this->load->view("templates/template",$data);		
 
 	}
-	
+
 	public function costo()
 	{
 		$materiales = $this->input->post("materiales");
@@ -290,9 +290,13 @@ class Productos extends MY_Controller
 		}
 		echo round($costo_total, 2);
 	}
+
 }
 
 /* End of file productos.php */
 /* Location: controllers/productos.php */
+
+
+
 
 
