@@ -344,7 +344,7 @@ class CI_Input {
 			}
 
 			$this->ip_address = ($spoof !== FALSE && in_array($_SERVER['REMOTE_ADDR'], $proxy_ips, TRUE))
-				? $spoof : $_SERVER['REMOTE_ADDR'];
+			? $spoof : $_SERVER['REMOTE_ADDR'];
 		}
 		else
 		{
@@ -378,14 +378,14 @@ class CI_Input {
 		{
 			switch ($which) {
 				case 'ipv4':
-					$flag = FILTER_FLAG_IPV4;
-					break;
+				$flag = FILTER_FLAG_IPV4;
+				break;
 				case 'ipv6':
-					$flag = FILTER_FLAG_IPV6;
-					break;
+				$flag = FILTER_FLAG_IPV6;
+				break;
 				default:
-					$flag = '';
-					break;
+				$flag = '';
+				break;
 			}
 
 			return (bool) filter_var($ip, FILTER_VALIDATE_IP, $flag);
@@ -471,7 +471,7 @@ class CI_Input {
 
 		$chunks = array_filter(
 			preg_split('/(:{1,2})/', $str, NULL, PREG_SPLIT_DELIM_CAPTURE)
-		);
+			);
 
 		// Rule out easy nonsense
 		if (current($chunks) == ':' OR end($chunks) == ':')
@@ -565,9 +565,9 @@ class CI_Input {
 	{
 		// It would be "wrong" to unset any of these GLOBALS.
 		$protected = array('_SERVER', '_GET', '_POST', '_FILES', '_REQUEST',
-							'_SESSION', '_ENV', 'GLOBALS', 'HTTP_RAW_POST_DATA',
-							'system_folder', 'application_folder', 'BM', 'EXT',
-							'CFG', 'URI', 'RTR', 'OUT', 'IN');
+			'_SESSION', '_ENV', 'GLOBALS', 'HTTP_RAW_POST_DATA',
+			'system_folder', 'application_folder', 'BM', 'EXT',
+			'CFG', 'URI', 'RTR', 'OUT', 'IN');
 
 		// Unset globals for securiy.
 		// This is effectively the same as register_globals = off
@@ -679,37 +679,37 @@ class CI_Input {
 		   NOTE: In PHP 5.4 get_magic_quotes_gpc() will always return 0 and
 			 it will probably not exist in future versions at all.
 		*/
-		if ( ! is_php('5.4') && get_magic_quotes_gpc())
-		{
-			$str = stripslashes($str);
-		}
+			 if ( ! is_php('5.4') && get_magic_quotes_gpc())
+			 {
+			 	$str = stripslashes($str);
+			 }
 
 		// Clean UTF-8 if supported
-		if (UTF8_ENABLED === TRUE)
-		{
-			$str = $this->uni->clean_string($str);
-		}
+			 if (UTF8_ENABLED === TRUE)
+			 {
+			 	$str = $this->uni->clean_string($str);
+			 }
 
 		// Remove control characters
-		$str = remove_invisible_characters($str);
+			 $str = remove_invisible_characters($str);
 
 		// Should we filter the input data?
-		if ($this->_enable_xss === TRUE)
-		{
-			$str = $this->security->xss_clean($str);
-		}
+			 if ($this->_enable_xss === TRUE)
+			 {
+			 	$str = $this->security->xss_clean($str);
+			 }
 
 		// Standardize newlines if needed
-		if ($this->_standardize_newlines == TRUE)
-		{
-			if (strpos($str, "\r") !== FALSE)
-			{
-				$str = str_replace(array("\r\n", "\r", "\r\n\n"), PHP_EOL, $str);
-			}
-		}
+			 if ($this->_standardize_newlines == TRUE)
+			 {
+			 	if (strpos($str, "\r") !== FALSE)
+			 	{
+			 		$str = str_replace(array("\r\n", "\r", "\r\n\n"), PHP_EOL, $str);
+			 	}
+			 }
 
-		return $str;
-	}
+			 return $str;
+			}
 
 	// --------------------------------------------------------------------
 
@@ -728,7 +728,7 @@ class CI_Input {
 	{
 		if ( ! preg_match("/^[a-z0-9:_\/-]+$/i", $str))
 		{
-			exit('Disallowed Key Characters.');
+			exit('Disallowed Key Characters.'. $str);
 		}
 
 		// Clean UTF-8 if supported

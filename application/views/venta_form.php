@@ -29,6 +29,7 @@
              <div class="col-md-2">
                <input type="number" min="1" name="cantidad" required class="form-control">           
              </div>
+             <div id="cantidad-prod"></div>
            </div>
 
            <div class="form-group">
@@ -66,15 +67,28 @@
 </section>
 </section>
 
-<?php if(isset($venta)): ?>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      var venta=jQuery.parseJSON('<?php echo $venta; ?>');
-
-      $.each(venta, function(key, value){
-        $("input[name="+key+"]").val(value);
-        $("select[name="+key+"]").find("option[value="+value+"]").prop("selected",true);
-      });
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("select[name=idProducto]").change();
+    <?php if(isset($venta)): ?>
+    var venta=jQuery.parseJSON('<?php echo $venta; ?>');
+    $.each(venta, function(key, value){
+      $("input[name="+key+"]").val(value);
+      $("select[name="+key+"]").find("option[value="+value+"]").prop("selected",true);
     });
-  </script>
-<?php endif; ?>
+
+  <?php endif; ?>
+  $("select[name=idProducto]").change(function(){
+    selProd=$("select[name=idProducto]").val();
+    $.ajax({
+      type:"POST",
+      url:"<?php echo base_url('ventas/get_cantidad')?>",
+      data:{selProd:selProd},
+      success:function(cantidad){
+        $("#cantidad-prod").attr("class","col-md-3 alert alert-info");
+        $("#cantidad-prod").html("Actualmente cuentas con "+cantidad+" productos de este tipo");
+      }
+    });
+  });
+});
+</script>

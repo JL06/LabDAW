@@ -43,7 +43,7 @@ class Materiales_model extends Generic_model {
 
 	function material ($id) 
 	{
-		$this->db->select('material.id as id,tipomaterial.nombre as nombre, color.id as colorid, color.nombre as color, unidad, cantidadMaterial as cantidad');
+		$this->db->select('material.id as id,tipomaterial.nombre as nombre, color.id as colorid, color.nombre as color, unidad, cantidadMaterial as cantidad,tipomaterial.id as idTipo');
 		$this->db->from('material');
 		$this->db->join('tipomaterial', 'tipomaterial.id = material.idTipo');
 		$this->db->join('color', 'color.id=material.idColor'); 
@@ -57,6 +57,12 @@ class Materiales_model extends Generic_model {
 			$material = NULL;
 		}
 		return $material;
+	}
+	function get_unidades()
+	{
+		$query=$this->db->query("SELECT DISTINCT unidad FROM tipomaterial");
+		return $this->query_to_array($query);
+
 	}
 }
 /* End of file materiales_model.php */

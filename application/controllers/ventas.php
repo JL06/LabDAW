@@ -42,6 +42,7 @@ class Ventas extends MY_Controller{
 		//valid es true si la forma pasó la validación y un arreglo de mensajes de error si no pasó
 		$valid=$this->validate_form($rules,$form_values,'ventas');
 
+
 		if ( $valid != 1){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
@@ -50,6 +51,15 @@ class Ventas extends MY_Controller{
 		
 		$form_values['importe']=$this->ventas_model->leer("productos",array("id"=>$form_values['idProducto']))[0]['precio'];
 		$form_values['idVendedor']=$this->session->userdata('id');
+
+		$idProducto = $form_values['idProducto'];
+		$cantidad = $this->ventas_model->leer("productos",array("id"=>$idProducto))[0]['cantidadProducto'];
+		if ($cantidad < $form_values['cantidad']){
+			$this->session->set_flashdata('mensaje',"No hay suficientes productos para la venta");
+			$this->session->set_flashdata('class','alert alert-danger');
+			redirect('ventas/registrar');
+		}
+
 		if( $this->ventas_model->crear('ventas',$form_values)){
 			if ($this->session->userdata('rol') == 1)
 				$this->ventas_model->actualizar('productos',array('id'=>$form_values['idProducto']),'cantidadProducto = cantidadProducto-1');
@@ -92,7 +102,8 @@ class Ventas extends MY_Controller{
 		$this->load->view('templates/template',$data);
 	}
 
-	public function actualizar($venta_id){
+	public function actualizar($venta_id)
+	{
 		$form_values=$this->input->post();
 		$rules=array(
 			array(
@@ -110,17 +121,26 @@ class Ventas extends MY_Controller{
 		//valid es true si la forma pasó la validación y un arreglo de mensajes de error si no pasó
 		$valid=$this->validate_form($rules,$form_values,'ventas');
 
-		if ( $valid != 1){
+		if ( $valid != 1)
+		{
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('ventas/actualizar_venta/'.$id);
 		}
 
-		if($this->ventas_model->actualizar('ventas', array('id' => $venta_id), $form_values)){
+		if($this->ventas_model->actualizar('ventas', array('id' => $venta_id), $form_values))
+		{
 			$this->session->set_flashdata('class','alert alert-success');
 			$this->session->set_flashdata('mensaje','La venta se actualizó exitosamente');
 
 			redirect('ventas/listar');
+		}
+	}
+	function get_cantidad()
+	{
+		$idProd=$this->input->post("selProd");
+		if ($idProd !=NULL) {
+			echo $this->ventas_model->leer("productos",array("id"=>$idProd))[0]["cantidadProducto"];
 		}
 	}
 }

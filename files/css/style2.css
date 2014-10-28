@@ -3,4 +3,6 @@
 	opacity: 1;
 }
 .inline{display: inline-block;float: right}
-.material-name{cursor:default !important;}
+.form-control[readonly]{cursor:default !important;}
+td .hidden-phone a{margin-right: 10px}
+a[text=Cancelar]{margin-left: 15px}
