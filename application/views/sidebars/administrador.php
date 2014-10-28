@@ -14,6 +14,7 @@
                 <li><a  href="<?php echo base_url('productos/registrar')?>">Agregar</a></li>
                 <li><a  href="<?php echo base_url('productos/listar')?>">Ver</a></li>
                 <li><a  href="#">Agendar</a></li>
+                <li><a  href="<?php echo base_url('productos/asignaciones')?>">Asignaciones</a></li>
               </ul>
             </li>
             <li class="sub-menu">

@@ -1,5 +1,4 @@
 <?php
-
 class Productos extends MY_Controller
 {		
 	public function __construct() 
@@ -8,6 +7,11 @@ class Productos extends MY_Controller
 		$this->load->model('productos_model');
 		$this->load->model('materiales_model');
 		$this->load->library('form_validation');
+		$this->load->model('usuario_model');
+	}
+	public function index()
+	{
+		$this->listar();
 	}
 
 	public function listar() 
@@ -231,13 +235,15 @@ class Productos extends MY_Controller
 	public function costo()
 	{
 		$materiales = $this->input->post("materiales");
-		if ($materiales == NULL) {
+		if ($materiales == NULL) 
+		{
 			echo 0;
 			return;
 		}
 		$mats = explode(",", $materiales);
 		$costo_total = 0;
-		foreach ($mats as $mat) {
+		foreach ($mats as $mat) 
+		{
 			list($idmat, $cantidad) = explode(":", $mat);
 			$ultimo = $this->materiales_model->ultimo_comprado($idmat);
 			$costo = $ultimo["cantidad"]/$ultimo["costo"];
@@ -246,4 +252,209 @@ class Productos extends MY_Controller
 		}
 		echo round($costo_total, 2);
 	}
+
+	public function asignaciones()
+	{
+		$data['asignaciones'] = $this->productos_model->asignaciones();
+		$data['main_content']="asignaciones";
+		$data['title']="Asignaciones de productos a vendedores";
+		$this->load->view('templates/template',$data);
+	}
+
+	public function asignar()
+	{
+		$data['productos']=$this->productos_model->get_productos(array('activo'=>1));
+		$data['usuarios']=$this->usuario_model->listar(array("activo"=>1));
+		$data['main_content']="asignar_producto";
+		$data['title']="Asignar productos a vendedor";
+		$data['link'] = "guardar_asignacion";
+		$this->load->view('templates/template',$data);
+	}
+
+	public function guardar_asignacion()
+	{
+		$cantidad = $this->input->post("cantidad");
+		if ($cantidad < 1) 
+		{
+			$this->session->set_flashdata('mensaje', 'Error: La cantidad debe ser mayor a 0');
+			redirect("productos/asignar");
+			return;
+		}
+		$data["idVendedor"] = $this->input->post("vendedor");
+		$data["idProducto"] = $this->input->post("producto");
+		$data["idAdmin"] = $this->session->userdata('id');
+		$data['cantidad'] = $cantidad;
+
+		//Verifica si existe una asignacion previa, si es asi manda a modificarla
+		$asignacion = $this->productos_model->asignacion($data["idProducto"], $data["idVendedor"]);
+		if ($asignacion != NULL)
+		{
+			$this->session->set_flashdata('mensaje', 'La asignacion ya existe, puede modificarla');
+			$this->session->set_flashdata('class', 'alert alert-warning');
+			redirect("productos/asignaciones");
+			return;
+		}
+
+		//Verifica que exista la cantidad a asignar
+		$producto_actual = $this->productos_model->producto($data['idProducto']);
+		if ($producto_actual == NULL)
+		{
+			echo "error";
+			die();
+		}
+		$cantidad_producto = $producto_actual['cantidadProducto'];
+
+		if ($cantidad > $cantidad_producto)
+		{
+			$this->session->set_flashdata('mensaje', 'Error: La cantidad asignada es mayor a la existente');
+			redirect("productos/asignar");
+			return;
+		}
+
+		if($this->productos_model->crea_asignacion($data, $cantidad, $cantidad_producto))
+		{
+			$this->session->set_flashdata('mensaje', 'La asignacion fue realizada exitosamente');
+			$this->session->set_flashdata('class', 'alert alert-success');
+			redirect("productos/asignaciones");
+		}
+		else
+		{
+			$this->session->set_flashdata('mensaje', 'Error: No se pudo realizar operacion');
+			redirect("productos/asignar");
+		}
+	}
+
+	public function agrega_asignacion($idprod = NULL, $idv = NULL) 
+	{
+		if ($idprod == NULL || $idv == NULL)
+		{
+			redirect("productos/asignaciones");
+		}
+		$asignacion = $this->productos_model->asignacion($idprod, $idv);
+		if ($asignacion == NULL)
+		{
+			echo "Error";
+			die();
+		}
+		else
+		{
+			$data['asignacion'] = $asignacion;
+			$data['cantidad'] = $asignacion['cantidad'];
+			$data['main_content']="agrega_asignacion";
+			$data['title']="Agrega asignacion";
+			$this->load->view('templates/template',$data);
+		}
+	}
+
+	public function suma_asignacion()
+	{
+		$idproducto = $this->input->post("producto");
+		$idvendedor = $this->input->post("vendedor");
+		$cantidad = $this->input->post("cantidad");
+
+		//Verifica que exista la cantidad a asignar
+		$producto_actual = $this->productos_model->producto($idproducto);
+		if ($producto_actual == NULL)
+		{
+			echo "error";
+			die();
+		}
+		$cantidad_producto = $producto_actual['cantidadProducto'];
+
+		if ($cantidad > $cantidad_producto)
+		{
+			$this->session->set_flashdata('mensaje', 'Error: La cantidad asignada es mayor a la existente');
+			redirect("productos/agrega_asignacion/".$idproducto."/".$idvendedor);
+		}
+
+		if ($this->productos_model->suma_asignacion($idproducto, $idvendedor, $cantidad, $cantidad_producto)) {
+			$this->session->set_flashdata('mensaje', 'Actualizacion exitosa');
+			$this->session->set_flashdata('class', 'alert alert-success');
+			redirect("productos/asignaciones");
+		}
+		else
+		{
+			$this->session->set_flashdata('mensaje', 'Error al actualizar');
+			$this->session->set_flashdata('class', 'alert alert-danger');
+			redirect("productos/agrega_asignacion/".$idproducto."/".$idvendedor);
+		}
+	}
+
+	public function quita_asignacion($idprod = NULL, $idv = NULL)
+	{
+		if ($idprod == NULL || $idv == NULL)
+		{
+			redirect("productos/asignaciones");
+		}
+		$asignacion = $this->productos_model->asignacion($idprod, $idv);
+		if ($asignacion == NULL)
+		{
+			echo "Error";
+			die();
+		}
+		else
+		{
+			$data['asignacion'] = $asignacion;
+			$data['cantidad'] = $asignacion['cantidad'];
+			$data['main_content']="quita_asignacion";
+			$data['title']="Agrega asignacion";
+			$this->load->view('templates/template',$data);
+		}
+	}
+
+	public function resta_asignacion()
+	{
+		$idproducto = $this->input->post("producto");
+		$idvendedor = $this->input->post("vendedor");
+		$cantidad = $this->input->post("cantidad");
+
+		//verifica que se le pueda restar la cantidad
+		$asignacion = $this->productos_model->asignacion($idproducto, $idvendedor);
+		if ($asignacion == NULL)
+		{
+			echo "error";
+			die();
+		}
+
+		$cantidad_asignada = $asignacion['cantidad'];
+		if ($cantidad > $cantidad_asignada)
+		{
+			$this->session->set_flashdata('mensaje', 'Error: No se le puede quitar mas de lo asignado');
+			redirect("productos/quita_asignacion/".$idproducto."/".$idvendedor);
+		}
+
+		if($this->productos_model->resta_asignacion($idproducto, $idvendedor, $cantidad, $cantidad_asignada))
+		{
+			$this->session->set_flashdata('mensaje', 'Actualizacion exitosa');
+			$this->session->set_flashdata('class', 'alert alert-success');
+			redirect("productos/asignaciones");
+		}
+		else
+		{
+			$this->session->set_flashdata('mensaje', 'Error al actualizar');
+			$this->session->set_flashdata('class', 'alert alert-danger');
+			redirect("productos/quita_asignacion/".$idproducto."/".$idvendedor);
+		}
+	}
+
+	public function borrar_asignacion($idprod = NULL, $idv = NULL)
+	{
+		if ($idprod == NULL || $idv == NULL)
+		{
+			redirect("productos/asignaciones");
+		}
+		$data = array('idProducto' => $idprod, 'idVendedor' => $idv);
+		if ($this->db->delete('asignacion', $data))
+		{
+			$this->session->set_flashdata('mensaje', 'Asignacion borrada');
+			redirect("productos/asignaciones");
+		}
+		else
+		{
+			$this->session->set_flashdata('mensaje', 'Error al borrar');
+			redirect("productos/asignaciones");
+		}
+	}
 }
+//EOF
+//controllers/productos.php

@@ -70,7 +70,7 @@
                 <div class="col-md-2">
                   <input id="costo" type="number" class="form-control" disabled>
                 </div>
-                <label class="control-label col-md-1">Ganancia</label>
+                <label class="control-label col-md-2">Porcentaje de ganancia</label>
                 <div class="col-md-2 input-group">
                   <input id="ganancia" type="number" class="form-control" value="175" min="0">
                   <span class="input-group-addon">%</span>
