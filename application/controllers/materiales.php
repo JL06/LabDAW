@@ -187,7 +187,7 @@ class Materiales extends MY_Controller {
 		
 		if ($this->materiales_model->actualizar('material', array("id"=>$id),$data)) 
 		{
-			$this->session->set_flashdata('mensaje','El material se agregó exitosamente');
+			$this->session->set_flashdata('mensaje','El material se actualizó exitosamente');
 			$this->session->set_flashdata('class','alert alert-success');
 			redirect("materiales");
 		}

@@ -64,6 +64,15 @@ class Materiales_model extends Generic_model {
 		return $this->query_to_array($query);
 
 	}
-}
-/* End of file materiales_model.php */
-/* Location: models/materiales_model.php */
+	function ultimo_comprado ($id)
+		{
+			$this->db->select("*");
+			$this->db->from('compras');
+			$this->db->where(array('idMaterial'=>$id));
+			$this->db->order_by("fecha", "desc"); 
+			$query = $this->db->get();
+			return $query->first_row('array');
+		}
+	}
+	/* End of file materiales_model.php */
+	/* Location: models/materiales_model.php */

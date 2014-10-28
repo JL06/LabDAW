@@ -98,7 +98,10 @@
 
 		});
 		var material=$("select[name=idMaterial]").val();
+		$("select[name=idMaterial]").click(function(){
+			$(this).attr("class", "form-control");
 
+		});
 		$("select[name=idMaterial]").change(function(){
 			material=$("select[name=idMaterial]").val();
 			<?php if($link =="guardar"): ?>
@@ -119,9 +122,9 @@
 
 			if($("#input-name").css("display") == "none"){
 				$("#input-show").text("-Elegir tipo existente");
-				$("select[name=idMaterial]").prop("disabled", true);
 
 				$("select[name=idMaterial]").prop("required", false);
+				$("select[name=idMaterial]").attr("class", "form-control disabled");
 				$("input[name=nombre]").prop("required", true);
 				$("input[name=unidad]").prop("required", true);
 				$("#unit").html("");
@@ -147,10 +150,11 @@
 				$("#input-show").text("+Agregar nuevo tipo");
 
 				$("select[name=idMaterial]").prop("required", true);
+				$("select[name=idMaterial]").attr("class", "form-control");
+
 				$("#unidad-input").prop("required", false);
 				$("input[name=nombre]").prop("required", false);
 
-				$("select[name=idMaterial]").prop("disabled", false);
 
 				$("#input-name").slideUp("fast",function(){
 					$("input[name=nombre]").val("");

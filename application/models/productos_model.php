@@ -42,5 +42,10 @@ class Productos_model extends Generic_model
 			return true;					
 		}
 	}
+
+	public function contiene_materiales ($producto) {
+		$materiales = $this->db->get_where('productomaterial', array('idProducto' => $producto));
+		return $this->query_to_array($materiales);
+	}
 }	
 ?>
