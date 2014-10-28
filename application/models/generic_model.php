@@ -8,9 +8,9 @@ class Generic_model extends CI_Model {
 	}
 
 	function leer($entity, $param=""){
-		if ($param != "")
+		if ($param !== "")
 			$this->db->where($param);
-		$query = $this->db->get_where($entity);
+		$query = $this->db->get($entity);
 		return $this->query_to_array($query);
 	}
 
@@ -30,9 +30,9 @@ class Generic_model extends CI_Model {
 		$this->db->where_in($column, $element);
 		$repetitions=$this->query_to_array($this->db->get($entity));
 		if (count($repetitions) > 0) {
-			return true;
+			return TRUE;
 		}
-		return false;
+		return FALSE;
 	}
 	function contar($entity, $param){
 		$this->db->from($entity);

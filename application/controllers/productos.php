@@ -2,6 +2,7 @@
 
 class Productos extends MY_Controller
 {		
+
 	public function __construct() 
 	{
 		parent::__construct();
@@ -115,8 +116,45 @@ class Productos extends MY_Controller
 
 	public function agendar()
 	{
-		$data = array('main_content' => 'schedule' , 'title'=>'Agendar producción' );
+		$productos=$this->productos_model->leer('productos');
+		$data = array(
+			'main_content' => 'schedule' ,
+			'title'=>'Agendar producción', 
+			'productos' => $productos);
 		$this->load->view('templates/template',$data);
+	}
+
+	public function calcular_agenda(){
+		$prod_id=$this->input->post('idProducto');
+		$cantidad=$this->input->post('cantidad');
+
+		$producto=$this->productos_model->leer('productos',array('id'=>$prod_id));
+		$tiempo=$producto[0]['tiempo']*$cantidad;
+		$prod_nombre=$producto[0]['nombre'];
+
+		$materiales=$this->materiales_model->get_materiales_producto($prod_id);
+
+		$compra="Necesitas comprar: <br>
+			<ul>";
+		$flag_compra=0;
+
+		$msg="Para crear ".$cantidad." ".$prod_nombre." necesitas: <br>
+			<ul>
+				<li>".$tiempo." horas</li>";
+		foreach($materiales as $m){
+			$c=$m['cantidad']*$cantidad;
+			$msg.="<li>".$c." ".$m['unidad']." de ".$m['nombre']." ".$m['color']."</li>";
+			if($c>$m['cantidadMaterial']){
+				$c_c=$c-$m['cantidadMaterial'];
+				$compra.="<li>".$c_c." ".$m['unidad']." de ".$m['nombre']." ".$m['color']."</li>";
+				$flag_compra=1;
+			}
+		}
+		$compra.="</ul>";
+		$msg.="</ul><br>";
+		if($flag_compra===1)
+			$msg.=$compra;
+		echo $msg;
 	}
 
 	public function actualizar_producto($prod_id)
@@ -133,6 +171,7 @@ class Productos extends MY_Controller
 
 	public function actualizar($id)
 	{
+		$error="";
 		$form_values=$this->input->post();
 		$mat=$form_values['materiales'];
 		unset($form_values['materiales']);
@@ -161,21 +200,26 @@ class Productos extends MY_Controller
 				'label' =>'Precio'
 				)
 			);
-
 		//valid es true si la forma pasó la validación y un arreglo de mensajes de error si no pasó
 		$valid=$this->validate_form($rules,$form_values,'productos');
-
-		if ( $valid !== 1)
+		$existe = $this->productos_model->repite('productos','nombre',$form_values['nombre']);
+		if ($existe)
 		{
-			$this->session->set_flashdata('mensaje',$valid);
+			$original=$this->productos_model->leer('productos',array('id'=>$id));
+			if ( $original[0]['nombre'] !== $form_values['nombre']){
+				$error = "El nombre de producto no está disponible\n";
+			}
+		}
+		
+		if ( $valid !== 1 OR $error !== "")
+		{
+			$this->session->set_flashdata('mensaje',$error.$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('productos/actualizar_producto/'.$id);
 		}
 
 		if($this->productos_model->actualizar('productos',array('id' => $id),$form_values))
-		{
-
-			
+		{			
 			if ($mat != "")
 			{
 				$mat=explode(',',$mat);
@@ -227,4 +271,28 @@ class Productos extends MY_Controller
 		$this->load->view("templates/template",$data);		
 
 	}
+	
+	public function costo()
+	{
+		$materiales = $this->input->post("materiales");
+		if ($materiales == NULL) {
+			echo 0;
+			return;
+		}
+		$mats = explode(",", $materiales);
+		$costo_total = 0;
+		foreach ($mats as $mat) {
+			list($idmat, $cantidad) = explode(":", $mat);
+			$ultimo = $this->materiales_model->ultimo_comprado($idmat);
+			$costo = $ultimo["cantidad"]/$ultimo["costo"];
+			$costo_producto = $costo * floatval($cantidad);
+			$costo_total += $costo_producto;
+		}
+		echo round($costo_total, 2);
+	}
 }
+
+/* End of file productos.php */
+/* Location: controllers/productos.php */
+
+

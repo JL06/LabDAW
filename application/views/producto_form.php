@@ -5,13 +5,8 @@
       <div class="col-lg-12">
 
         <div class="form-panel">
-          <?php if($this->session->flashdata('mensaje') != ""): ?>
-            <div class="col-lg-12">
-              <div class="<?php echo $this->session->flashdata('class');?>">
-                <?php echo $this->session->flashdata('mensaje');?>
-              </div>
-            </div>
-          <?php endif;?>
+          <?php $this->load->view("notifications/mensaje"); ?>
+
           <?php if ( ! isset($producto)): ?>
             <form id="form-producto" class="form-horizontal style-form" name="producto" method="post" action=<?php echo site_url("/productos/insertar_producto") ?>> 
             <?php else:?>
@@ -54,7 +49,7 @@
                       + Editar materiales
                     <?php endif;?>
                   </a>
-                  <input type="hidden" name="materiales" id="materiales">
+                  <input type="hidden" name="materiales" id="materiales" value="">
                 </div>
               </div>
 
@@ -63,12 +58,25 @@
                 <div class="col-md-2">
                   <input type="number" name="precio" class="form-control" min="0">
                 </div>
+                <button id="calcula" type="button" class="btn btn-round btn-info col-md-1">Sugerir</button>
               </div>
+              <div id="calculo" class="form-group" style="display:none">
+                <label class="control-label col-md-1 col-md-offset-2">Costo</label>
+                <div class="col-md-2">
+                  <input id="costo" type="number" class="form-control" disabled>
+                </div>
+                <label class="control-label col-md-1">Ganancia</label>
+                <div class="col-md-2 input-group">
+                  <input id="ganancia" type="number" class="form-control" value="175" min="0">
+                  <span class="input-group-addon">%</span>
+                </div>
+              </div>
+              <?php $url = site_url("productos/costo"); ?>
 
               <div class="form-group">
                 <label class="control-label col-md-2" for="cantidadProducto">Cantidad</label>
                 <div class="col-md-2">
-                  <input type="number" name="cantidadProducto" class="form-control" min="0" >
+                  <input type="number" name="cantidadProducto" class="form-control" min="0">
                 </div>
               </div>
 
@@ -82,7 +90,7 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-2" for="tiempo"></label>
+                <label class="control-label col-md-2" ></label>
 
                 <button type="submit" class="btn btn-round btn-primary">Guardar</button>
                 <?php if(isset($producto)): ?>
@@ -114,7 +122,50 @@
           $("input[type=checkbox]").filter(function(){return this.value==value.id}).prop("checked",true);
           $("input[type=number]").filter(function(){return this.id==value.id}).val(value.cantidad);
           $("input[type=number]").filter(function(){return this.id==value.id}).attr("disabled",false);
-        });
+        });//1.65+4.37
       });
     </script>
   <?php endif ?>
+
+  <script type="text/javascript">
+  $(document).ready(function () {
+  //Calcula precio sugerido
+    var costo = 0;
+    $( "#calcula" ).click(function () {
+      $("#calculo").show();
+      var materiales = $("#materiales").val();
+      var url = <?php echo json_encode($url); ?>;
+      $.post(url, {materiales: materiales}).done(function (resultado) {
+        $("#costo").val(resultado);
+        costo = resultado;
+        $("#ganancia").trigger("keyup");
+      });
+    });
+
+    $("#ganancia").keyup(function () {
+      var gan = $(this).val();
+      var precio = costo * (gan/100);
+      precio = precio.toFixed(2);
+      $("input[name='precio']").val(precio);
+    });
+
+    $("input[name='precio']").keyup(function () {
+      var precio = $("input[name='precio']").val();
+      var gan = (precio/costo) * 100;
+      gan = gan.toFixed(2);
+      $("#ganancia").val(gan);
+    });
+
+    $("input[name='precio']").keypress(function(event) {
+      if ( event.which == 45 || event.which == 189 ) {
+        event.preventDefault();
+      }
+    });
+
+    $("#ganancia").keypress(function(event) {
+      if ( event.which == 45 || event.which == 189 ) {
+        event.preventDefault();
+      }
+    });
+  });
+  </script>

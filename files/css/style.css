@@ -1634,7 +1634,6 @@ PANELS CONFIGURATIONS
 .inline-block {
     display: inline-block;
 }
-
 /* showcase background */
 .showback {
 	background: #ffffff;
@@ -2239,4 +2238,3 @@ label {
 .site-min-height {
     min-height: 900px;
 }
-.inline{display: inline-block;float: right}

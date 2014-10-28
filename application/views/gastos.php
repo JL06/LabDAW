@@ -3,7 +3,7 @@
 	<section class="wrapper site-min-height">
 		<h3><i class="fa fa-angle-right"></i> <?php echo $title?>
 			<span class="inline">
-				<a href="<?php echo base_url('materiales/agregar')?>" class="btn btn-success">
+				<a href="<?php echo base_url('gastos/agregar')?>" class="btn btn-success">
 					<span class="glyphicon glyphicon-plus-sign"></span>
 					Agregar
 				</a>
@@ -14,28 +14,26 @@
 				<div class="content-panel">
 					<section id="unseen">
 						<?php $this->load->view('notifications/mensaje')?>
-						<table class="table table-bordered table-sthiped table-condensed display" id="table-ventas">
+						<table class="table table-bordered table-sthiped table-condensed display" id="table-gastos">
 							<thead>
 								<tr>
-									<th>Material</th>
-									<th>Color</th>
-									<th>Cantidad</th>
-									<th>Unidad</th>
+									<th>Tipo</th>
+									<th>Costo</th>
+									<th>Fecha</th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								<?php if($materiales != NULL): ?>
-									<?php foreach($materiales as $m): ?>
+								<?php if($gastos != NULL): ?>
+									<?php foreach($gastos as $m): ?>
 										<tr>
 											<td><?php echo $m['nombre'] ?></td>
-											<td> <?php echo $m['color']?></td>
-											<td><?php echo $m['cantidadMaterial']?></td>
-											<td><?php echo $m['unidad']?></td>
+											<td class="numeric">$<?php echo $m['costo']?></td>
+											<td><?php echo $m['fecha']?></td>
 											<td>
 												<div class="pull-right hidden-phone">
-													<a class="btn btn-theme03" href="<?php echo base_url('materiales/actualizar/'.$m['id'])?>"><i class="fa fa-pencil"></i></a>
-													<a class="btn btn-theme04" id="borrar" href="<?php echo base_url('materiales/borrar/'.$m['id'])?>"><i class="fa fa-trash-o "></i></a>
+													<a class="btn btn-theme03" href="<?php echo base_url('gastos/actualizar/'.$m['id'])?>"><i class="fa fa-pencil"></i></a>
+													<a class="btn btn-theme04" id="borrar" href="<?php echo base_url('gastos/borrar/'.$m['id'])?>"><i class="fa fa-trash-o "></i></a>
 												</div>
 											</td>
 
@@ -53,12 +51,12 @@
 </section>
 <script type="text/javascript">
 	$(document).ready( function () {
-		$("#table-ventas").DataTable();
+		$("#table-gastos").DataTable();
 
 		$("a#borrar").click(function(e){
 			e.preventDefault();
 			var url=$(this).attr("href");
-			if (confirm("¿Deseas borrar el material?")) {
+			if (confirm("¿Deseas borrar el gasto?")) {
 				window.location.replace(url);
 			};
 
