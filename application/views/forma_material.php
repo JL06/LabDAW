@@ -51,7 +51,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">Cantidad</label>
 							<div class="col-md-2">
-								<input value="<?php if (isset($cantidad)) echo $cantidad; ?>" type="text" name="cantidad" class="form-control" min="0" maxlength="20">
+								<input value="<?php if (isset($cantidad)) echo $cantidad; ?>" type="number" name="cantidad" class="form-control" min="0" maxlength="20">
 							</div>
 							<span id="unit"></span>
 						</div>
@@ -112,7 +112,7 @@
 			});
 		<?php endif;?>
 
-	});
+		});
 		$("select[name=idMaterial]").change();
 
 		$("#input-show").click(function(){

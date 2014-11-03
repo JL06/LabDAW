@@ -36,9 +36,41 @@ class Productos extends MY_Controller
 	public function insertar_producto() 
 	{
 		$form_values=$this->input->post();
+
 		//separo los materiales del resto de los valores de la forma
 		$mat=$form_values['materiales'];
 		unset($form_values['materiales']);
+
+		$nombre_tipo=$form_values['nombre-tipo'];
+		unset($form_values['nombre-tipo']);
+
+		if($nombre_tipo!==""){
+			$data['nombre']=$nombre_tipo;
+			$rules=array(
+				array('field' => 'nombre', 
+					'rules' => 'unique',
+					'label' =>'Nombre'
+					),
+				array('field' => 'nombre', 
+					'rules' => 'required|min_length[2]|max_length[50]',
+					'label' =>'Nombre'
+					)
+				);
+			$valid=$this->validate_form($rules, $data, 'tipoproducto');
+			if ($valid !== 1){
+				$this->session->set_flashdata('mensaje',$valid);
+				$this->session->set_flashdata('class','alert alert-danger');
+				redirect('productos/registrar');
+			}
+
+			if($this->productos_model->crear('tipoproducto', $data)){
+				$form_values['idTipo']=$this->productos_model->leer('tipoproducto', array("nombre"=>$nombre_tipo))[0]['id'];
+			}
+			else{
+				//inform error graciously
+			}
+
+		}
 		
 		//reglas de validación
 		$rules=array(
@@ -180,6 +212,37 @@ class Productos extends MY_Controller
 		$mat=$form_values['materiales'];
 		unset($form_values['materiales']);
 
+		$nombre_tipo=$form_values['nombre-tipo'];
+		unset($form_values['nombre-tipo']);
+
+		if($nombre_tipo!==""){
+			$data['nombre']=$nombre_tipo;
+			$rules=array(
+				array('field' => 'nombre', 
+					'rules' => 'unique',
+					'label' =>'Nombre'
+					),
+				array('field' => 'nombre', 
+					'rules' => 'required|min_length[2]|max_length[50]',
+					'label' =>'Nombre'
+					)
+				);
+			$valid=$this->validate_form($rules, $data, 'tipoproducto');
+			if ($valid !== 1){
+				$this->session->set_flashdata('mensaje',$valid);
+				$this->session->set_flashdata('class','alert alert-danger');
+				redirect('productos/registrar');
+			}
+
+			if($this->productos_model->crear('tipoproducto', $data)){
+				$form_values['idTipo']=$this->productos_model->leer('tipoproducto', array("nombre"=>$nombre_tipo))[0]['id'];
+			}
+			else{
+				//inform error graciously
+			}
+
+		}
+
 		//reglas de validación
 		$rules=array(
 			
@@ -290,7 +353,7 @@ class Productos extends MY_Controller
 		{
 			list($idmat, $cantidad) = explode(":", $mat);
 			$ultimo = $this->materiales_model->ultimo_comprado($idmat);
-			$costo = $ultimo["cantidad"]/$ultimo["costo"];
+			$costo = $ultimo["costo"]/$ultimo["cantidad"];
 			$costo_producto = $costo * floatval($cantidad);
 			$costo_total += $costo_producto;
 		}

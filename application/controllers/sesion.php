@@ -70,11 +70,6 @@ class Sesion extends CI_Controller {
 
 	}
 
-	function error() {
-		$datos['error'] = true;
-		$this->load->view('inicio_sesion', $datos);
-	}
-
 	function cerrar() {
 		$this->session->sess_destroy();
 		$red = "Location: " . site_url("/sesion");

@@ -13,7 +13,7 @@
             </div>
 
             <form name="venta" class="form-horizontal style-form" methos="post">
-              <a href="#"data-toggle="modal" data-target="#basicModal" id="modal-link"></a>
+              <a href="#"data-toggle="modal" data-target="#scheduleModal" id="modal-link"></a>
                <div class="form-group">
                  <label class="control-label col-md-2">Producto</label>
                  <div class="col-md-5">

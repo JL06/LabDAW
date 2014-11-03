@@ -5,7 +5,7 @@ class Usuarios extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('usuario_model');
-		$this->load->model('generic_model');
+		//$this->load->model('generic_model');
 		$this->load->library('form_validation');
 	}
 
@@ -20,7 +20,7 @@ class Usuarios extends MY_Controller {
 
 	function agregar () 
 	{
-		$res = $this->generic_model->listar("rol");
+		$res = $this->usuario_model->listar("rol");
 
 		$data['title'] = "Nuevo Usuario";
 		$data['main_content'] = "forma_usuario";
@@ -65,7 +65,7 @@ class Usuarios extends MY_Controller {
 	{
 		if ($id != NULL) 
 		{
-			$roles = $this->generic_model->listar("rol");
+			$roles = $this->usuario_model->listar("rol");
 			$data = $this->usuario_model->usuario(array("usuario.id"=> $id));
 			$data['main_content'] = 'forma_usuario';
 			$data['title'] = 'Actualizar Usuario';

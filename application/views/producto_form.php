@@ -29,6 +29,19 @@
                       <?php endforeach ?>
                     <?php endif ?>
                   </select>
+                  <span class="help-block">
+                    <a href="#" id="input-show">+Agregar nuevo tipo</a>
+                  </span>
+                </div>
+              </div>
+
+              <div id="input-name" style="display:none">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label"> </label>
+                  <label class="col-sm-1 control-label">Nombre</label>
+                  <div class="col-md-4">
+                    <input type="text" name="nombre-tipo" class="form-control" maxlength="20">
+                  </div>
                 </div>
               </div>
 
@@ -56,7 +69,7 @@
               <div class="form-group">
                 <label class="control-label col-md-2" for="precio">Precio</label>
                 <div class="col-md-2">
-                  <input type="number" name="precio" class="form-control" min="0">
+                  <input type="number" name="precio" class="form-control" min="0" step="any">
                 </div>
                 <button id="calcula" type="button" class="btn btn-round btn-info col-md-1">Sugerir</button>
               </div>
@@ -167,5 +180,22 @@
         event.preventDefault();
       }
     });
+
+    $("#input-show").click(function(){
+      if($("#input-name").css("display") == "none"){
+        $("#input-show").text("-Elegir tipo existente");
+        $("select[name=idTipo]").prop("disabled", true);
+        $("input[name=nombre-tipo]").prop("required", true);
+        $("#input-name").slideDown("fast");
+      }else{
+        $("#input-show").text("+Agregar nuevo tipo");
+        $("select[name=idTipo]").prop("disabled", false);
+        $("input[name=nombre-tipo]").prop("required", false);
+        $("#input-name").slideUp("fast", function(){
+          $("input[name=nombre-tipo]").val("");
+        });
+      }
+    });
+
   });
   </script>

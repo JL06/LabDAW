@@ -49,11 +49,11 @@ class Ventas extends MY_Controller{
 			redirect('ventas/registrar');
 		}
 		
-		$form_values['importe']=$this->ventas_model->leer("productos",array("id"=>$form_values['idProducto']))[0]['precio'];
+		$form_values['importe']=$this->ventas_model->leer("productos",array("id"=>$form_values['id_producto']))[0]['precio'];
 		$form_values['idVendedor']=$this->session->userdata('id');
 
-		$idProducto = $form_values['idProducto'];
-		$cantidad = $this->ventas_model->leer("productos",array("id"=>$idProducto))[0]['cantidadProducto'];
+		$id_producto = $form_values['id_producto'];
+		$cantidad = $this->ventas_model->leer("productos",array("id"=>$id_producto))[0]['cantidadProducto'];
 		if ($cantidad < $form_values['cantidad']){
 			$this->session->set_flashdata('mensaje',"No hay suficientes productos para la venta");
 			$this->session->set_flashdata('class','alert alert-danger');
@@ -62,9 +62,9 @@ class Ventas extends MY_Controller{
 
 		if( $this->ventas_model->crear('ventas',$form_values)){
 			if ($this->session->userdata('rol') == 1)
-				$this->ventas_model->actualizar('productos',array('id'=>$form_values['idProducto']),'cantidadProducto = cantidadProducto-1');
+				$this->ventas_model->actualizar('productos',array('id'=>$form_values['id_producto']),'cantidadProducto = cantidadProducto-1');
 			else
-				$this->ventas_model->actualizar('asignacion',array('idProducto'=>$form_values['idProducto']),'cantidad = cantidad-1');
+				$this->ventas_model->actualizar('asignacion',array('id_producto'=>$form_values['id_producto']),'cantidad = cantidad-1');
 
 			$this->session->set_flashdata('mensaje', 'La venta se registró exitosamente');
 			$this->session->set_flashdata('class','alert alert-success');
@@ -136,11 +136,12 @@ class Ventas extends MY_Controller{
 			redirect('ventas/listar');
 		}
 	}
+	
 	function get_cantidad()
 	{
-		$idProd=$this->input->post("selProd");
-		if ($idProd !=NULL) {
-			echo $this->ventas_model->leer("productos",array("id"=>$idProd))[0]["cantidadProducto"];
+		$id_prod=$this->input->post("selProd");
+		if ($id_prod !=NULL) {
+			echo $this->ventas_model->leer("productos",array("id"=>$id_prod))[0]["cantidadProducto"];
 		}
 	}
 }

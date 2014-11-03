@@ -38,11 +38,16 @@
              
            </li>
 
-           <li class="sub-menu">
+          <li class="sub-menu">
             <a href="<?php echo base_url('materiales')?>" >
               <span>Materiales</span>
             </a>
-            
+          </li>
+
+          <li class="sub-menu">
+            <a href="<?php echo base_url('productos/agendar')?>" >
+              <span>Agendar</span>
+            </a>
           </li>
 
           <li class="sub-menu">
@@ -51,7 +56,7 @@
             </a>
             <ul class="sub">
               <li><a  href="#">Compras</a></li>
-              <li><a  href="#">Otros</a></li>
+              <li><a  href="<?php echo base_url('gastos')?>">Otros</a></li>
             </ul>
           </li>
 

@@ -24,10 +24,4 @@ class Inicio extends MY_Controller {
 			);
 		$this->load->view('templates/template',$data);
 	}
-
-	function admin1()
-	{
-		$this->load->view('admin1');
-	}
-
 }
