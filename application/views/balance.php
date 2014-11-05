@@ -1,4 +1,8 @@
+
 <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
+
 <section id="main-content">
   <section class="wrapper site-min-height">
     <h3><i class="fa fa-angle-right"></i>Balance</h3>
@@ -22,7 +26,7 @@
                         <input type="text" class="datepicker form-control dpd2 default-date-picker" name="to" value="<?php echo $fecha2?>">
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-default">Cambiar</button>
+                    <button type="submit" class="btn btn-info btn-round">Cambiar</button>
                   </div>
 
                 </form>
@@ -67,6 +71,7 @@
                     <h4 class="text-center">Ventas</h4>
                     <div id="grafica-ventas"></div>                    
                   </div>
+
                   <div class="col-lg-6">
                     <h4 class="text-center">Gastos</h4>
                     <div id="grafica-gastos"></div>                    
@@ -87,9 +92,7 @@
 echo '<script src="'. base_url("files/js/jquery.js") . '"></script>' ;
 echo '<script src="'. base_url("files/js/jquery-1.8.3.min.js") . '"></script>' ;
 ?>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
-<?php 
+
 echo '<script src="'. base_url("files/js/morris-conf.js") . '"></script>' ;
 ?>
 <script type="text/javascript">
@@ -109,8 +112,6 @@ echo '<script src="'. base_url("files/js/morris-conf.js") . '"></script>' ;
   // chart.
   labels: ['total'],
 
-  //resizable
-  resize:true
 });
  new Morris.Line({
   // ID of the element in which to draw the chart.

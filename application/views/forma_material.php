@@ -13,7 +13,9 @@
 							<div class="col-md-5">
 								<select name="idMaterial" class="form-control" required>
 									<?php foreach($materiales as $m):?>
-										<option value="<?php echo $m['id']?>"><?php echo $m['nombre'] ?></option>
+										<option value="<?php echo $m['id']?>"><?php echo $m['nombre'] ?> 
+											<?php echo set_select('idMaterial', $m['id']);?>
+										</option>
 									<?php endforeach;?>
 								</select>
 								<span class="help-block">
@@ -37,7 +39,10 @@
 									<?php if ($unidades !=NULL): ?>
 										<select id="unidad-select" class="form-control">
 											<?php foreach($unidades as $u):?>
-												<option value="<?php echo $u['unidad']?>"><?php echo $u['unidad'];?></option>
+												<option value="<?php echo $u['unidad']?>"
+													<?php echo set_select('unidad-select', $u['unidad']);?>>
+													<?php echo $u['unidad'];?>
+												</option>
 											<?php endforeach;?>
 										</select>
 										<span class="help-block"></span>
@@ -51,7 +56,12 @@
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">Cantidad</label>
 							<div class="col-md-2">
-								<input value="<?php if (isset($cantidad)) echo $cantidad; ?>" type="number" name="cantidad" class="form-control" min="0" maxlength="20">
+								<?php if (isset($cantidad)):?>
+									<input value="<?php echo $cantidad;?>" type="number" name="cantidad" class="form-control" min="0" maxlength="20">
+								<?php else:?>
+									<input value="<?php set_value('cantidad') ?>" type="number" name="cantidad" class="form-control" min="0" maxlength="20">
+
+								<?php endif; ?>
 							</div>
 							<span id="unit"></span>
 						</div>
@@ -61,7 +71,12 @@
 							<div class="col-md-5">
 								<select name="color" class="form-control">
 									<?php foreach ($colores as $color) :?> 
-										<option value="<?php echo $color['id'] ?>" <?php if (isset($colorid)) if ($colorid == $color['id']) echo "selected" ?>><?php echo $color["nombre"] ?></option>
+										<option value="<?php echo $color['id'] ?>" 
+											<?php if (isset($colorid)) if ($colorid == $color['id']) echo "selected" ?>
+											<?php echo set_select('color',$color['id']);?>
+											>
+											<?php echo $color["nombre"] ?>
+										</option>
 									<?php endforeach ?>
 								</select>
 								<span class="help-block">
@@ -87,7 +102,7 @@
 		var idTipo = '<?php if(isset($idTipo)){ echo $idTipo;} ?>';
 		if(idTipo !="")
 			$("select[name=idMaterial]").find("option[value="+idTipo+"]").prop("selected",true);
-		
+
 		$("#guardar").click(function(event){
 			event.preventDefault();
 			if($("#unidad-input").val() == "")
@@ -112,7 +127,7 @@
 			});
 		<?php endif;?>
 
-		});
+	});
 		$("select[name=idMaterial]").change();
 
 		$("#input-show").click(function(){

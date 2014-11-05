@@ -84,7 +84,13 @@ class Materiales extends MY_Controller {
 		$data['idColor'] =$this->input->post('color');
 
 		$rules=array(
-			array('field'=>'cantidad',
+			array(
+				'field'=>'idTipo',
+				'rules'=>'unique',
+				'label'=>'material'
+				),
+			array(
+				'field'=>'cantidad',
 				'rules'=>'numeric|required',
 				'label'=>'Cantidad'
 				)
@@ -141,11 +147,13 @@ class Materiales extends MY_Controller {
 			
 			$data1['unidad'] = $this->input->post('unidad');
 			$rules=array(
-				array('field' => 'nombre', 
+				array(
+					'field' => 'nombre', 
 					'rules' => 'unique',
 					'label' =>'Nombre'
 					),
-				array('field' => 'nombre', 
+				array(
+					'field' => 'nombre', 
 					'rules' => 'min_length[2]|max_length[50]',
 					'label' =>'Nombre'
 					)
@@ -172,22 +180,29 @@ class Materiales extends MY_Controller {
 
 		$rules=array(
 			array('field'=>'cantidad',
-				'rules'=>'numeric|required',
+				'rules'=>'numeric|callback_greater_or_equal[0]|required',
 				'label'=>'Cantidad'
 				)
 			);
 		$valid = $this->validate_form($rules,$data,'material');
-
+		$existe = $this->materiales_model->repite('material','idTipo',array('idTipo'=>$data['idTipo'],'idColor'=>$data['idColor']));
+		if ($existe)
+		{
+			$original=$this->materiales_model->leer('material',array('id'=>$id));
+			if ( $original[0]['idTipo'] !== $form_values['idTipo'] &&  $original[0]['idColor'] !== $form_values['idColor']){
+				$error = "El material ya está registrado. Registre uno diferente o modifique el que ya existe\n";
+			}
+		}
 		if ($valid !== 1)
 		{
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
-			redirect('materiales/agregar');
+			redirect('materiales/actualizar/'.$id);
 		}
 		
 		if ($this->materiales_model->actualizar('material', array("id"=>$id),$data)) 
 		{
-			$this->session->set_flashdata('mensaje','El material se agregó exitosamente');
+			$this->session->set_flashdata('mensaje','El material se actualizó exitosamente');
 			$this->session->set_flashdata('class','alert alert-success');
 			redirect("materiales");
 		}
@@ -220,6 +235,7 @@ class Materiales extends MY_Controller {
 		echo $this->materiales_model->leer("tipomaterial",array("id"=>$idMaterial)) [0]["unidad"];
 
 	}
+
 }
 /* End of file materiales.php */
 /* Location: controllers/materiales.php */

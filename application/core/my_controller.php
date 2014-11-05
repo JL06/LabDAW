@@ -43,11 +43,20 @@ class MY_Controller extends CI_Controller
 		{
 			if($r['rules'] == 'unique')
 			{
-				$rep = $this->generic_model->repite($entity,$r['field'],$form_values[$r['field']]);
+				
+				if($entity == 'material')
+				{
+					$rep = $this->generic_model->repite($entity, $r['field'], array('idTipo'=>$form_values['idTipo'], 'idColor'=>$form_values['idColor']));
+				}
+				else
+				{
+					$rep = $this->generic_model->repite($entity, $r['field'], $form_values[$r['field']]);
+					
+				}
 
 				if ($rep)
 				{
-					$unique_error ='El '.$r['label'].' no está disponible';
+					$unique_error ='El '.$r['label'].' ya está registrado. Registre uno diferente o modifique el que ya existe.';
 					$valid=FALSE;
 				}
 
@@ -68,7 +77,11 @@ class MY_Controller extends CI_Controller
 
 		return $valid;
 	}
-
+	
+	public function greater_or_equal($str,$num)
+	{
+		return $str >= $num;
+	}
 	protected function log()
 	{
 		$user=$this->session->userdata('id');
