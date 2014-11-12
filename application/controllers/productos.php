@@ -17,7 +17,7 @@ class Productos extends MY_Controller
 
 	public function listar() 
 	{
-		$data['productos']=$this->productos_model->get_productos(array('activo'=>1));
+		$data['productos']=$this->productos_model->get_productos(array('productos.activo'=>1));
 		$data['main_content']="productos";
 		$data['title']="Productos";
 		$this->load->view('templates/template',$data);

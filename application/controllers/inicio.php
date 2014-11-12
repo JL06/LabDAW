@@ -24,4 +24,19 @@ class Inicio extends MY_Controller {
 			);
 		$this->load->view('templates/template',$data);
 	}
+	public function subcatalogos()
+	{
+		$this->load->model("gastos_model");
+
+		$data=array(
+			'main_content'=>'subcatalogos',
+			'title'=>'Subcatalogos'
+			);
+		$data['tipogasto'] = $this->gastos_model->leer("tipogasto",array("activo"=>1));
+		$data['tipoproducto']= $this->gastos_model->leer("tipoproducto",array("activo"=>1));
+		$data['tipomaterial']= $this->gastos_model->leer("tipomaterial",array("activo"=>1));
+		$data['colores']=$this->gastos_model->leer("color",array("activo"=>1));
+
+		$this->load->view('templates/template',$data);
+	}
 }

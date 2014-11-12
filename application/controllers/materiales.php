@@ -191,10 +191,12 @@ class Materiales extends MY_Controller {
 			$original=$this->materiales_model->leer('material',array('id'=>$id));
 			if ( $original[0]['idTipo'] !== $form_values['idTipo'] &&  $original[0]['idColor'] !== $form_values['idColor']){
 				$error = "El material ya está registrado. Registre uno diferente o modifique el que ya existe\n";
+				$valid=FALSE;
 			}
 		}
 		if ($valid !== 1)
 		{
+			$valid.=$error;
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('materiales/actualizar/'.$id);

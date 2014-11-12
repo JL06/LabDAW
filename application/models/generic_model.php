@@ -41,9 +41,7 @@ class Generic_model extends CI_Model {
 
 		$this->db->from($entity);
 		$rep = $this->db->count_all_results();
-
-		if ($rep > 0)
-			return TRUE;
+		return $rep > 0;
 	}
 
 	function contar($entity, $param)
