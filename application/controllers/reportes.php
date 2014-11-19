@@ -6,6 +6,9 @@ class Reportes extends MY_Controller {
 		parent::__construct();
 		$this->load->model('materiales_model');
 		$this->load->model('reportes_model');
+		$this->load->model('productos_model');
+		$this->load->model('usuario_model');
+		$this->load->model('ventas_model');
 		$this->load->library('form_validation');
 	}
 	public function index()
@@ -45,16 +48,72 @@ class Reportes extends MY_Controller {
 		$this->load->view('templates/template',$data);
 	}
 
-	function reporte_ventas($criterio="producto")
+	function reporte_ventas()
 	{
+		$filter = $this->input->post("criterio");
+
+		if ($filter == NULL)
+			$filter ="producto";
+
 		$data['title'] = "Reporte de ventas";
-		$data['main_content'] = "reporte_ventas";
-		if($criterio == "producto"){
-			$this->load->model("productos_model");
-			$data['producto']=$this->productos_model->get_productos(array("activo"=>1));
+		$data['main_content'] = "rep_ventas";
+		$data['filter'] =$filter;
+		
+		$from = $this->input->post("from");
+		$to = $this->input->post("to");
+
+		if ($from == NULL)
+			$from = date("Y-m-01");
+
+		if ($to == NULL)
+			$to = date("Y-m-t");
+
+		if ($filter !== "tiempo")
+		{
+			$select = $this->input->post("filtro");
+			if ($select == NULL)
+				$select="todos";
+
+			if (is_array($select))
+			{
+				$select = implode(',',$select);
+
+			}
+
+			if ($filter == 'producto') 
+			{
+				$datos = json_encode($this->reportes_model->get_ventas_producto($select,$from,$to));
+			}
+			else
+			{
+				$datos = json_encode($this->reportes_model->get_ventas_vendedor($select,$from,$to));
+			}
+
 		}
+		else
+		{
+
+			$datos=json_encode($this->reportes_model->get_ventas($from,$to));
+		}
+		$data['grafica'] = $datos;
+		$data['fecha1'] =$from;
+		$data['fecha2'] =  $to;
+
 		$this->load->view('templates/template',$data);
 	}
+	function get_info_ventas()
+	{
+		$criterio = $this->input->post("filter");
+		if ($criterio == "producto")
+		{
+			$info = $this->productos_model->get_productos(array('productos.activo'=>1));
 
+		}
+		else if ($criterio == "usuario")
+		{
+			$info = $this->usuario_model->get_usuarios(array('usuario.activo'=>1));
+		}
+		echo json_encode($info);
+	}
 
 }

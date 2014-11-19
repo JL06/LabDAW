@@ -30,5 +30,53 @@ class Reportes_model extends Generic_model
 		return array_merge($query1,$query2);
 
 	}
+	function get_ventas_vendedor($id,$from,$to)
+	{
+		if ($id == "todos")
+		{
+			$sql = "SELECT SUM(cantidad) as cantidadVentas, SUM(importe) as importe, usuario.nombre as vendedor
+			FROM Ventas, Usuario
+			WHERE idVendedor IN(SELECT id FROM usuario WHERE activo = 1) 
+			AND usuario.id= ventas.idVendedor
+			AND fecha BETWEEN ".$this->db->escape($from)." 
+			AND ".$this->db->escape($to)." GROUP BY idVendedor";
+
+		}
+		else
+		{
+
+			$sql = "SELECT SUM(cantidad) as cantidadVentas, SUM(importe) as importe, usuario.nombre as vendedor 
+			FROM Ventas, Usuario
+			WHERE idVendedor IN(".$this->db->escape_str($id).")
+			AND usuario.id= ventas.idVendedor
+			AND fecha BETWEEN ".$this->db->escape($from)." AND ".$this->db->escape($to)." GROUP BY idVendedor";
+		}
+
+		$query = $this->db->query($sql); 
+		return $this->query_to_array($query);
+	}
+	function get_ventas_producto($id,$from, $to)
+	{
+		if ($id == "todos")
+		{
+			$sql = "SELECT SUM(cantidad) as cantidadVentas, SUM(importe) as importe,productos.nombre as producto 
+			FROM Ventas,productos
+			WHERE idProducto IN(SELECT id FROM productos WHERE activo = 1)
+			AND productos.id = ventas.idProducto
+			AND fecha BETWEEN ".$this->db->escape($from)." AND ".$this->db->escape($to)." GROUP BY idProducto ";
+		}
+		else
+		{
+			$sql = "SELECT SUM(cantidad) as cantidadVentas, SUM(importe) as importe,productos.nombre as producto  
+			FROM Ventas,productos
+			WHERE idProducto IN(".$this->db->escape_str($id).")
+			AND productos.id = ventas.idProducto
+			AND fecha BETWEEN ".$this->db->escape($from)." AND ".$this->db->escape($to)." GROUP BY idProducto";
+
+		}
+
+		$query = $this->db->query($sql); 
+		return $this->query_to_array($query);
+	}
 }
 ?>

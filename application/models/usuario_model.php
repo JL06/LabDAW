@@ -11,6 +11,17 @@ class Usuario_model extends Generic_Model {
 		$query = $this->db->get();
 		return $this->query_to_array($query);
 
+	}	
+	function get_usuarios($filter = NULL)
+	{
+		$this->db->select('usuario.id as id,usuario.nombre as nombre, rol.nombre as tipo, email, genero, telefono');
+		$this->db->from('usuario');
+		$this->db->join('rol', 'usuario.idRol = rol.id');
+		if ($filter != NULL)
+			$this->db->where($filter);
+		$query = $this->db->get();
+		return $this->query_to_array($query);
+
 	}
 
 	function usuario ($id) 
@@ -27,6 +38,7 @@ class Usuario_model extends Generic_Model {
 		}
 		return $usuario;
 	}
+	
 }
 /* End of file usuarios_model.php */
 /* Location: models/usuarios_model.php */

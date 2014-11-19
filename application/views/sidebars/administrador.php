@@ -60,7 +60,7 @@
               <span>Reportes</span>
             </a>
             <ul class="sub">
-              <li><a  href=<?php echo '"' . site_url("/reportes/balance") . '"' ?>>Balance</a></li>
+              <li><a  href=<?php echo '"' . base_url("/reportes/balance") . '"' ?>>Balance</a></li>
               <li><a  href="#">Otro</a></li>
             </ul>
           </li>

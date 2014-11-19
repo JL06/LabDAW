@@ -48,7 +48,7 @@ class Sesion extends CI_Controller {
 		else
 		{
 			$usuario = $usuario[0];
-			if( password_verify($form_values["clave"],$usuario["password"]) )
+			if( MD5($form_values["clave"]) ===$usuario["password"] )
 			{
 				$info['nombre'] = $usuario['nombre'];
 				$info['id'] = $usuario['id'];
@@ -62,7 +62,9 @@ class Sesion extends CI_Controller {
 			{
 				//print_r($usuario);
 
-				$this->session->set_flashdata('mensaje',"<label class='control-label'>La contraseña es incorrecta</label>");
+				$this->session->set_flashdata('mensaje',"<label class='control-label'>La contraseña es 
+
+					incorrecta</label>");
 				$this->session->set_flashdata('class',"has-error");
 				redirect("sesion/index");
 			}

@@ -26,7 +26,7 @@
                         <input type="text" class="datepicker form-control dpd2 default-date-picker" name="to" value="<?php echo $fecha2?>">
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-info btn-round">Cambiar</button>
+                    <button type="submit" class="btn btn-info btn-round">Ver</button>
                   </div>
 
                 </form>

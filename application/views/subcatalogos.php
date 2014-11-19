@@ -67,7 +67,7 @@
 	$(document).ready( function () {
 		$("#table-tipoproducto").DataTable();
 		$(".grey-panel").css("height","41");
-		$(".tipo").hide();
+		//$(".tipo").hide();
 
 		$(".grey-header").click(function(){
 
