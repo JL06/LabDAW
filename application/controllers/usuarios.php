@@ -5,7 +5,7 @@ class Usuarios extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('usuario_model');
-		//$this->load->model('generic_model');
+		$this->load->model('generic_model');
 		$this->load->library('form_validation');
 	}
 
@@ -20,7 +20,7 @@ class Usuarios extends MY_Controller {
 
 	function agregar () 
 	{
-		$res = $this->usuario_model->listar("rol");
+		$res = $this->generic_model->listar("rol");
 
 		$data['title'] = "Nuevo Usuario";
 		$data['main_content'] = "forma_usuario";
@@ -34,13 +34,13 @@ class Usuarios extends MY_Controller {
 	function guardar () 
 	{
 		$this->form_validation->set_rules('nombre', 'Nombre', 'required');
-		$this->form_validation->set_rules('correo', 'Correo eléctronico', 'valid_email');
-		$this->form_validation->set_rules('correo', 'Correo eléctronico', 'required');
+		$this->form_validation->set_rules('correo', 'Correo eléctronico', 'valid_email|required');
 		$this->form_validation->set_rules('clave', 'Contraseña', 'required');
 		$this->form_validation->set_rules('clave2', 'Contraseña', 'required');
 		if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0 OR $this->form_validation->run() == FALSE) 
 		{
 			$errores = validation_errors();
+			$this->session->set_flashdata('class', 'alert alert-danger');
 			$this->session->set_flashdata('mensaje', 'Error: los dos campos de contraseña deben ser iguales'.$errores);
 			redirect("usuarios/agregar");
 			return;
@@ -65,7 +65,7 @@ class Usuarios extends MY_Controller {
 	{
 		if ($id != NULL) 
 		{
-			$roles = $this->usuario_model->listar("rol");
+			$roles = $this->generic_model->listar("rol");
 			$data = $this->usuario_model->usuario(array("usuario.id"=> $id));
 			$data['main_content'] = 'forma_usuario';
 			$data['title'] = 'Actualizar Usuario';
@@ -87,8 +87,7 @@ class Usuarios extends MY_Controller {
 		if ($id != NULL) 
 		{
 			$this->form_validation->set_rules('nombre', 'Nombre', 'required');
-			$this->form_validation->set_rules('correo', 'Correo eléctronico', 'valid_email');
-			$this->form_validation->set_rules('correo', 'Correo eléctronico', 'required');
+			$this->form_validation->set_rules('correo', 'Correo eléctronico', 'valid_email|required');
 			$this->form_validation->set_rules('clave', 'Contraseña', 'required');
 			$this->form_validation->set_rules('clave2', 'Contraseña', 'required');
 			if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0 OR $this->form_validation->run() == FALSE) 
