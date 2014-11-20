@@ -28,7 +28,7 @@
   			<form class="form-login" >
   				<h2 class="form-login-heading">Revise su correo</h2>
   				<div class="login-wrap">
-  					<h4>Se ha enviado una liga de acceso para cambiar la contraseña al correo proporcionado</h4>
+  					<h4>Se ha enviado una liga de acceso para cambiar la contraseña</h4>
 		        </div>
 		      </form>	 
 
