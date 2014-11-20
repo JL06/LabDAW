@@ -55,9 +55,6 @@ class Reportes extends MY_Controller {
 		if ($filter == NULL)
 			$filter ="producto";
 
-		$data['title'] = "Reporte de ventas";
-		$data['main_content'] = "rep_ventas";
-		$data['filter'] =$filter;
 		
 		$from = $this->input->post("from");
 		$to = $this->input->post("to");
@@ -95,12 +92,67 @@ class Reportes extends MY_Controller {
 
 			$datos=json_encode($this->reportes_model->get_ventas($from,$to));
 		}
+
+		$data['title'] = "Reporte de ventas";
+		$data['main_content'] = "rep_ventas";
+		$data['filter'] =$filter;
 		$data['grafica'] = $datos;
 		$data['fecha1'] =$from;
 		$data['fecha2'] =  $to;
 
 		$this->load->view('templates/template',$data);
 	}
+
+	function reporte_gastos()
+	{
+		$f1 = $this->input->post('from');
+		$f2 = $this->input->post('to');
+		if ($f1 == NULL)
+			$f1=date("Y-m-01");
+		
+		
+		if ($f2 == NULL)
+			$f2=date("Y-m-t");
+
+		$ver = $this->input->post("ver");
+		
+		if($ver == FALSE)
+		{
+			$gastos = $this->reportes_model->get("gastos",$f1,$f2);
+			$compras = $this->reportes_model->get("compras",$f1,$f2);
+			$data['sel'] = "compras,gastos";
+
+		}
+		else if (count($ver) === 2)
+		{
+			$gastos = $this->reportes_model->get("gastos",$f1,$f2);
+			$compras = $this->reportes_model->get("compras",$f1,$f2);
+			$data['sel'] = implode(",", $ver);
+
+		}
+		else if(count($ver) === 1)
+		{
+			$gastos = $this->reportes_model->get($ver[0],$f1,$f2);
+			$data['sel'] = implode(",", $ver);
+
+		}
+
+		if (isset($gastos))
+		{
+			$data['gastos'] = json_encode($gastos);		
+		}
+		if (isset($compras))
+		{
+			$datos['compras'] = json_encode($compras);
+		}
+
+		$data['fecha1'] =$f1;
+		$data['fecha2'] =  $f2;
+		$data['title'] = "Reporte de gastos";
+		$data['main_content'] = "rep_gastos";
+		$this->load->view('templates/template',$data);
+	}
+
 	function get_info_ventas()
 	{
 		$criterio = $this->input->post("filter");

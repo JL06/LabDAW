@@ -49,18 +49,19 @@ class Ventas extends MY_Controller{
 			redirect('ventas/registrar');
 		}
 		
-		$form_values['importe']=$this->ventas_model->leer("productos",array("id"=>$form_values['id_producto']))[0]['precio'];
+		$form_values['importe']=$this->ventas_model->leer("productos",array("id"=>$form_values['idProducto']))[0]['precio'];
 		$form_values['idVendedor']=$this->session->userdata('id');
 
-		$id_producto = $form_values['id_producto'];
-		$cantidad = $this->ventas_model->leer("productos",array("id"=>$id_producto))[0]['cantidadProducto'];
-		if ($cantidad < $form_values['cantidad']){
+		$id_producto = $form_values['idProducto'];
+		$cant = $this->ventas_model->leer("productos",array("id"=>$id_producto))[0]['cantidadProducto'];
+		if ($cant < $form_values['cantidad']){
 			$this->session->set_flashdata('mensaje',"No hay suficientes productos para la venta");
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('ventas/registrar');
 		}
 
-		if( $this->ventas_model->crear('ventas',$form_values)){
+
+		if( $this->ventas_model->crear("ventas",$form_values)){
 			if ($this->session->userdata('rol') == 1)
 				$this->ventas_model->actualizar('productos',array('id'=>$form_values['id_producto']),'cantidadProducto = cantidadProducto-1');
 			else

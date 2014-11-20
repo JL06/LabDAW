@@ -88,13 +88,6 @@
     <!-- page end-->
   </section>
 </section>
-<?php 
-echo '<script src="'. base_url("files/js/jquery.js") . '"></script>' ;
-echo '<script src="'. base_url("files/js/jquery-1.8.3.min.js") . '"></script>' ;
-?>
-
-echo '<script src="'. base_url("files/js/morris-conf.js") . '"></script>' ;
-?>
 <script type="text/javascript">
  ventas = <?php echo $ventas; ?>;
  gastos = <?php echo $gastos; ?>;

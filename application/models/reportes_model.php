@@ -20,16 +20,33 @@ class Reportes_model extends Generic_model
 	function get_gastos($date1,$date2)
 	{
 		$this->db->select("fecha, cantidad * costo as total");
-		$this->db->where("compras.fecha BETWEEN '$date1' AND '$date2'");
+		$this->db->where("fecha BETWEEN  ".$this->db->escape($date1)." AND ".$this->db->escape($date2));
 		$query1 = $this->query_to_array($this->db->get("compras"));
 
 		$this->db->select("fecha, costo as total");
-		$this->db->where("gastos.fecha BETWEEN '$date1' AND '$date2'");
+		$this->db->where("fecha BETWEEN  ".$this->db->escape($date1)." AND ".$this->db->escape($date2));
 		$query2 =$this->query_to_array($this->db->get("gastos"));
 
 		return array_merge($query1,$query2);
 
 	}
+	function get($element,$date1,$date2)
+	{
+		if($element == "compras")
+		{
+			$this->db->select("fecha, cantidad * costo as total");
+
+		}
+		else
+		{
+			$this->db->select("fecha, costo as total");	
+		}
+		$this->db->from("compras");
+		$this->db->where("fecha BETWEEN  ".$this->db->escape($date1)." AND ".$this->db->escape($date2));
+		$query = $this->query_to_array($this->db->get());
+		return $query;	
+	}
+
 	function get_ventas_vendedor($id,$from,$to)
 	{
 		if ($id == "todos")
@@ -57,7 +74,7 @@ class Reportes_model extends Generic_model
 	}
 	function get_ventas_producto($id,$from, $to)
 	{
-		if ($id == "todos")
+		if ($id == "todos" OR strpos($id,"todos")!== FALSE)
 		{
 			$sql = "SELECT SUM(cantidad) as cantidadVentas, SUM(importe) as importe,productos.nombre as producto 
 			FROM Ventas,productos
@@ -78,5 +95,6 @@ class Reportes_model extends Generic_model
 		$query = $this->db->query($sql); 
 		return $this->query_to_array($query);
 	}
+
 }
 ?>

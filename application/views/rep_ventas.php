@@ -59,10 +59,6 @@
 	datos = <?php echo $grafica; ?>;
 
 	$(document).ready(function(){
-		
-		$("option[value=todos]").click(function(){
-			$("select").val("todos");
-		});
 
 		$("input[value="+criterio+"]").prop("checked",true);
 
@@ -93,50 +89,55 @@
 			
 		});
 		$(".criterio").change();
+		$("select").change(function(){
+			if($("option[value=todos]").prop("selected"))
+			{
+				$(this).val("todos");
+			}
+		});
+		if (!jQuery.isEmptyObject(datos)){
+			if (criterio == 'producto'){
+				Morris.Bar({
+					element: 'reporte',
+					data:datos,
+					xkey: 'producto',
+					ykeys: ['cantidadVentas'],
+					labels: ['productos vendidos'],
+					barColors:['#37bc9b']
+				});
+			}
+			else if(criterio == 'usuario')
+			{
+				Morris.Bar({
+					element: 'reporte',
+					data:datos,
+					xkey: 'vendedor',
+					ykeys: ['importe'],
+					labels: ['importe $'],
+					barColors:['#37bc9b']
 
+				});
+			}
+			else
+			{
+				Morris.Bar({
+					element: 'reporte',
+					data:<?php echo $grafica; ?>,
+					xkey: 'fecha',
+					ykeys: ['total'],
+					labels: ['total'],
+					barColors:['#37bc9b']
 
-	});
-	if (!jQuery.isEmptyObject(datos)){
-		if (criterio == 'producto'){
-			Morris.Bar({
-				element: 'reporte',
-				data:datos,
-				xkey: 'producto',
-				ykeys: ['cantidadVentas'],
-				labels: ['productos vendidos'],
-				barColors:['#37bc9b']
-			});
-		}
-		else if(criterio == 'usuario')
-		{
-			Morris.Bar({
-				element: 'reporte',
-				data:datos,
-				xkey: 'vendedor',
-				ykeys: ['importe'],
-				labels: ['importe $'],
-				barColors:['#37bc9b']
+				});	
+			}
 
-			});
 		}
 		else
 		{
-			Morris.Bar({
-				element: 'reporte',
-				data:<?php echo $grafica; ?>,
-				xkey: 'fecha',
-				ykeys: ['total'],
-				labels: ['total'],
-				barColors:['#37bc9b']
-
-			});	
+			$("#reporte").html("<div class='well'><p class='text-center'>No hay ventas que mostrar</p>");
 		}
+	});
 
-	}
-	else
-	{
-		$("#reporte").html("<div class='well'><p class='text-center'>No hay ventas que mostrar</p>");
-	}
 
 
 </script>

@@ -90,5 +90,6 @@
       }
     });
   });
+  $("select[name=idProducto]").change();
 });
 </script>

@@ -32,7 +32,7 @@ class Materiales_model extends Generic_model {
 
 	function existe ($nombre) 
 	{
-		$query = $this->db->get_where('tipomaterial', array('nombre' => $nombre));
+		$query = $this->db->get_where('tipomaterial', array('tip' => $nombre,''));
 		if ($query->num_rows() > 0) {
 			$material = $query->row_array();
 		} else {
