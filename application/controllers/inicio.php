@@ -30,7 +30,7 @@ class Inicio extends MY_Controller {
 
 		$data=array(
 			'main_content'=>'subcatalogos',
-			'title'=>'Subcatalogos'
+			'title'=>'Administrar subcatálogos'
 			);
 		$data['tipogasto'] = $this->gastos_model->leer("tipogasto",array("activo"=>1));
 		$data['tipoproducto']= $this->gastos_model->leer("tipoproducto",array("activo"=>1));
@@ -40,3 +40,6 @@ class Inicio extends MY_Controller {
 		$this->load->view('templates/template',$data);
 	}
 }
+
+/* End of file inicio.php */
+/* Location: controllers/inicio.php */
