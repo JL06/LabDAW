@@ -26,7 +26,7 @@ class Sesion extends CI_Controller {
 				),
 			array(
 				'field'=>'clave',
-				'rules'=>'required|alpha_numeric',
+				'rules'=>'required',
 				'label'=>'Clave'
 				)
 			);

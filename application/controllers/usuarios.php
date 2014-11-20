@@ -5,7 +5,7 @@ class Usuarios extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('usuario_model');
-		//$this->load->model('generic_model');
+		$this->load->model('generic_model');
 		$this->load->library('form_validation');
 	}
 
@@ -41,6 +41,7 @@ class Usuarios extends MY_Controller {
 		if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0 OR $this->form_validation->run() == FALSE) 
 		{
 			$errores = validation_errors();
+			$this->session->set_flashdata('class', 'alert alert-danger');
 			$this->session->set_flashdata('mensaje', 'Error: los dos campos de contraseña deben ser iguales'.$errores);
 			redirect("usuarios/agregar");
 			return;
@@ -65,7 +66,7 @@ class Usuarios extends MY_Controller {
 	{
 		if ($id != NULL) 
 		{
-			$roles = $this->usuario_model->listar("rol");
+			$roles = $this->generic_model->listar("rol");
 			$data = $this->usuario_model->usuario(array("usuario.id"=> $id));
 			$data['main_content'] = 'forma_usuario';
 			$data['title'] = 'Actualizar Usuario';

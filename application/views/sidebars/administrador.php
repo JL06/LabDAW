@@ -13,6 +13,11 @@
               </a>
             </li>
             <li class="sub-menu">
+              <a href="<?php echo base_url('compras')?>" >
+                <span>Compras</span>
+              </a>
+            </li>
+            <li class="sub-menu">
              <a  href="<?php echo base_url('productos/listar')?>">
                <span>Productos</span>
              </a>
@@ -51,7 +56,7 @@
                 
               </li>
               <li>
-                <a href="javascript:;">Puntos de venta</a>
+                <a href="<?php echo base_url('lugares')?>">Puntos de venta</a>
               </li>
             </ul>
           </li>
