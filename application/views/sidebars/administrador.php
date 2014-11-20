@@ -13,11 +13,6 @@
               </a>
             </li>
             <li class="sub-menu">
-              <a href="<?php echo base_url('compras')?>" >
-                <span>Compras</span>
-              </a>
-            </li>
-            <li class="sub-menu">
              <a  href="<?php echo base_url('productos/listar')?>">
                <span>Productos</span>
              </a>
@@ -41,7 +36,7 @@
               <span>Gastos</span>
             </a>
             <ul class="sub">
-              <li><a  href="#">Compras</a></li>
+              <li><a  href="<?php echo base_url('compras')?>">Compras</a></li>
               <li><a  href="<?php echo base_url('gastos')?>">Otros</a></li>
             </ul>
           </li>

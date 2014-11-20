@@ -20,7 +20,7 @@ class Usuarios extends MY_Controller {
 
 	function agregar () 
 	{
-		$res = $this->usuario_model->listar("rol");
+		$res = $this->generic_model->listar("rol");
 
 		$data['title'] = "Nuevo Usuario";
 		$data['main_content'] = "forma_usuario";
@@ -34,8 +34,7 @@ class Usuarios extends MY_Controller {
 	function guardar () 
 	{
 		$this->form_validation->set_rules('nombre', 'Nombre', 'required');
-		$this->form_validation->set_rules('correo', 'Correo eléctronico', 'valid_email');
-		$this->form_validation->set_rules('correo', 'Correo eléctronico', 'required');
+		$this->form_validation->set_rules('correo', 'Correo eléctronico', 'valid_email|required');
 		$this->form_validation->set_rules('clave', 'Contraseña', 'required');
 		$this->form_validation->set_rules('clave2', 'Contraseña', 'required');
 		if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0 OR $this->form_validation->run() == FALSE) 
@@ -88,8 +87,7 @@ class Usuarios extends MY_Controller {
 		if ($id != NULL) 
 		{
 			$this->form_validation->set_rules('nombre', 'Nombre', 'required');
-			$this->form_validation->set_rules('correo', 'Correo eléctronico', 'valid_email');
-			$this->form_validation->set_rules('correo', 'Correo eléctronico', 'required');
+			$this->form_validation->set_rules('correo', 'Correo eléctronico', 'valid_email|required');
 			$this->form_validation->set_rules('clave', 'Contraseña', 'required');
 			$this->form_validation->set_rules('clave2', 'Contraseña', 'required');
 			if (strcmp($this->input->post('clave'), $this->input->post('clave2')) != 0 OR $this->form_validation->run() == FALSE) 
