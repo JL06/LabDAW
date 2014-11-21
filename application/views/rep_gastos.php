@@ -25,10 +25,10 @@
 						</div>
 						<div class="col-md-12">							
 							<div class="checkbox">
-								<label>
+								<label class="control-label col-md-2">
 									<input name="ver[]" type="checkbox" value="compras">Compras
 								</label>
-								<label>	
+								<label class="control-label col-md-2">
 									<input name="ver[]" type="checkbox" value="gastos">Gastos
 								</label>
 							</div>
@@ -89,7 +89,10 @@ if (compras !="")
 
 	});
 }
+if (gastos == "" && compras==""){
+	$("#reporte").html("<div class='well'><p class='text-center'>No hay gastos que mostrar</p>");
 
+}
 var selection = "<?php echo $sel; ?>";
 selection = selection.split(",");
 for (i=0;i<selection.length;i++)

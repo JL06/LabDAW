@@ -63,7 +63,8 @@
             </a>
             <ul class="sub">
               <li><a  href=<?php echo '"' . base_url("/reportes/balance") . '"' ?>>Balance</a></li>
-              <li><a  href="#">Otro</a></li>
+              <li><a  href="<?php echo base_url('reportes/reporte_ventas');?>">Ventas</a></li>
+              <li><a  href="<?php echo base_url('reportes/reporte_gastos');?>">Compras y gastos</a></li>
             </ul>
           </li>
         </ul>
