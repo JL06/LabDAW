@@ -48,7 +48,9 @@
             <ul class="sub">
               <li>
                 <a href="<?php echo base_url('usuarios') ?>">Usuarios</a>
-                
+              </li>
+              <li>
+                <a href="<?php echo base_url('inicio/subcatalogos') ?>">Subcatalogos</a>
               </li>
               <li>
                 <a href="<?php echo base_url('lugares')?>">Puntos de venta</a>

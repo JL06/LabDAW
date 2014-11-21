@@ -228,85 +228,88 @@
 
 		$("a").click(function(e){
 			modal=$(this).attr("id");
-			modal=modal.split("-");
-			id=modal[2];
-			modal=modal.splice(0,2).join("-");
-			$("input[name=input-nombre]").val("");
-			switch(modal){
-				case "modal-color":
-					$("#accion").val("color");
-					$(".modal-title").html("Agregar color");
-					$("#unidad-input").hide();
-				break;
-				case "modal-material":
-					$("#accion").val("tipomat");
-					$(".modal-title").html("Agregar tipo de material");
-					$("#unidad-input").show();
-				break;
-				case "modal-producto":
-					$("#accion").val("tipoprod");
-					$(".modal-title").html("Agregar tipo de producto");
-					$("#unidad-input").hide();
-				break;
-				case "modal-gasto":
-					$("#accion").val("tipogasto");
-					$(".modal-title").html("Agregar tipo de gasto");
-					$("#unidad-input").hide();
-				break;
-				case "act-color":
-					$("#unidad-input").hide();
-					$.ajax({
-						type:"POST",
-						url:"<?php echo base_url('materiales/actualizar_color')?>",
-						data: {color_id: id},
-						success: function(data){
-							$("input[name=input-nombre]").val(data);
-						}
-					});
-					$("#accion").val("act-color-"+id);
-					$(".modal-title").html("Actualizar color");
-				break;
-				case "act-tipomat":
-					$("#unidad-input").show();
-					$.ajax({
-						type:"POST",
-						url:"<?php echo base_url('materiales/actualizar_tipo')?>",
-						data: {tipo_id: id},
-						success: function(data){
-							data=jQuery.parseJSON(data);
-							$("input[name=input-nombre]").val(data.nombre);
-							$("input[name=input-unidad]").val(data.unidad);
-						}
-					});
-					$("#accion").val("act-tipomat-"+id);
-					$(".modal-title").html("Actualizar tipo de material");
-				break;
-				case "act-tipoprod":
-					$("#unidad-input").hide();
-					$.ajax({
-						type:"POST",
-						url:"<?php echo base_url('productos/actualizar_tipo')?>",
-						data: {tipo_id: id},
-						success: function(data){
-							$("input[name=input-nombre]").val(data);
-						}
-					});
-					$("#accion").val("act-tipoprod-"+id);
-					$(".modal-title").html("Actualizar tipo de producto");
-				break;
-				case "act-tipogasto":
-					$("#unidad-input").hide();
-					$.ajax({
-						type:"POST",
-						url:"<?php echo base_url('gastos/actualizar_tipo')?>",
-						data: {tipo_id: id},
-						success: function(data){
-							$("input[name=input-nombre]").val(data);
-						}
-					});
-					$("#accion").val("act-tipogasto-"+id);
-					$(".modal-title").html("Actualizar tipo de gasto");
-				break;
+			console.log(modal);
+			if(typeof modal!="undefined"){
+				modal=modal.split("-");
+				id=modal[2];
+				modal=modal.splice(0,2).join("-");
+				$("input[name=input-nombre]").val("");
+				switch(modal){
+					case "modal-color":
+						$("#accion").val("color");
+						$(".modal-title").html("Agregar color");
+						$("#unidad-input").hide();
+					break;
+					case "modal-material":
+						$("#accion").val("tipomat");
+						$(".modal-title").html("Agregar tipo de material");
+						$("#unidad-input").show();
+					break;
+					case "modal-producto":
+						$("#accion").val("tipoprod");
+						$(".modal-title").html("Agregar tipo de producto");
+						$("#unidad-input").hide();
+					break;
+					case "modal-gasto":
+						$("#accion").val("tipogasto");
+						$(".modal-title").html("Agregar tipo de gasto");
+						$("#unidad-input").hide();
+					break;
+					case "act-color":
+						$("#unidad-input").hide();
+						$.ajax({
+							type:"POST",
+							url:"<?php echo base_url('materiales/actualizar_color')?>",
+							data: {color_id: id},
+							success: function(data){
+								$("input[name=input-nombre]").val(data);
+							}
+						});
+						$("#accion").val("act-color-"+id);
+						$(".modal-title").html("Actualizar color");
+					break;
+					case "act-tipomat":
+						$("#unidad-input").show();
+						$.ajax({
+							type:"POST",
+							url:"<?php echo base_url('materiales/actualizar_tipo')?>",
+							data: {tipo_id: id},
+							success: function(data){
+								data=jQuery.parseJSON(data);
+								$("input[name=input-nombre]").val(data.nombre);
+								$("input[name=input-unidad]").val(data.unidad);
+							}
+						});
+						$("#accion").val("act-tipomat-"+id);
+						$(".modal-title").html("Actualizar tipo de material");
+					break;
+					case "act-tipoprod":
+						$("#unidad-input").hide();
+						$.ajax({
+							type:"POST",
+							url:"<?php echo base_url('productos/actualizar_tipo')?>",
+							data: {tipo_id: id},
+							success: function(data){
+								$("input[name=input-nombre]").val(data);
+							}
+						});
+						$("#accion").val("act-tipoprod-"+id);
+						$(".modal-title").html("Actualizar tipo de producto");
+					break;
+					case "act-tipogasto":
+						$("#unidad-input").hide();
+						$.ajax({
+							type:"POST",
+							url:"<?php echo base_url('gastos/actualizar_tipo')?>",
+							data: {tipo_id: id},
+							success: function(data){
+								$("input[name=input-nombre]").val(data);
+							}
+						});
+						$("#accion").val("act-tipogasto-"+id);
+						$(".modal-title").html("Actualizar tipo de gasto");
+					break;
+				}
 			}
 		});
 	});

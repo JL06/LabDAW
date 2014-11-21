@@ -26,7 +26,7 @@ class Materiales extends MY_Controller {
 
 	public function agregar() 
 	{
-		$colores = $this->materiales_model->listar("color");
+		$colores = $this->materiales_model->leer("color",array('activo'=>1));
 		$data['title'] = "Nuevo Material";
 		$data['main_content'] = "forma_material";
 		$data['colores'] = $colores;
@@ -41,6 +41,7 @@ class Materiales extends MY_Controller {
 
 
 		$nombre=$this->input->post('nombre');
+		$color=$this->input->post('color-input');
 
 
 		if ($nombre === "")
@@ -80,8 +81,38 @@ class Materiales extends MY_Controller {
 			}
 			
 		}
+
+		if($color===""){
+			$data['idColor'] =$this->input->post('color');
+		}else{
+			$data2['nombre']=$color;
+			$data2['activo']=1;
+			$rules=array(
+				array('field' => 'nombre', 
+					'rules' => 'unique',
+					'label' =>'Nombre'
+					),
+				array('field' => 'color-input', 
+					'rules' => 'required|min_length[2]|max_length[50]',
+					'label' =>'Nombre'
+					)
+				);
+			$valid = $this->validate_form($rules,$data2,'color');
+
+			if ($valid !== 1)
+			{
+				$this->session->set_flashdata('mensaje',$valid);
+				$this->session->set_flashdata('class','alert alert-danger');
+				redirect('materiales/agregar');
+			}
+
+			if ($this->materiales_model->crear('color', $data2)) {
+				$data['idColor']=$this->materiales_model->leer("color",array("nombre"=>$color))[0]['id'];
+			}
+
+		}
+
 		$data['cantidadMaterial'] =$this->input->post('cantidad');
-		$data['idColor'] =$this->input->post('color');
 
 		$rules=array(
 			array(
