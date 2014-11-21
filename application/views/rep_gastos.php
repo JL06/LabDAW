@@ -38,10 +38,11 @@
 					<div class="row mt">
 						<div class="col-lg-11">						
 							<div id="reporte"></div>
-							<div id="reporte2"></div>
-
 						</div>
-						
+						<div class="col-lg-11">
+							
+							<div id="reporte2"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -60,28 +61,32 @@
 	<?php endif;?>
 	<?php if (isset($gastos)):?>
 	gastos = <?php echo $gastos?>;
+
 <?php endif;?>
 
 
 if (gastos != "") 
 {
-	Morris.Line({
+	new Morris.Bar({
 		element: 'reporte',
 		data: gastos,
 		xkey: 'fecha',
 		ykeys: ['total'],
-		labels: ['total']
+		labels: ['total'],
+		barColors:['#37bc9b']
 	});
 
 }
 if (compras !="")
 {
-	Morris.Line({
+	new Morris.Bar({
 		element: 'reporte2',
 		data: compras,
 		xkey: 'fecha',
 		ykeys: ['total'],
-		labels: ['total']
+		labels: ['total'],
+		barColors:['#37bc9b']
+
 	});
 }
 

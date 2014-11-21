@@ -66,7 +66,7 @@ $(function(){
 //date picker end
 
 
-//datetime picker start
+/*datetime picker start
 
 $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
 
@@ -101,6 +101,6 @@ $('.timepicker-24').timepicker({
     showSeconds: true,
     showMeridian: false
 });
-
+*/
 //timepicker end
 
