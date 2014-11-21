@@ -72,7 +72,6 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="row">
 			<div class="col-md-6 col-sm-6 mb">
 				<div class="grey-panel pn donut-chart">
@@ -151,35 +150,39 @@
 	</form>
 </section>
 <?php $this->load->view("modals/agregar_subcatalogo");?>
-
 <script type="text/javascript">
 	$(document).ready( function () {
 		$("#table-tipoproducto").DataTable();
 		$("#table-tipomaterial").DataTable();
 		$("#table-tipogasto").DataTable();
 		$("#table-colores").DataTable();
-
 		$(".grey-panel").css("height","41");
-
+		$("#tipoprod1").hide();
+		$("#tipomat1").hide();
+		$("#tipogasto1").hide();
+		$("#color1").hide();
+		$(".grey-header")
+		.mouseover(function(){
+			$(this).css('cursor','pointer');
+		})
+		.mouseout(function(){
+			$(this).css('cursor','auto')
+		});
 		$(".grey-header").click(function(){
 			id=($(this).attr("id"));
-
 			if($("#"+id+"1").is(":visible"))
 				$("#"+id+"1").slideUp('slow');
 			else
 				$("#"+id+"1").slideDown('slow');
 			$(".grey-panel").css("height","auto");
 		});
-
 		$("a#borrar").click(function(e){
 			e.preventDefault();
 			var url=$(this).attr("href");
 			if (confirm("¿Deseas eliminar el registro?")) {
 				window.location.replace(url);
 			};
-
 		});
-
 		$("#button").click(function(e){
 			accion=$("#accion").val();
 			accion=accion.split("-");
@@ -213,7 +216,6 @@
 			}
 			$("#submit").click();
 		});
-
 $("a").click(function(e){
 	modal=$(this).attr("id");
 	console.log(modal);
