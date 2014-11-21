@@ -1,8 +1,8 @@
 <section id="main-content">
   <section class="wrapper site-min-height">
-    <h3><i class="fa fa-angle-right"></i>Usuarios
+    <h3><i class="fa fa-angle-right"></i><?php echo $title; ?>
       <span class="inline">
-        <a href="<?php echo base_url('usuarios/agregar')?>" class="btn btn-success">
+        <a href="<?php echo base_url('compras/agregar')?>" class="btn btn-success">
           <span class="glyphicon glyphicon-plus-sign"></span>
           Agregar
         </a>
@@ -19,31 +19,29 @@
               </div>
             <?php endif;?>
 
-            <table class="table table-hover" id="table-users">
+            <table class="table table-hover" id="table">
               <h4></h4>
               <thead>
                 <tr>
-                  <th>Nombre</th>
-                  <th>Genero</th>
-                  <th>Correo</th>
-                  <th>Telefono</th>
-                  <th>Rol</th>
+                  <th>Material</th>
+                  <th>Cantidad</th>
+                  <th>Costo</th>
+                  <th>Fecha</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                <?php if ($usuarios != false): ?>
-                  <?php foreach ($usuarios as $usuario): ?>
+                <?php if (isset($compras)): ?>
+                  <?php foreach ($compras as $compra): ?>
                     <tr>
-                      <td><?php echo $usuario["nom"] ?></td>
-                      <td><?php echo $usuario["genero"] ?></td>
-                      <td><?php echo $usuario["email"] ?></td>
-                      <td><?php echo $usuario["telefono"] ?></td>
-                      <td><?php echo $usuario["tipo"] ?></td>
+                      <td><?php echo $compra["material"]." "; echo $compra['color'];  ?></td>
+                      <td><?php echo $compra["cantidad"]." "; echo $compra["unidad"]; ?></td>
+                      <td><?php echo $compra["costo"] ?></td>
+                      <td><?php echo $compra["fecha"] ?></td>
                       <td>
                         <div class="pull-right hidden-phone">
-                          <a class="btn btn-theme03" href="<?php echo base_url('usuarios/actualizar/'.$usuario['id'])?>"><i class="fa fa-pencil"></i></a>
-                          <a id="borrar" class="btn btn-theme04" href="<?php echo base_url('usuarios/borrar/'.$usuario['id'])?>"><i class="fa fa-trash-o "></i></a>
+                          <a class="btn btn-theme03" href="<?php echo base_url('compras/actualizar/'.$compra['id'])?>"><i class="fa fa-pencil"></i></a>
+                          <a id="borrar" class="btn btn-theme04" href="<?php echo base_url('compras/borrar/'.$compra['id'])?>"><i class="fa fa-trash-o "></i></a>
                         </div>
                       </td>
                     </tr>
@@ -59,7 +57,7 @@
 </section>
 <script type="text/javascript">
   $(document).ready( function () {
-    $("#table-users").DataTable();
+    $("#table").DataTable();
 
     $("a#borrar").click(function(e){
       e.preventDefault();

@@ -26,7 +26,7 @@ class Materiales extends MY_Controller {
 
 	public function agregar() 
 	{
-		$colores = $this->materiales_model->listar("color");
+		$colores = $this->materiales_model->leer("color",array('activo'=>1));
 		$data['title'] = "Nuevo Material";
 		$data['main_content'] = "forma_material";
 		$data['colores'] = $colores;
@@ -41,6 +41,7 @@ class Materiales extends MY_Controller {
 
 
 		$nombre=$this->input->post('nombre');
+		$color=$this->input->post('color-input');
 
 
 		if ($nombre === "")
@@ -80,8 +81,38 @@ class Materiales extends MY_Controller {
 			}
 			
 		}
+
+		if($color===""){
+			$data['idColor'] =$this->input->post('color');
+		}else{
+			$data2['nombre']=$color;
+			$data2['activo']=1;
+			$rules=array(
+				array('field' => 'nombre', 
+					'rules' => 'unique',
+					'label' =>'Nombre'
+					),
+				array('field' => 'color-input', 
+					'rules' => 'required|min_length[2]|max_length[50]',
+					'label' =>'Nombre'
+					)
+				);
+			$valid = $this->validate_form($rules,$data2,'color');
+
+			if ($valid !== 1)
+			{
+				$this->session->set_flashdata('mensaje',$valid);
+				$this->session->set_flashdata('class','alert alert-danger');
+				redirect('materiales/agregar');
+			}
+
+			if ($this->materiales_model->crear('color', $data2)) {
+				$data['idColor']=$this->materiales_model->leer("color",array("nombre"=>$color))[0]['id'];
+			}
+
+		}
+
 		$data['cantidadMaterial'] =$this->input->post('cantidad');
-		$data['idColor'] =$this->input->post('color');
 
 		$rules=array(
 			array(
@@ -236,6 +267,158 @@ class Materiales extends MY_Controller {
 
 		echo $this->materiales_model->leer("tipomaterial",array("id"=>$idMaterial)) [0]["unidad"];
 
+	}
+
+	public function insertar_tipo(){
+		$form_values=$this->input->post();
+		$rules=array(
+			array('field' => 'nombre', 
+				'rules' => 'unique',
+				'label' =>'Nombre'
+				),
+			array('field' => 'nombre', 
+				'rules' => 'required|min_length[2]|max_length[50]',
+				'label' =>'Nombre'
+				),
+			array('field' => 'unidad', 
+				'rules' => 'required|min_length[1]|max_length[10]',
+				'label' =>'Nombre'
+				)
+			);
+		$valid=$this->validate_form($rules, $form_values, 'tipomaterial');
+		
+		if($valid!==1){
+			$this->session->set_flashdata('mensaje',$valid);
+			$this->session->set_flashdata('class','alert alert-danger');
+			redirect('inicio/subcatalogos');
+		}
+
+		if($this->materiales_model->crear('tipomaterial', $form_values)){
+			$this->session->set_flashdata('class','alert alert-success');
+			$this->session->set_flashdata('mensaje','El tipo de material se agregó exitosamente');
+			redirect('inicio/subcatalogos');
+		}
+	}
+
+	public function actualizar_tipo(){
+		$tipo_id=$this->input->post('tipo_id');
+
+		$tipo=$this->materiales_model->leer('tipomaterial',array('id'=>$tipo_id))[0];
+
+		echo json_encode($tipo);
+	}
+
+	public function actualizar_tipo2($tipo_id){
+		$form_values=$this->input->post();
+		$nombre1=$this->materiales_model->leer('tipomaterial', array('id'=>$tipo_id))[0]['nombre'];
+		$rules=array(
+			array('field' => 'nombre', 
+				'rules' => 'required|min_length[2]|max_length[50]',
+				'label' =>'Nombre'
+				),
+			array('field' => 'unidad', 
+				'rules' => 'required|min_length[1]|max_length[10]',
+				'label' =>'Nombre'
+				)
+			);
+		if($form_values['nombre']!=$nombre1)
+			array_push($rules,array('field' => 'nombre', 
+				'rules' => 'unique',
+				'label' =>'Nombre'
+				));
+
+		$valid=$this->validate_form($rules, $form_values, 'tipomaterial');
+
+		if($valid!==1){
+			$this->session->set_flashdata('mensaje',$valid);
+			$this->session->set_flashdata('class','alert alert-danger');
+			redirect('inicio/subcatalogos');
+		}
+
+		if($this->materiales_model->actualizar('tipomaterial',array('id'=>$tipo_id),$form_values)){
+			$this->session->set_flashdata('class','alert alert-success');
+			$this->session->set_flashdata('mensaje','El tipo de gasto se actualizó exitosamente');
+			redirect("inicio/subcatalogos");
+		}
+
+	}
+
+	public function borrar_tipo($tipo_id){
+		if($this->materiales_model->actualizar('tipomaterial', array('id'=>$tipo_id), array('activo'=>0))){
+				$this->session->set_flashdata('class','alert alert-success');
+				$this->session->set_flashdata('mensaje','El tipo de material se eliminó exitosamente');
+				redirect("inicio/subcatalogos");
+		}
+	}
+
+	public function insertar_color(){
+		$form_values=$this->input->post();
+		unset($form_values['unidad']);
+		$rules=array(
+			array('field' => 'nombre', 
+				'rules' => 'unique',
+				'label' =>'Nombre'
+				),
+			array('field' => 'nombre', 
+				'rules' => 'required|min_length[2]|max_length[50]',
+				'label' =>'Nombre'
+				)
+			);
+		$valid=$this->validate_form($rules, $form_values, 'color');
+		if($valid!==1){
+			$this->session->set_flashdata('mensaje',$valid);
+			$this->session->set_flashdata('class','alert alert-danger');
+			redirect('inicio/subcatalogos');
+		}
+
+		if($this->materiales_model->crear('color', $form_values)){
+			$this->session->set_flashdata('class','alert alert-success');
+			$this->session->set_flashdata('mensaje','El color se agregó exitosamente');
+			redirect('inicio/subcatalogos');
+		}
+	}
+
+	public function actualizar_color(){
+		$color_id=$this->input->post('color_id');
+
+		$nombre=$this->materiales_model->leer('color',array('id'=>$color_id))[0]['nombre'];
+		echo $nombre;
+	}
+
+	public function actualizar_color2($color_id){
+		$form_values=$this->input->post();
+		unset($form_values['unidad']);
+		$rules=array(
+			array('field' => 'nombre', 
+				'rules' => 'unique',
+				'label' =>'Nombre'
+				),
+			array('field' => 'nombre', 
+				'rules' => 'required|min_length[2]|max_length[50]',
+				'label' =>'Nombre'
+				)
+			);
+		$valid=$this->validate_form($rules, $form_values, 'color');
+		if($valid!==1){
+			$this->session->set_flashdata('mensaje',$valid);
+			$this->session->set_flashdata('class','alert alert-danger');
+			redirect('inicio/subcatalogos');
+		}
+
+		if($this->materiales_model->actualizar('color',array('id'=>$color_id),$form_values)){
+				$this->session->set_flashdata('class','alert alert-success');
+				$this->session->set_flashdata('mensaje','El color se actualizó exitosamente');
+				redirect("inicio/subcatalogos");
+		}
+
+	}
+
+	public function borrar_color($color_id){
+		if($this->materiales_model->actualizar('color', array('id'=>$color_id), array('activo'=>0))){
+				$this->session->set_flashdata('class','alert alert-success');
+				$this->session->set_flashdata('mensaje','El color se eliminó exitosamente');
+				redirect("inicio/subcatalogos");
+		}
 	}
 
 }

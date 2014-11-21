@@ -194,4 +194,75 @@ class Gastos extends MY_Controller{
 			redirect("gastos");
 		}
 	}
+
+	public function insertar_tipo(){
+		$form_values=$this->input->post();
+		unset($form_values['unidad']);
+		$rules=array(
+			array('field' => 'nombre', 
+				'rules' => 'unique',
+				'label' =>'Nombre'
+				),
+			array('field' => 'nombre', 
+				'rules' => 'required|min_length[2]|max_length[50]',
+				'label' =>'Nombre'
+				)
+			);
+		$valid=$this->validate_form($rules, $form_values, 'tipogasto');
+		if($valid!==1){
+			$this->session->set_flashdata('mensaje',$valid);
+			$this->session->set_flashdata('class','alert alert-danger');
+			redirect('inicio/subcatalogos');
+		}
+
+		if($this->gastos_model->crear('tipogasto', $form_values)){
+			$this->session->set_flashdata('class','alert alert-success');
+			$this->session->set_flashdata('mensaje','El tipo de gasto se agregó exitosamente');
+			redirect('inicio/subcatalogos');
+		}
+	}
+	public  function actualizar_tipo(){
+		$tipo_id=$this->input->post('tipo_id');
+
+		$nombre=$this->gastos_model->leer('tipogasto',array('id'=>$tipo_id))[0]['nombre'];
+		echo $nombre;
+	}
+
+	public  function actualizar_tipo2($tipo_id){
+		$form_values=$this->input->post();
+		unset($form_values['unidad']);
+		$rules=array(
+			array('field' => 'nombre', 
+				'rules' => 'unique',
+				'label' =>'Nombre'
+				),
+			array('field' => 'nombre', 
+				'rules' => 'required|min_length[2]|max_length[50]',
+				'label' =>'Nombre'
+				)
+			);
+		$valid=$this->validate_form($rules, $form_values, 'tipogasto');
+
+		if($valid!==1){
+			$this->session->set_flashdata('mensaje',$valid);
+			$this->session->set_flashdata('class','alert alert-danger');
+			redirect('inicio/subcatalogos');
+		}
+
+		if($this->gastos_model->actualizar('tipogasto',array('id'=>$tipo_id),$form_values)){
+			$this->session->set_flashdata('class','alert alert-success');
+			$this->session->set_flashdata('mensaje','El tipo de gasto se actualizó exitosamente');
+			redirect("inicio/subcatalogos");
+		}
+	}
+
+	public function borrar_tipo($tipo_id){
+		if($this->gastos_model->actualizar('tipogasto', array('id'=>$tipo_id), array('activo'=>0))){
+				$this->session->set_flashdata('class','alert alert-success');
+				$this->session->set_flashdata('mensaje','El tipo de gasto se eliminó exitosamente');
+				redirect("inicio/subcatalogos");
+		}
+	}	
 }
+/* End of file gastos.php */
+/* Location: controllers/gastos.php */

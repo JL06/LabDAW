@@ -36,7 +36,7 @@
               <span>Gastos</span>
             </a>
             <ul class="sub">
-              <li><a  href="#">Compras</a></li>
+              <li><a  href="<?php echo base_url('compras')?>">Compras</a></li>
               <li><a  href="<?php echo base_url('gastos')?>">Otros</a></li>
             </ul>
           </li>
@@ -48,10 +48,12 @@
             <ul class="sub">
               <li>
                 <a href="<?php echo base_url('usuarios') ?>">Usuarios</a>
-                
               </li>
               <li>
-                <a href="javascript:;">Puntos de venta</a>
+                <a href="<?php echo base_url('inicio/subcatalogos') ?>">Subcatalogos</a>
+              </li>
+              <li>
+                <a href="<?php echo base_url('lugares')?>">Puntos de venta</a>
               </li>
             </ul>
           </li>

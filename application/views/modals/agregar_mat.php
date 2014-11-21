@@ -34,9 +34,6 @@
          <td><?php echo $m['unidad'] ?></td>
        </tr>
 
-
-       <?php //echo $m['nombre']." ".$m['color'] ?>
-
      <?php endforeach;?>
 
 

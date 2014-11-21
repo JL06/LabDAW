@@ -80,10 +80,20 @@
 									<?php endforeach ?>
 								</select>
 								<span class="help-block">
-									<a href="#" id="color-show" data-toggle="modal" data-target="#colorModal">+Agregar nuevo color</a>
+									<a href="#" id="color-show">+Agregar nuevo color</a>
 								</span>
 							</div>
 						</div>
+						<div id="input-color" style="display:none">
+							<div class="form-group">
+								<label class="col-sm-2 control-label"> </label>
+								<label class="col-sm-1 control-label">Nombre</label>
+								<div class="col-md-4">
+									<input type="text" name="color-input" class="form-control" maxlength="20">
+								</div>
+							</div>
+						</div>
+
 						<div class="form-group">
 							<label class="control-label col-md-2" ></label>
 							<button type="submit" class="btn btn-round btn-primary" id="guardar">Guardar</button>
@@ -176,9 +186,27 @@
 
 			}
 
-		}
+		});
 
+$("#color-show").click(function(){
+	if($("#input-color").css("display")=="none"){
+		$("#color-show").text("-Elegir color existente");
+		$("select[name=color]").prop("disabled", true);
+		$("select[name=color]").prop("required", false);
+		$("input[name=color-input]").prop("required", true);
+		$("#input-color").slideDown("fast");
+	}else{
+		$("#color-show").text("+Agregar nuevo color");
+		$("select[name=color]").prop("disabled", false);
+		$("select[name=color]").prop("required", true);
+		$("#color-input").prop("required", false);
 
-		);
+		$("#input-color").slideUp("fast",function(){
+			$("input[name=color-input]").val("");
+		});
+	}
+
+});
 });
 </script>
+
