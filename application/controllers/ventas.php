@@ -197,8 +197,7 @@ class Ventas extends MY_Controller{
 
 		if ($this->session->userdata('rol') == 2)
 		{
-			$mail['venta_original']= $venta_original;
-
+			$mail['venta_original']= $this->ventas_model->get_ventas("ventas.id = ".$venta_id)[0];
 			$mail['vendedor'] = $this->session->userdata("nombre");
 			$mail['fecha_cambio'] = date('Y-m-d');
 			$prod= $this->productos_model->producto($form_values['idProducto']);
@@ -212,18 +211,22 @@ class Ventas extends MY_Controller{
 				);
 			$this->load->model("usuario_model"); 
 			$admin = $this->usuario_model->get_usuarios(array('activo'=>1,'idRol'=>1));
-
-			$this->load->library('email');
-			$config = array(
-				'mailtype'  => 'html',
+			
+			$config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'ssl://smtp.googlemail.com',
+				'smtp_port' => 465,
+				'smtp_user' => 'anaglezr13@gmail.com',
+				'smtp_pass' => 'anita123#',
+				'mailtype'  => 'html', 
 				'charset'   => 'utf-8'
 				);
-			$this->email->initialize($config);
-
-			$this->email->from('anaglezr13@gmail.com', 'Sistema de administración de ventas');
-
+			$this->load->library('email', $config);
+			$this->email->set_newline("\r\n");
+			
 			foreach ($admin as $a) 
 			{
+				$this->email->from('anaglezr13@gmail.com', 'Sistema de administración de ventas');
 				$this->email->clear();
 				$mail['name']	= $a['nombre'];
 				$mail['email'] = $a['email'];
@@ -231,7 +234,11 @@ class Ventas extends MY_Controller{
 				$this->email->to($a['email'], 'Sistema de administración de ventas');
 				$this->email->subject('Notificación de cambio');
 				$this->email->message($mensaje);
-				$this->email->send();
+
+				if (!$this->email->send()) {
+					show_error($this->email->print_debugger());
+
+				}
 			}
 		}
 

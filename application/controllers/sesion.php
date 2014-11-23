@@ -219,7 +219,7 @@ class Sesion extends CI_Controller {
 					return;
 				}
 
-				$data['password'] = password_hash($this->input->post('clave'), PASSWORD_DEFAULT);
+				$data['password'] = MD5($this->input->post('clave'));
 				if($this->sesion_model->actualizar('usuario', array('id' => $id), $data))
 				{
 					$info['token'] = 0;
