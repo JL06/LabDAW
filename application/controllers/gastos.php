@@ -209,13 +209,21 @@ class Gastos extends MY_Controller{
 				)
 			);
 		$valid=$this->validate_form($rules, $form_values, 'tipogasto');
-		if($valid!==1){
+		
+		if($valid!==1 OR $valid !==0){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('inicio/subcatalogos');
+
+		}
+		else if ($valid == 0)
+		{
+			$this->session->set_flashdata('class','alert alert-success');
+			$this->session->set_flashdata('mensaje','El tipo de gasto se agregó exitosamente');
+			redirect('inicio/subcatalogos');	
 		}
 
-		if($this->gastos_model->crear('tipogasto', $form_values)){
+		else ($this->gastos_model->crear('tipogasto', $form_values)){
 			$this->session->set_flashdata('class','alert alert-success');
 			$this->session->set_flashdata('mensaje','El tipo de gasto se agregó exitosamente');
 			redirect('inicio/subcatalogos');
@@ -258,9 +266,9 @@ class Gastos extends MY_Controller{
 
 	public function borrar_tipo($tipo_id){
 		if($this->gastos_model->actualizar('tipogasto', array('id'=>$tipo_id), array('activo'=>0))){
-				$this->session->set_flashdata('class','alert alert-success');
-				$this->session->set_flashdata('mensaje','El tipo de gasto se eliminó exitosamente');
-				redirect("inicio/subcatalogos");
+			$this->session->set_flashdata('class','alert alert-success');
+			$this->session->set_flashdata('mensaje','El tipo de gasto se eliminó exitosamente');
+			redirect("inicio/subcatalogos");
 		}
 	}	
 }

@@ -345,9 +345,9 @@ class Materiales extends MY_Controller {
 
 	public function borrar_tipo($tipo_id){
 		if($this->materiales_model->actualizar('tipomaterial', array('id'=>$tipo_id), array('activo'=>0))){
-				$this->session->set_flashdata('class','alert alert-success');
-				$this->session->set_flashdata('mensaje','El tipo de material se eliminó exitosamente');
-				redirect("inicio/subcatalogos");
+			$this->session->set_flashdata('class','alert alert-success');
+			$this->session->set_flashdata('mensaje','El tipo de material se eliminó exitosamente');
+			redirect("inicio/subcatalogos");
 		}
 	}
 
@@ -365,12 +365,17 @@ class Materiales extends MY_Controller {
 				)
 			);
 		$valid=$this->validate_form($rules, $form_values, 'color');
-		if($valid!==1){
+		if($valid!==1 OR $valid!==0){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('inicio/subcatalogos');
 		}
-
+		if ($valid == 0)
+		{
+			$this->session->set_flashdata('mensaje',"El color se agregó exitosamente");
+			$this->session->set_flashdata('class','alert alert-danger');
+			redirect('inicio/subcatalogos');
+		}
 		if($this->materiales_model->crear('color', $form_values)){
 			$this->session->set_flashdata('class','alert alert-success');
 			$this->session->set_flashdata('mensaje','El color se agregó exitosamente');
@@ -406,18 +411,18 @@ class Materiales extends MY_Controller {
 		}
 
 		if($this->materiales_model->actualizar('color',array('id'=>$color_id),$form_values)){
-				$this->session->set_flashdata('class','alert alert-success');
-				$this->session->set_flashdata('mensaje','El color se actualizó exitosamente');
-				redirect("inicio/subcatalogos");
+			$this->session->set_flashdata('class','alert alert-success');
+			$this->session->set_flashdata('mensaje','El color se actualizó exitosamente');
+			redirect("inicio/subcatalogos");
 		}
 
 	}
 
 	public function borrar_color($color_id){
 		if($this->materiales_model->actualizar('color', array('id'=>$color_id), array('activo'=>0))){
-				$this->session->set_flashdata('class','alert alert-success');
-				$this->session->set_flashdata('mensaje','El color se eliminó exitosamente');
-				redirect("inicio/subcatalogos");
+			$this->session->set_flashdata('class','alert alert-success');
+			$this->session->set_flashdata('mensaje','El color se eliminó exitosamente');
+			redirect("inicio/subcatalogos");
 		}
 	}
 

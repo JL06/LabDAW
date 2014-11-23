@@ -50,15 +50,35 @@ class MY_Controller extends CI_Controller
 				}
 				else
 				{
-					$rep = $this->generic_model->repite($entity, $r['field'], $form_values[$r['field']]);
+					if ($entity == 'tipoproducto' OR $entity == 'color' OR $entity == 'tipogasto' OR $entity == 'lugar')
+					{
+
+						$rep = $this->generic_model->repite($entity, $r['field'], $form_values[$r['field']]);
+						$active=$this->generic_model->leer($entity,array($r['field']=>$form_values[$r['field']]));
+						if ($rep && $active[0]['activo'] == 0)
+						{
+							$this->generic_model->actualizar($entity,array($r['field']=>$form_values[$r['field']]),array("activo"=>1));
+							$valid = 0;
+						}
+						else
+						{
+							$unique_error ='El '.$r['label'].' ya está registrado. Registre uno diferente o modifique el que ya existe.';
+							$valid=FALSE;
+						}
+
+					}
+					else
+					{						
+						$rep = $this->generic_model->repite($entity, $r['field'], $form_values[$r['field']]);
+						if ($rep)
+						{
+							$unique_error ='El '.$r['label'].' ya está registrado. Registre uno diferente o modifique el que ya existe.';
+							$valid=FALSE;
+						}
+					}
 					
 				}
 
-				if ($rep)
-				{
-					$unique_error ='El '.$r['label'].' ya está registrado. Registre uno diferente o modifique el que ya existe.';
-					$valid=FALSE;
-				}
 
 			}
 			else
@@ -110,4 +130,5 @@ class MY_Controller extends CI_Controller
 		$date = explode('-', $fecha);
 		return $date[1].'-'.$date[0].'-'.$date[2];
 	}
+	
 }

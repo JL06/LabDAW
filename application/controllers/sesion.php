@@ -62,7 +62,6 @@ class Sesion extends CI_Controller {
 			}
 			else
 			{
-				//print_r($usuario);
 
 				$this->session->set_flashdata('mensaje',"<label class='control-label'>La contraseña es 
 
@@ -245,6 +244,10 @@ class Sesion extends CI_Controller {
 		{
 			redirect("sesion");
 		}
+	}
+	function mail()
+	{
+		$this->load->view("templates/mail");
 	}
 }
 /* End of file sesion.php */

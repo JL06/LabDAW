@@ -11,3 +11,8 @@ table.table-subcatalogo{height: 100% !important}
 	height: 450px;
 	display: block;
 }
+.cambio
+{
+	font-weight: bold;
+	background-color:#ffd777;	
+}
