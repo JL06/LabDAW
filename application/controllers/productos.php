@@ -415,6 +415,7 @@ class Productos extends MY_Controller
 				if ($cantidad > $cantidad_producto)
 				{
 					$this->session->set_flashdata('mensaje', 'Error: La cantidad asignada es mayor a la existente');
+					$this->session->set_flashdata('class', 'alert alert-danger');
 					redirect("productos/asignar");
 					return;
 				}
@@ -423,11 +424,13 @@ class Productos extends MY_Controller
 				{
 					$this->session->set_flashdata('mensaje', 'La asignacion fue realizada exitosamente');
 					$this->session->set_flashdata('class', 'alert alert-success');
+
 					redirect("productos/asignaciones");
 				}
 				else
 				{
 					$this->session->set_flashdata('mensaje', 'Error: No se pudo realizar operacion');
+					$this->session->set_flashdata('class', 'alert alert-danger');
 					redirect("productos/asignar");
 				}
 			}
@@ -439,6 +442,7 @@ class Productos extends MY_Controller
 					redirect("productos/asignaciones");
 				}
 				$asignacion = $this->productos_model->asignacion($idprod, $idv);
+
 				if ($asignacion == NULL)
 				{
 					echo "Error";
@@ -560,6 +564,7 @@ class Productos extends MY_Controller
 				if ($this->db->delete('asignacion', $data))
 				{
 					$this->session->set_flashdata('mensaje', 'Asignacion borrada');
+					$this->session->set_flashdata('class', 'alert alert-danger');
 					redirect("productos/asignaciones");
 				}
 				else

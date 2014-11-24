@@ -47,7 +47,7 @@ class Productos_model extends Generic_model
 		$materiales = $this->db->get_where('productomaterial', array('idProducto' => $producto));
 		return $this->query_to_array($materiales);
 	}
-
+/*
 	public function asignaciones()
 	{
 		$this->db->select("productos.nombre as producto, vendedor.nombre as vendedor,administrador.nombre as admin, fecha,cantidad, administrador.id as idad, vendedor.id as idv, productos.id as id");
@@ -78,8 +78,9 @@ class Productos_model extends Generic_model
 		}
 		return $asig;
 	}
+*/
 
-	/*public function asignaciones()
+	public function asignaciones()
 	{
 		$this->db->distinct();
 		$this->db->select("admin, producto, cantidad, vendedor, uno.id, uno.idv");
@@ -106,7 +107,7 @@ class Productos_model extends Generic_model
 		}
 		return $asig;
 	}
-*/
+	*/
 	public function producto($id)
 	{
 		$query = $this->db->get_where("productos", array('id' => $id));

@@ -59,6 +59,7 @@ class Usuario_model extends Generic_Model {
 	{
 		$this->db->limit(8);
 		$this->db->order_by("hora","desc");
+		$this->db->where("idUsuario = ".$user_id);
 		return $this->query_to_array($this->db->get("log"));
 	}
 	function get_asignaciones($rol,$id)

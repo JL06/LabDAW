@@ -1,7 +1,8 @@
 
-<link rel="stylesheet" href="<?php echo base_url('files/js/morris.js-0.5.1/morris.css')?>">
-<script src="<?php echo base_url('files/js/morris.js-0.5.1/morris.min.js') ?>"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row">
@@ -30,7 +31,7 @@
 									</p>
 								</p>
 								<p><span class="glyphicon glyphicon-lock"></span> <strong>Contraseña</strong>
-									<p>&#149;&#149;&#149;&#149; <a href="#">Cambiar</a></p>
+									<p>&#149;&#149;&#149;&#149; <a href="<?php echo base_url(''); ?>">Cambiar</a></p>
 								</p>
 								
 							</p>
@@ -124,6 +125,7 @@
 	</section>
 </section>
 <script type="text/javascript">
+
 	$(document).ready(function(){
 
 		ventas = <?php echo $ventas; ?>;
@@ -134,7 +136,8 @@
 			ykeys: ['total'],
 			labels: ['total'],
 			lineColors:["#ff865c"],
-			gridTextColor: "#fff"
+			gridTextColor: "#fff",
+			parseTime: false
 
 		});
 	});

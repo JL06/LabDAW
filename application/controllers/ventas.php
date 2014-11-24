@@ -51,7 +51,7 @@ class Ventas extends MY_Controller{
 
 		//valid es true si la forma pasó la validación y un arreglo de mensajes de error si no pasó
 		$valid=$this->validate_form($rules,$form_values,'ventas');
-
+		$producto = $this->ventas_model->leer("productos",array("id"=>$form_values['idProducto']))[0];
 
 		if ( $valid != 1){
 			$this->session->set_flashdata('mensaje',$valid);
@@ -59,34 +59,63 @@ class Ventas extends MY_Controller{
 			redirect('ventas/registrar');
 		}
 		
-		$form_values['importe']=$this->ventas_model->leer("productos",array("id"=>$form_values['idProducto']))[0]['precio'];
+		$form_values['importe']=$producto['precio'];
 		$form_values['idVendedor']=$this->session->userdata('id');
 
+
 		$id_producto = $form_values['idProducto'];
-		$cant = $this->ventas_model->leer("productos",array("id"=>$id_producto))[0]['cantidadProducto'];
-		if ($cant < $form_values['cantidad']){
-			$this->session->set_flashdata('mensaje',"No hay suficientes productos para la venta");
-			$this->session->set_flashdata('class','alert alert-danger');
-			redirect('ventas/registrar');
-		}
 
+		if ($this->session->userdata("rol") == 1)
+		{
+			$cant = $producto['cantidadProducto'];
 
-		if( $this->ventas_model->crear("ventas",$form_values)){
+			if ($cant < $form_values['cantidad']){
+				$this->session->set_flashdata('mensaje',"No hay suficientes productos para la venta");
+				$this->session->set_flashdata('class','alert alert-danger');
+				redirect('ventas/registrar');
+			}
 
-			if ($this->session->userdata('rol') == 1)
-				$this->ventas_model->actualizar('productos',array('id'=>$form_values['id_producto']),'cantidadProducto = cantidadProducto-1');
+			if( $this->ventas_model->crear("ventas",$form_values)){
+				$this->ventas_model->actualizar('productos',array('id'=>$form_values['idProducto']),'cantidadProducto = cantidadProducto-1');
+				redirect("ventas/listar");
+			}
 			else
-				$this->ventas_model->actualizar('asignacion',array('id_producto'=>$form_values['id_producto']),'cantidad = cantidad-1');
-
-			$this->session->set_flashdata('mensaje', 'La venta se registró exitosamente');
-			$this->session->set_flashdata('class','alert alert-success');
-
-			redirect('ventas/listar');
-		}else{
-			$this->session->set_flashdata('mensaje',"Ocurrió un error, inténtelo nuevamente.");
-			$this->session->set_flashdata('class','alert alert-danger');
-			redirect('ventas/registrar');
+			{
+				$this->session->set_flashdata('mensaje',"Ocurrió un error, inténtelo nuevamente.");
+				$this->session->set_flashdata('class','alert alert-danger');
+				redirect('ventas/registrar');
+			}
 		}
+		else
+		{
+			//obtener cantidad de productos asignados
+			$cant = $this->ventas_model->leer("productos",array("id"=>$id_producto,))[0]['cantidadProducto'];// cambiar esto
+			if ( $cant < $form_values['cantidad'])
+			{
+				if( $this->ventas_model->crear("ventas",$form_values))
+				{
+
+				//checar si alcanza 
+					$this->ventas_model->actualizar('asignacion',array('idProducto'=>$form_values['idProducto']),'cantidad = cantidad-1');
+
+
+					$this->session->set_flashdata('mensaje', 'La venta se registró exitosamente');
+					$this->session->set_flashdata('class','alert alert-success');
+
+					redirect('ventas/listar');
+				}
+				else
+				{
+					$this->session->set_flashdata('mensaje',"Ocurrió un error, inténtelo nuevamente.");
+					$this->session->set_flashdata('class','alert alert-danger');
+					redirect('ventas/registrar');
+				}
+				
+			}
+
+		}
+		
+
 	}
 
 	public function borrar($venta_id){
