@@ -71,7 +71,6 @@
 
 
       <?php
-      $role='Administrador';
-      $role=strtolower($role);
+      $role=$this->session->userdata('rol');
       $this->load->view('sidebars/'.$role);
       ?>
