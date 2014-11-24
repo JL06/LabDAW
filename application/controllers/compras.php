@@ -5,6 +5,7 @@ class Compras extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('compras_model');
+		$this->load->model('materiales_model');
 		$this->load->library('form_validation');
 	}
 
@@ -48,6 +49,9 @@ class Compras extends MY_Controller {
 
 		if($this->db->insert('compras',$data))
 		{
+			$material = $this->materiales_model->material($data['idmaterial']);
+			$this->db->where('id', $data['idmaterial']);
+			$this->db->update('material', array('cantidadMaterial' => $data['cantidad'] + $material['cantidad'])); 
 			$this->session->set_flashdata('mensaje', 'Se registro la compra exitosamente');
 			$this->session->set_flashdata('class', 'alert alert-success');
 			redirect("/compras");
@@ -122,6 +126,10 @@ class Compras extends MY_Controller {
 	{
 		if ($id != NULL) 
 		{
+			$compra = $this->compras_model->compra(array('compras.id'=>$id));
+			$material = $this->materiales_model->material($compra['matid']);
+			$this->db->where('id', $compra['matid']);
+			$this->db->update('material', array('cantidadMaterial' => $material['cantidad'] - $compra['cantidad']));
 			if ($this->db->delete('compras', array('id' => $id)))
 			{
 				$this->session->set_flashdata('class','alert alert-success');
