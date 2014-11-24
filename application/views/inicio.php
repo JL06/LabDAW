@@ -1,7 +1,7 @@
 
-<link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
+<link rel="stylesheet" href="<?php echo base_url('files/js/morris.js-0.5.1/morris.css')?>">
+<script src="<?php echo base_url('files/js/morris.js-0.5.1/morris.min.js') ?>"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row">

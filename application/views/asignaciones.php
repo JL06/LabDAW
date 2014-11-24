@@ -63,7 +63,7 @@
     $("a#borrar").click(function(e){
       e.preventDefault();
       var url=$(this).attr("href");
-      if (confirm("¿Deseas eliminar al usuario?")) {
+      if (confirm("¿Deseas eliminar la asignacion?")) {
         window.location.replace(url);
       };
 

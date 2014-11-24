@@ -50,7 +50,7 @@ class Inicio extends MY_Controller {
 			$action = explode("/",$l["accion"]);
 			if (isset($action[1]))
 			{
-				if (strpos($action[1],"insertar") !== FALSE OR (strpos($action[1],"guardar") !== FALSE && strpos($action[1],"guardar_") === FALSE ))
+				if (strpos($action[1],"insertar") !== FALSE OR (strpos($action[1],"guardar") !== FALSE && strpos($action[1],"guardar_") == FALSE && strpos($action[1],"guardar_asignacion") == FALSE ))
 				{
 					$a = "Agregaste";
 					switch ($action[0]) {
