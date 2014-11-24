@@ -19,7 +19,13 @@ class Ventas extends MY_Controller{
 	}
 
 	public function registrar(){
-		$productos=$this->ventas_model->leer('productos','activo = 1 AND cantidadProducto > 0');
+		if($this->session->userdata('rol')==='1')
+			$productos=$this->ventas_model->leer('productos','activo = 1 AND cantidadProducto > 0');
+		else
+			$productos=$this->ventas_model->get_asignaciones('asignacion.idVendedor = '.$this->session->userdata('id').' AND asignacion.cantidad > 0');
+
+
+
 		$vendors=$this->ventas_model->leer('usuario');
 		$lugares=$this->ventas_model->leer('lugar');
 		$data = array('main_content' => 'venta_form','title'=>'Registrar Venta','productos'=>$productos,'vendedor'=>$vendors,'lugar'=>$lugares );
@@ -258,7 +264,10 @@ class Ventas extends MY_Controller{
 	{
 		$id_prod=$this->input->post("selProd");
 		if ($id_prod !=NULL) {
-			echo $this->ventas_model->leer("productos",array("id"=>$id_prod))[0]["cantidadProducto"];
+			if($this->session->userdata('id')===1)
+				echo $this->ventas_model->leer("productos",array("id"=>$id_prod))[0]["cantidadProducto"];
+			else
+				echo $this->ventas_model->leer('asignacion', array('idProducto'=>$id_prod))[0]['cantidad'];
 		}
 	}
 }

@@ -28,5 +28,16 @@ class Ventas_model extends Generic_model{
 
 		return $this->query_to_array($query);
 	}
+
+	function get_asignaciones($filter=""){
+		$this->db->select('productos.nombre, productos.id');
+		$this->db->from('asignacion');
+		$this->db->join('productos', 'productos.id = asignacion.idProducto');
+		if ($filter !="")
+			$this->db->where($filter);
+		$query=$this->db->get();
+
+		return $this->query_to_array($query);
+	}
 }
 ?>

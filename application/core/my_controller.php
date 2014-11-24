@@ -9,7 +9,8 @@ class MY_Controller extends CI_Controller
 		$this->load->model("generic_model");
 		$this->load->model("permission_model");
 		$this->load->helper('form');
-		//$this->comprueba_permiso();
+		if($this->session->userdata('rol')!=='1')
+			$this->comprueba_permiso();
 		$this->log();
 	}
 	protected function comprueba_sesion()
