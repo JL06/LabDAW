@@ -12,7 +12,7 @@ class Cuenta extends MY_Controller {
 	public function index() 
 	{
 		$id = $this->session->userdata('id');
-		$data = $this->usuario_model->usuario(array("usuario.id"=> $id));
+		$data = $this->usuario_model->usuario( $id);
 		$data['title'] = "Mi Cuenta";
 		$data['main_content'] = "mi_cuenta";
 		$this->load->view('templates/template',$data);

@@ -25,9 +25,9 @@
 								<div class="input-group">
 									<input value="<?php if (isset($cantidad)) echo $cantidad; ?>" type="number" name="cantidad" class="form-control" min="1" required>
 									<?php if (isset($unidad)): ?>
-									<div class="input-group-addon"><?php echo $unidad; ?></div>
+										<div class="input-group-addon"><?php echo $unidad; ?></div>
 									<?php else: ?>
-									<div class="input-group-addon">unidad</div>
+										<div class="input-group-addon">unidad</div>
 									<?php endif;?>
 								</div>
 							</div>
@@ -52,6 +52,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">&nbsp</label>
 							<button type="submit" class="btn btn-round btn-primary">Guardar</button>
+							<a href="<?php echo base_url('compras')?>" class="btn btn-default btn-round">Cancelar</a>
 						</div>
 					</form>
 				</div>

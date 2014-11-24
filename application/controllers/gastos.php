@@ -216,14 +216,16 @@ class Gastos extends MY_Controller{
 			redirect('inicio/subcatalogos');
 
 		}
-		else if ($valid == 0)
+		else if($valid == 0)
 		{
 			$this->session->set_flashdata('class','alert alert-success');
 			$this->session->set_flashdata('mensaje','El tipo de gasto se agregó exitosamente');
 			redirect('inicio/subcatalogos');	
 		}
 
-		else ($this->gastos_model->crear('tipogasto', $form_values)){
+		else 
+		{
+			$this->gastos_model->crear('tipogasto', $form_values);
 			$this->session->set_flashdata('class','alert alert-success');
 			$this->session->set_flashdata('mensaje','El tipo de gasto se agregó exitosamente');
 			redirect('inicio/subcatalogos');

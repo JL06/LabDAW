@@ -7,8 +7,10 @@ class MY_Controller extends CI_Controller
 		parent::__construct();
 		$this->comprueba_sesion();
 		$this->load->model("generic_model");
+		$this->load->model("permission_model");
 		$this->load->helper('form');
 		//$this->comprueba_permiso();
+		$this->log();
 	}
 	protected function comprueba_sesion()
 	{
@@ -31,7 +33,7 @@ class MY_Controller extends CI_Controller
 		}
 		else
 		{
-			//$this->log();
+			$this->log();
 		}
 	}
 
@@ -102,14 +104,17 @@ class MY_Controller extends CI_Controller
 	{
 		return $str >= $num;
 	}
+
 	protected function log()
 	{
 		$user=$this->session->userdata('id');
 		$date = date("Y-m-d");
 		$accion=$this->uri->segment(1)."/".$this->uri->segment(2);
-		if($accion == "/")
-			$accion="inicio";
-		$this->permission_model->crear("log",array("accion"=>$accion, "idUsuario"=>$user,"fecha"=>$date));
+		if($accion != "/" OR strpos($accion,"actualizar_" == FALSE))
+		{
+			if (strpos($accion,"actualizar") !== FALSE OR strpos($accion,"insertar") !== FALSE OR strpos($accion,"guardar") !== FALSE OR strpos($accion,"borrar") !== FALSE)
+				$this->permission_model->crear("log",array("accion"=>$accion, "idUsuario"=>$user,"fecha"=>$date));
+		}
 	}
 
 	protected function ymd_mdy($fecha)

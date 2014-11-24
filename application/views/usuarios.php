@@ -24,7 +24,7 @@
               <thead>
                 <tr>
                   <th>Nombre</th>
-                  <th>Genero</th>
+                  <th>Género</th>
                   <th>Correo</th>
                   <th>Telefono</th>
                   <th>Rol</th>
@@ -42,7 +42,7 @@
                       <td><?php echo $usuario["tipo"] ?></td>
                       <td>
                         <div class="pull-right hidden-phone">
-                          <a class="btn btn-theme03" href="<?php echo base_url('usuarios/actualizar/'.$usuario['id'])?>"><i class="fa fa-pencil"></i></a>
+                          <a class="btn btn-theme03" href="<?php echo base_url('usuarios/actualizar_usuario/'.$usuario['id'])?>"><i class="fa fa-pencil"></i></a>
                           <a id="borrar" class="btn btn-theme04" href="<?php echo base_url('usuarios/borrar/'.$usuario['id'])?>"><i class="fa fa-trash-o "></i></a>
                         </div>
                       </td>

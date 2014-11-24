@@ -9,10 +9,14 @@ class Reportes_model extends Generic_model
 		return $this->query_to_array($query)[0]['total'];
 
 	}
-	function get_ventas($date1,$date2)
+	function get_ventas($date1,$date2,$param="")
 	{
 		$this->db->select("fecha, cantidad * importe as total");
-		$this->db->where("fecha BETWEEN '$date1' AND '$date2'");
+		if ($param ==="")
+			$this->db->where("fecha BETWEEN '$date1' AND '$date2'");
+		else
+			$this->db->where("fecha BETWEEN '$date1' AND '$date2' AND ".$param);
+		
 		$query = $this->db->get("ventas");
 		return $this->query_to_array($query);
 
@@ -62,7 +66,7 @@ class Reportes_model extends Generic_model
 		else
 		{
 
-			$sql = "SELECT SUM(cantidad) as cantidadVentas, SUM(importe) as importe, usuario.nombre as vendedor 
+			$sql = "SELECT SUM(cantidad) as cantidadVentas, SUM(importe) as importe, usuario.nombre as vendedor,fecha 
 			FROM Ventas, Usuario
 			WHERE idVendedor IN(".$this->db->escape_str($id).")
 			AND usuario.id= ventas.idVendedor

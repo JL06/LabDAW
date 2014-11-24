@@ -105,4 +105,3 @@
 				);
 			});
 		</script>
-		<?php $this->load->view("modals/agregar_color")?>

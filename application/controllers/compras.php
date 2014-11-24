@@ -60,7 +60,7 @@ class Compras extends MY_Controller {
 		}
 	}
 
-	public function actualizar($id = NULL)
+	public function actualizar_compra($id = NULL)
 	{
 		if ($id != NULL) 
 		{
@@ -90,7 +90,7 @@ class Compras extends MY_Controller {
 				$errores = validation_errors();
 				$this->session->set_flashdata('mensaje', 'Error: '.$errores);
 				$this->session->set_flashdata('class', 'alert alert-danger');
-				redirect("compras/actualizar/".$id);
+				redirect("compras/actualizar_compra/".$id);
 				return;
 			}
 

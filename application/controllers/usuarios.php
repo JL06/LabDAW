@@ -61,12 +61,12 @@ class Usuarios extends MY_Controller {
 		}
 	}
 
-	function actualizar($id = NULL) 
+	function actualizar_usuario($id = NULL) 
 	{
 		if ($id != NULL) 
 		{
 			$roles = $this->generic_model->listar("rol");
-			$data = $this->usuario_model->usuario(array("usuario.id"=> $id));
+			$data = $this->usuario_model->usuario($id);
 			$data['main_content'] = 'forma_usuario';
 			$data['title'] = 'Actualizar Usuario';
 			$data['titulo'] = 'Actualizar Usuario';
@@ -94,7 +94,7 @@ class Usuarios extends MY_Controller {
 			{
 				$errores = validation_errors();
 				$this->session->set_flashdata('mensaje', 'Error: los dos campos de contraseña deben ser iguales'.$errores);
-				redirect("usuarios/agregar");
+				redirect("usuarios/actualizar_usuario");
 				return;
 			}
 			
@@ -104,6 +104,7 @@ class Usuarios extends MY_Controller {
 			$data['genero'] =$this->input->post('genero');
 			$data['idrol'] = $this->input->post('rol');
 			$data['telefono'] = $this->input->post('telefono');
+			
 			if ($this->usuario_model->actualizar("usuario", array('id' => $id), $data)) 
 			{
 				$this->session->set_flashdata('mensaje', 'El usuario fue actualizado');
