@@ -31,7 +31,7 @@
 									</p>
 								</p>
 								<p><span class="glyphicon glyphicon-lock"></span> <strong>Contraseña</strong>
-									<p>&#149;&#149;&#149;&#149; <a href="<?php echo base_url(''); ?>">Cambiar</a></p>
+									<p>&#149;&#149;&#149;&#149; <a href="<?php echo base_url('cuenta'); ?>">Cambiar</a></p>
 								</p>
 								
 							</p>
