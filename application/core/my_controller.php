@@ -49,6 +49,11 @@ class MY_Controller extends CI_Controller
 				if($entity == 'material')
 				{
 					$rep = $this->generic_model->repite($entity, $r['field'], array('idTipo'=>$form_values['idTipo'], 'idColor'=>$form_values['idColor']));
+					if ($rep)
+					{
+						$unique_error ='El '.$r['label'].' ya está registrado. Registre uno diferente o modifique el que ya existe.';
+						$valid=FALSE;
+					}
 				}
 				else
 				{
@@ -110,9 +115,9 @@ class MY_Controller extends CI_Controller
 		$user=$this->session->userdata('id');
 		$date = date("Y-m-d");
 		$accion=$this->uri->segment(1)."/".$this->uri->segment(2);
-		if($accion != "/" OR strpos($accion,"actualizar_" == FALSE))
+		if($accion != "/" OR strpos($accion,"actualizar_" === FALSE))
 		{
-			if (strpos($accion,"actualizar") !== FALSE OR strpos($accion,"insertar") !== FALSE OR strpos($accion,"guardar") !== FALSE OR strpos($accion,"borrar") !== FALSE)
+			if (strpos($accion,"actualizar") !== FALSE OR strpos($accion,"insertar") !== FALSE OR strpos($accion,"guardar") !== FALSE OR strpos($accion,"borrar") !== FALSE OR strpos($accion,"guarda") !== FALSE)
 				$this->permission_model->crear("log",array("accion"=>$accion, "idUsuario"=>$user,"fecha"=>$date));
 		}
 	}

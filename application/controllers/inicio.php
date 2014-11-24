@@ -50,7 +50,7 @@ class Inicio extends MY_Controller {
 			$action = explode("/",$l["accion"]);
 			if (isset($action[1]))
 			{
-				if (strpos($action[1],"insertar") !== FALSE OR strpos($action[1],"guardar ") !== FALSE)
+				if (strpos($action[1],"insertar") !== FALSE OR (strpos($action[1],"guardar") !== FALSE && strpos($action[1],"guardar_") === FALSE ))
 				{
 					$a = "Agregaste";
 					switch ($action[0]) {
@@ -82,7 +82,7 @@ class Inicio extends MY_Controller {
 						$hist[]= array("accion" => $a,"fecha" => $l['hora']);
 				}
 
-				if (strpos($action[1],"actualizar") !== FALSE OR strpos($action[1],"guardar_actual") !== FALSE OR strpos($action[1],"guarda_actual") !== FALSE)
+				if ((strpos($action[1],"actualizar") !== FALSE && strpos($action[1],"actualizar_") === FALSE) OR strpos($action[1],"guardar_actual") !== FALSE OR strpos($action[1],"guarda_actual") !== FALSE)
 				{
 					$a = "Actualizaste";
 					switch ($action[0]) {
