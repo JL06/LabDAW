@@ -103,8 +103,13 @@ class Compras extends MY_Controller {
 			$data['costo'] = $this->input->post('costo');
 			$data['fecha'] = $this->input->post('fecha');
 
+			$compra = $this->compras_model->compra(array('compras.id'=>$id));
+			$material = $this->materiales_model->material($data['idmaterial']);
+
 			if($this->compras_model->actualizar('compras', array('id' => $id), $data))
 			{
+				$this->db->where('id', $data['idmaterial']);
+				$this->db->update('material', array('cantidadMaterial' => ($data['cantidad'] - $compra['cantidad']) + $material['cantidad'])); 
 				$this->session->set_flashdata('mensaje', 'Se actualizo la compra exitosamente');
 				$this->session->set_flashdata('class', 'alert alert-success');
 				redirect("/compras");
