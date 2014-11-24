@@ -50,7 +50,7 @@ class Productos_model extends Generic_model
 
 	public function asignaciones()
 	{
-		$this->db->select("productos.nombre as producto, vendedor.nombre as vendedor,administrador.nombre as admin, fecha,cantidad, administrador.id as idv, productos.id as id");
+		$this->db->select("productos.nombre as producto, vendedor.nombre as vendedor,administrador.nombre as admin, fecha,cantidad, administrador.id as idad, vendedor.id as idv, productos.id as id");
 		$this->db->from("asignacion");
 		$this->db->join("productos","asignacion.idProducto = productos.id");
 		$this->db->join("usuario as vendedor","vendedor.id = asignacion.idVendedor");
@@ -61,13 +61,13 @@ class Productos_model extends Generic_model
 
 	public function asignacion($idprod, $idv)
 	{
-		$this->db->select("productos.nombre as producto, vendedor.nombre as vendedor,administrador.nombre as admin, fecha,cantidad, administrador.id as idv, productos.id as id");
+		$this->db->select("productos.nombre as producto, vendedor.nombre as vendedor,administrador.nombre as admin, fecha,cantidad, administrador.id as idv, vendedor.id as idv, productos.id as id");
 		$this->db->from("asignacion");
 		$this->db->join("productos","asignacion.idProducto = productos.id");
 		$this->db->join("usuario as vendedor","vendedor.id = asignacion.idVendedor");
 		$this->db->join("usuario as administrador","administrador.id = asignacion.idAdmin");
 
-		$this->db->where('administrador.id', $idv);
+		$this->db->where('vendedor.id', $idv);
 		$this->db->where('productos.id', $idprod);
 		$query = $this->db->get();
 
@@ -138,7 +138,7 @@ class Productos_model extends Generic_model
 		$asignacion = $this->asignacion($idproducto, $idvendedor);
 		$cantidad_actual = $asignacion['cantidad'];
 
-		
+		$this->db->where(array('idProducto' => $idproducto, 'idVendedor' => $idvendedor));
 		if ($this->db->update('asignacion', array('cantidad' => $cantidad + $cantidad_actual)))
 		{
 			$this->db->where('id', $idproducto);

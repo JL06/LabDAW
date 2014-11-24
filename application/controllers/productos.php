@@ -552,6 +552,11 @@ class Productos extends MY_Controller
 					redirect("productos/asignaciones");
 				}
 				$data = array('idProducto' => $idprod, 'idVendedor' => $idv);
+
+				$asignacion = $this->productos_model->asignacion($idprod, $idv);
+				$producto = $this->productos_model->producto($idprod);
+				$this->db->where('id', $idprod);
+				$this->db->update('productos', array('cantidadProducto' => $asignacion['cantidad'] + $producto['cantidadProducto']));
 				if ($this->db->delete('asignacion', $data))
 				{
 					$this->session->set_flashdata('mensaje', 'Asignacion borrada');
