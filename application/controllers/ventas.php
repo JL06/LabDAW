@@ -204,7 +204,7 @@ class Ventas extends MY_Controller{
 				if ($this->session->userdata("rol") == 1)
 				{
 					$stock= $producto['cantidadProducto'] + $venta_original['cantidad'] - $form_values['cantidad'];
-					$form_values['importe'] = $producto['precio'] * $form_values['cantidad'];
+					$form_values['importe'] = $producto['precio'];
 
 					if ($stock >= 0)
 					{
@@ -234,7 +234,7 @@ class Ventas extends MY_Controller{
 						//var_dump($stock);
 						redirect('ventas/actualizar_venta/'.$venta_original['id']);
 					}
-					$form_values['importe'] = $producto['precio'] * $form_values['cantidad'];
+					$form_values['importe'] = $producto['precio'];
 
 				}
 
@@ -260,7 +260,7 @@ class Ventas extends MY_Controller{
 				$stock= $producto['cantidadProducto'] - $form_values['cantidad'];
 				$this->productos_model->actualizar("productos",array('id'=>$form_values['idProducto']),array('cantidadProducto'=>$stock));
 				
-				$form_values['importe'] = $producto['precio'] * $form_values['cantidad'];
+				$form_values['importe'] = $producto['precio'];
 			}
 		}
 
