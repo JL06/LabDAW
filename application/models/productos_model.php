@@ -13,7 +13,22 @@ class Productos_model extends Generic_model
 
 		return $this->query_to_array($query);
 	}
+	function get_productos_asignados($idVendedor, $filter="")
+	{
+		$this->db->select('productos.id, productos.nombre, productos.precio, productos.descripcion, tipoproducto.nombre as tipo,tiempo,cantidad as cantidadProducto,productos.idTipo');
+		$this->db->from('productos');
+		$this->db->join('tipoproducto','tipoproducto.id=productos.idTipo');
+		$this->db->join('asignacion','idProducto=productos.id');
+		$this->db->where("cantidad > 0 AND productos.activo = 1 AND idVendedor=".$this->db->escape($idVendedor));
+		if ($filter !="") {
+			$this->db->where($filter);
 
+		}
+
+		$query=$this->db->get();
+
+		return $this->query_to_array($query);
+	}
 	public function asignar_material($prod_id,$mat) 
 	{
 		$insertData=array();
@@ -47,7 +62,7 @@ class Productos_model extends Generic_model
 		$materiales = $this->db->get_where('productomaterial', array('idProducto' => $producto));
 		return $this->query_to_array($materiales);
 	}
-
+/*
 	public function asignaciones()
 	{
 		$this->db->select("productos.nombre as producto, vendedor.nombre as vendedor,administrador.nombre as admin, fecha,cantidad, administrador.id as idad, vendedor.id as idv, productos.id as id");
@@ -78,8 +93,9 @@ class Productos_model extends Generic_model
 		}
 		return $asig;
 	}
+*/
 
-	/*public function asignaciones()
+	public function asignaciones()
 	{
 		$this->db->distinct();
 		$this->db->select("admin, producto, cantidad, vendedor, uno.id, uno.idv");
@@ -106,7 +122,7 @@ class Productos_model extends Generic_model
 		}
 		return $asig;
 	}
-*/
+
 	public function producto($id)
 	{
 		$query = $this->db->get_where("productos", array('id' => $id));

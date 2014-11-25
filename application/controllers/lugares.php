@@ -39,6 +39,28 @@ class Lugares extends MY_Controller {
 
 		$data['nombre'] = $this->input->post('nombre');
 
+		if ($this->lugares_model->repetido(array('nombre'=>$data['nombre']))) 
+		{
+			if ($this->lugares_model->activo(array('nombre'=>$data['nombre']))) 
+			{
+				$this->session->set_flashdata('mensaje', 'Error: Ya existe un punto de venta con ese nombre');
+				$this->session->set_flashdata('class', 'alert alert-danger');
+				redirect("lugares/agregar");
+				return;
+			}
+			else
+			{
+				$lugar = $this->lugares_model->lugar(array('nombre'=>$data['nombre']));
+				$info['activo'] = 1;
+				$this->lugares_model->actualizar('lugar', array('id' => $lugar['id']), $info);
+				$this->session->set_flashdata('mensaje', 'El Punto de venta fue agregado');
+				$this->session->set_flashdata('class', 'alert alert-success');
+				redirect("/lugares");
+				return;
+			}
+			
+		}
+
 		if($this->db->insert('lugar',$data))
 		{
 			$this->session->set_flashdata('mensaje', 'El Punto de venta fue agregado');
@@ -84,6 +106,19 @@ class Lugares extends MY_Controller {
 			}
 
 			$data['nombre'] = $this->input->post('nombre');
+
+			if ($this->lugares_model->repetido(array('nombre'=>$data['nombre']))) 
+			{
+				if ( ! $this->lugares_model->activo(array('nombre'=>$data['nombre']))) 
+				{
+					$lugar = $this->lugares_model->lugar(array('nombre'=>$data['nombre']));
+					$info['activo'] = 1;
+					$this->lugares_model->actualizar('lugar', array('id' => $lugar['id']), $info);
+				}
+				$this->session->set_flashdata('mensaje', 'Error: Ya existe un punto de venta con ese nombre');
+				$this->session->set_flashdata('class', 'alert alert-danger');
+				redirect("lugares");
+			}
 
 			if($this->lugares_model->actualizar('lugar', array('id' => $id), $data))
 			{

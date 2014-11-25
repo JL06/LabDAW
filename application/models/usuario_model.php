@@ -59,11 +59,12 @@ class Usuario_model extends Generic_Model {
 	{
 		$this->db->limit(8);
 		$this->db->order_by("hora","desc");
+		$this->db->where("idUsuario = ".$user_id);
 		return $this->query_to_array($this->db->get("log"));
 	}
 	function get_asignaciones($rol,$id)
 	{
-		$query = "SELECT administrador.nombre as admin, vendedor.nombre as vendedor, productos.nombre as producto, cantidad, fecha
+		$query = "SELECT administrador.nombre as admin, vendedor.nombre as vendedor, productos.nombre as nombre, cantidad as cantidadProducto, fecha,productos.id as id
 		FROM asignacion, usuario as administrador, usuario as vendedor, productos ";
 		if ($rol == 1)
 			$query.= " WHERE administrador.id = asignacion.idAdmin AND vendedor.id = asignacion.idVendedor

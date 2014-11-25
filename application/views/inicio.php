@@ -1,7 +1,7 @@
-
-<link rel="stylesheet" href="<?php echo base_url('files/js/morris.js-0.5.1/morris.css')?>">
-<script src="<?php echo base_url('files/js/morris.js-0.5.1/morris.min.js') ?>"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row">
@@ -30,112 +30,114 @@
 									</p>
 								</p>
 								<p><span class="glyphicon glyphicon-lock"></span> <strong>Contraseña</strong>
-									<p>&#149;&#149;&#149;&#149; <a href="#">Cambiar</a></p>
+
+									<p>&#149;&#149;&#149;&#149; <a href="<?php echo base_url('cuenta'); ?>">Cambiar</a></p>								</p>
+									
 								</p>
-								
-							</p>
 
-						</div>
-					</div>
-					<div class="col-lg-6 col-md-6">
-						<div class="darkblue-panel pn">
-							<div class="darkblue-header">
-								<h5>Mis ventas</h5>
 							</div>
-							<div class="chart" id="grafica-ventas" style="height:160px"></div>
 						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="col-lg-12 col-md-12 mb">
-							<div class="grey-panel">
-								<div class="grey-header" style="margin-bottom:0px">
-									<h5>Mis asignaciones</h5>
+						<div class="col-lg-6 col-md-6">
+							<div class="darkblue-panel pn">
+								<div class="darkblue-header">
+									<h5>Mis ventas</h5>
 								</div>
-								<?php if( !empty($asignaciones)): ?>
-									<div class="content-panel" style="min-height:192px">
-										<table class="table">
-											<thead class="cf">
-												<tr>
-													<?php if ($usuario["rolid"] == 1): ?>
-														<td>Vendedor</td>
-													<?php else: ?>
-														<td>Administrador</td>
-													<?php endif; ?>
-													<td>Producto</td>
-													<td>Cantidad</td>
-													<td>Fecha</td>
-												</tr>
-											</thead>
-											<tbody>
-												<?php foreach ($asignaciones as $a): ?>
-													<tr>
-														<td>
-															<?php if($usuario["rolid"] == 1): ?>
-																<?php echo $a['vendedor']; ?>
-															<?php else: ?>
-																<?php echo $a['admin']; ?>
-
-															<?php endif;?>
-														</td>
-														<td><?php echo $a['producto']; ?></td>
-														<td><?php echo $a['cantidad']; ?></td>
-														<td><?php echo $a['fecha']; ?></td>
-													</tr>
-												<?php endforeach;?>
-
-											</tbody>
-										</table>
-										
+								<div class="chart" id="grafica-ventas" style="height:160px"></div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="col-lg-12 col-md-12 mb">
+								<div class="grey-panel">
+									<div class="grey-header" style="margin-bottom:0px">
+										<h5>Mis asignaciones</h5>
 									</div>
-								<?php else : ?>
-									<p>No hay asignaciones que mostrar</p>
-								<?php endif;?>
+									<?php if( !empty($asignaciones)): ?>
+										<div class="content-panel" style="min-height:192px">
+											<table class="table">
+												<thead class="cf">
+													<tr>
+														<?php if ($usuario["rolid"] == 1): ?>
+															<td>Vendedor</td>
+														<?php else: ?>
+															<td>Administrador</td>
+														<?php endif; ?>
+														<td>Producto</td>
+														<td>Cantidad</td>
+														<td>Fecha</td>
+													</tr>
+												</thead>
+												<tbody>
+													<?php foreach ($asignaciones as $a): ?>
+														<tr>
+															<td>
+																<?php if($usuario["rolid"] == 1): ?>
+																	<?php echo $a['vendedor']; ?>
+																<?php else: ?>
+																	<?php echo $a['admin']; ?>
 
+																<?php endif;?>
+															</td>
+															<td><?php echo $a['nombre']; ?></td>
+															<td><?php echo $a['cantidadProducto']; ?></td>
+															<td><?php echo $a['fecha']; ?></td>
+														</tr>
+													<?php endforeach;?>
+
+												</tbody>
+											</table>
+											
+										</div>
+									<?php else : ?>
+										<p>No hay asignaciones que mostrar</p>
+									<?php endif;?>
+
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-3 ds" style="min-height:500px">
-				<h3>Historial</h3>
-				<?php foreach($historial as $h): ?>
-					<div class="desc">
-						<div class="thumb">
-							<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+				<div class="col-lg-3 ds" style="min-height:500px">
+					<h3>Historial</h3>
+					<?php foreach($historial as $h): ?>
+						<div class="desc">
+							<div class="thumb">
+								<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+							</div>
+							<div class="details">
+								<p><muted><?php echo $h["fecha"]; ?></muted><br>
+									<?php echo $h["accion"];?>
+								</p>
+							</div>
 						</div>
-						<div class="details">
-							<p><muted><?php echo $h["fecha"]; ?></muted><br>
-								<?php echo $h["accion"];?>
-							</p>
-						</div>
-					</div>
 
-				<?php endforeach; ?>
-				<!-- First Action -->
+					<?php endforeach; ?>
+					<!-- First Action -->
 
+
+				</div>
 
 			</div>
 
-		</div>
 
-
+		</section>
 	</section>
-</section>
-<script type="text/javascript">
-	$(document).ready(function(){
+	<script type="text/javascript">
 
-		ventas = <?php echo $ventas; ?>;
-		new Morris.Line({
-			element: 'grafica-ventas',
-			data: ventas,
-			xkey: 'fecha',
-			ykeys: ['total'],
-			labels: ['total'],
-			lineColors:["#ff865c"],
-			gridTextColor: "#fff"
+		$(document).ready(function(){
 
+			ventas = <?php echo $ventas; ?>;
+			new Morris.Line({
+				element: 'grafica-ventas',
+				data: ventas,
+				xkey: 'fecha',
+				ykeys: ['total'],
+				labels: ['total'],
+				lineColors:["#ff865c"],
+				gridTextColor: "#fff",
+				parseTime: false
+
+			});
 		});
-	});
-</script>
+	</script>

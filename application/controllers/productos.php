@@ -28,7 +28,7 @@ class Productos extends MY_Controller
 		$data['tipo']=$this->productos_model->leer('tipoproducto');
 		$data['main_content']="producto_form";
 		$data['title']="Registrar Producto";
-		$data['materiales']=$this->materiales_model->get_materiales();
+		$data['materiales']=$this->materiales_model->get_materiales("materiales.activo = 1");
 		$this->load->view('templates/template',$data);
 	}
 
@@ -198,7 +198,7 @@ class Productos extends MY_Controller
 				$data['tipo']=$this->productos_model->leer('tipoproducto');
 				$data['main_content']="producto_form";
 				$data['title']="Actualizar Producto";
-				$data['materiales']=$this->materiales_model->get_materiales();
+				$data['materiales']=$this->materiales_model->get_materiales("materiales.activo = 1 OR ");
 				$data['producto']=json_encode($this->productos_model->get_productos(array('productos.id' => $prod_id))[0]);
 				$data['prod_id']=$prod_id;
 				$data['mat_actuales']=json_encode($this->materiales_model->get_materiales_producto($prod_id));
@@ -415,6 +415,7 @@ class Productos extends MY_Controller
 				if ($cantidad > $cantidad_producto)
 				{
 					$this->session->set_flashdata('mensaje', 'Error: La cantidad asignada es mayor a la existente');
+					$this->session->set_flashdata('class', 'alert alert-danger');
 					redirect("productos/asignar");
 					return;
 				}
@@ -423,11 +424,13 @@ class Productos extends MY_Controller
 				{
 					$this->session->set_flashdata('mensaje', 'La asignacion fue realizada exitosamente');
 					$this->session->set_flashdata('class', 'alert alert-success');
+
 					redirect("productos/asignaciones");
 				}
 				else
 				{
 					$this->session->set_flashdata('mensaje', 'Error: No se pudo realizar operacion');
+					$this->session->set_flashdata('class', 'alert alert-danger');
 					redirect("productos/asignar");
 				}
 			}
@@ -439,6 +442,7 @@ class Productos extends MY_Controller
 					redirect("productos/asignaciones");
 				}
 				$asignacion = $this->productos_model->asignacion($idprod, $idv);
+
 				if ($asignacion == NULL)
 				{
 					echo "Error";
@@ -560,6 +564,7 @@ class Productos extends MY_Controller
 				if ($this->db->delete('asignacion', $data))
 				{
 					$this->session->set_flashdata('mensaje', 'Asignacion borrada');
+					$this->session->set_flashdata('class', 'alert alert-danger');
 					redirect("productos/asignaciones");
 				}
 				else

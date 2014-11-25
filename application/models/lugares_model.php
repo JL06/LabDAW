@@ -14,6 +14,35 @@ class Lugares_model extends Generic_Model {
 		}
 		return $lugar;
 	}
+
+	function repetido($nombre)
+	{
+		$this->db->select("*");
+		$this->db->from("lugar");
+		$this->db->where($nombre);
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			$lugar = TRUE;
+		} else {
+			$lugar = FALSE;
+		}
+		return $lugar;
+	}
+
+		function activo($nombre)
+	{
+		$this->db->select("*");
+		$this->db->from("lugar");
+		$this->db->where($nombre);
+		$this->db->where(array('activo' => 1));
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			$lugar = TRUE;
+		} else {
+			$lugar = FALSE;
+		}
+		return $lugar;
+	}
 }
 /* End of file lugares_model.php */
 /* Location: models/lugares_model.php */

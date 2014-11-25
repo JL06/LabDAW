@@ -98,7 +98,7 @@ class Usuarios extends MY_Controller {
 				return;
 			}
 			
-			$data['password'] = password_hash($this->input->post('clave'), PASSWORD_DEFAULT);
+			$data['password'] = MD5($this->input->post('clave'));
 			$data['nombre'] = $this->input->post('nombre');
 			$data['email'] = $this->input->post('correo');
 			$data['genero'] =$this->input->post('genero');
