@@ -60,7 +60,7 @@ class Cuenta extends MY_Controller {
 		$clave_actual = $this->input->post('clave0');
 		$clave_usuario = $usuario['password'];
 
-		if ( ! password_verify($clave_actual, $clave_usuario)) 
+		if ($usuario['password'] != MD5($clave_actual))
 		{
 			// No es la clave
 			$this->session->set_flashdata('mensaje', 'Error: Contraseña incorrecta');
@@ -81,7 +81,7 @@ class Cuenta extends MY_Controller {
 			return;
 		}
 		
-		$data['password'] = password_hash($clave, PASSWORD_DEFAULT);
+		$data['password'] = MD5($clave);
 
 		if ($this->usuario_model->actualizar("usuario", array('id' => $id), $data)) 
 		{
