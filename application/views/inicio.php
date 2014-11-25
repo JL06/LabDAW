@@ -79,8 +79,8 @@
 
 																<?php endif;?>
 															</td>
-															<td><?php echo $a['producto']; ?></td>
-															<td><?php echo $a['cantidad']; ?></td>
+															<td><?php echo $a['nombre']; ?></td>
+															<td><?php echo $a['cantidadProducto']; ?></td>
 															<td><?php echo $a['fecha']; ?></td>
 														</tr>
 													<?php endforeach;?>

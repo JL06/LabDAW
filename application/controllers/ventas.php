@@ -110,7 +110,7 @@ class Ventas extends MY_Controller{
 			{
 				if( $this->ventas_model->crear("ventas",$form_values))
 				{
-					$new_stock = $cant -1;
+					$new_stock = $cant - $form_values['cantidad'];
 
 					$this->ventas_model->actualizar('asignacion',array('idProducto'=>$form_values['idProducto'],'idVendedor'=>$this->session->userdata("id")),array('cantidad'=>$new_stock));
 					$this->session->set_flashdata('mensaje', 'La venta se registró exitosamente');
@@ -151,8 +151,14 @@ class Ventas extends MY_Controller{
 		$venta = $this->ventas_model->actualizar_venta(array('ventas.id' => $venta_id))[0];
 		$data['venta']=json_encode($venta);
 		$data['venta_id']=$venta_id;
-		$data['productos']=$this->ventas_model->leer('productos','activo = 1 AND cantidadProducto > 0');
-		$data['productos'][]=$this->ventas_model->leer('productos','id = '.$venta['idProducto'])[0];
+		$this->load->model("productos_model");
+		$producto_actual = $this->ventas_model->leer('productos',array('id'=>$venta['idProducto']))[0];
+
+		if ($this->session->userdata("rol") == 1)
+			$data['productos']=$this->ventas_model->leer('productos','(activo = 1 AND cantidadProducto > 0) OR id = '.$venta['idProducto']);
+		else
+			$data['productos']=$this->productos_model->get_productos_asignados($this->session->userdata("id"));
+
 		$data['vendedor']=$this->ventas_model->leer('usuario');
 		$data['lugar']=$this->ventas_model->leer('lugar');
 
@@ -163,6 +169,8 @@ class Ventas extends MY_Controller{
 	{
 		$form_values=$this->input->post();
 		$this->load->model("productos_model");
+		$rol = $this->session->userdata("rol");
+		$id_user = $this->session->userdata("id");
 
 		$rules=array(
 			array(
@@ -191,9 +199,18 @@ class Ventas extends MY_Controller{
 		$venta_original = $this->ventas_model->leer('ventas',array('ventas.id'=>$venta_id))[0];
 
 		//producto seleccionado en la forma
-		$producto = $this->ventas_model->leer("productos",array("id"=>$form_values['idProducto']))[0];
-		
-		$producto_original = $this->ventas_model->leer("productos",array("id"=>$venta_original['idProducto']))[0];
+		if ($rol == 1)
+		{
+			$producto = $this->ventas_model->leer("productos",array("id"=>$form_values['idProducto']))[0];
+			$producto_original = $this->ventas_model->leer("productos",array("id"=>$venta_original['idProducto']))[0];
+
+		}
+		else
+		{
+			$producto = $this->productos_model->get_productos_asignados($this->session->userdata("id"),"idProducto = '".$form_values['idProducto']."'")[0];
+			$producto_original = $this->productos_model->get_productos_asignados($id_user,"idProducto = '".$venta_original['idProducto']."'")[0];
+
+		}
 
 
 		//AJUSTE DE STOCK
@@ -201,25 +218,27 @@ class Ventas extends MY_Controller{
 		{
 			if ($venta_original['cantidad'] != $form_values['cantidad']) 
 			{
-				if ($this->session->userdata("rol") == 1)
+				//if ($this->session->userdata("rol") == 1){
+				$stock= $producto['cantidadProducto'] + $venta_original['cantidad'] - $form_values['cantidad'];
+				$form_values['importe'] = $producto['precio'];
+
+				if ($stock >= 0)
 				{
-					$stock= $producto['cantidadProducto'] + $venta_original['cantidad'] - $form_values['cantidad'];
-					$form_values['importe'] = $producto['precio'];
-
-					if ($stock >= 0)
-					{
+					if ($rol == 1)
 						$this->productos_model->actualizar("productos",array('id'=>$producto_original['id']),array('cantidadProducto'=>$stock));
-
-					}
 					else
-					{
-						$this->session->set_flashdata('mensaje',"No hay suficientes productos para la venta");
-						$this->session->set_flashdata('class','alert alert-danger');
-						redirect('ventas/actualizar_venta/'.$venta_original['id']);
-					}
+						$this->productos_model->actualizar("asignacion","idVendedor = ".$id_user." AND idProducto = ".$form_values['idProducto'],array('cantidad'=>$stock));
 				}
 				else
 				{
+					$this->session->set_flashdata('mensaje',"No hay suficientes productos para la venta");
+					$this->session->set_flashdata('class','alert alert-danger');
+					redirect('ventas/actualizar_venta/'.$venta_original['id']);
+				}
+				//}
+				/*else
+				{
+
 					$cant_asignacion = $this->ventas_model->leer('asignacion', array('idProducto'=>$form_values['idProducto'],'idVendedor'=>$this->session->userdata("id")))[0]["cantidad"];
 					$stock = $cant_asignacion + $venta_original['cantidad'] - $form_values['cantidad'];
 					if ($stock >= 0)
@@ -236,14 +255,14 @@ class Ventas extends MY_Controller{
 					}
 					$form_values['importe'] = $producto['precio'];
 
-				}
+				}*/
 
 			}
 
 		}
 		else
 		{
-
+			//if ($this->session->userdata("rol") == 1) 		{
 			$cant= $producto['cantidadProducto'];
 
 			if ($cant < $form_values['cantidad'])
@@ -259,14 +278,17 @@ class Ventas extends MY_Controller{
 
 				$stock= $producto['cantidadProducto'] - $form_values['cantidad'];
 				$this->productos_model->actualizar("productos",array('id'=>$form_values['idProducto']),array('cantidadProducto'=>$stock));
-				
+
 				$form_values['importe'] = $producto['precio'];
 			}
+			//}
+
+			
 		}
 
 
 
-/*
+/* necesita configuración de correo
 		if ($this->session->userdata('rol') == 2)
 		{
 			$mail['venta_original']= $this->ventas_model->get_ventas("ventas.id = ".$venta_id)[0];
@@ -330,10 +352,14 @@ class Ventas extends MY_Controller{
 	{
 		$id_prod=$this->input->post("selProd");
 		if ($id_prod !=NULL) {
-			if($this->session->userdata('id')==1)
+			if($this->session->userdata('id')==1){
 				echo $this->ventas_model->leer("productos",array("id"=>$id_prod))[0]["cantidadProducto"];
-			else
+				//var_dump($this->ventas_model->leer("productos",array("id"=>$id_prod))[0]["cantidadProducto"]);
+			}
+			else{
 				echo $this->ventas_model->leer('asignacion', array('idProducto'=>$id_prod))[0]['cantidad'];
+				//var_dump( $this->ventas_model->leer('asignacion', array('idProducto'=>$id_prod)));
+			}
 		}
 	}
 }

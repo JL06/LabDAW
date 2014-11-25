@@ -64,7 +64,7 @@ class Usuario_model extends Generic_Model {
 	}
 	function get_asignaciones($rol,$id)
 	{
-		$query = "SELECT administrador.nombre as admin, vendedor.nombre as vendedor, productos.nombre as producto, cantidad, fecha
+		$query = "SELECT administrador.nombre as admin, vendedor.nombre as vendedor, productos.nombre as nombre, cantidad as cantidadProducto, fecha,productos.id as id
 		FROM asignacion, usuario as administrador, usuario as vendedor, productos ";
 		if ($rol == 1)
 			$query.= " WHERE administrador.id = asignacion.idAdmin AND vendedor.id = asignacion.idVendedor

@@ -13,7 +13,22 @@ class Productos_model extends Generic_model
 
 		return $this->query_to_array($query);
 	}
+	function get_productos_asignados($idVendedor, $filter="")
+	{
+		$this->db->select('productos.id, productos.nombre, productos.precio, productos.descripcion, tipoproducto.nombre as tipo,tiempo,cantidad as cantidadProducto,productos.idTipo');
+		$this->db->from('productos');
+		$this->db->join('tipoproducto','tipoproducto.id=productos.idTipo');
+		$this->db->join('asignacion','idProducto=productos.id');
+		$this->db->where("cantidad > 0 AND productos.activo = 1 AND idVendedor=".$this->db->escape($idVendedor));
+		if ($filter !="") {
+			$this->db->where($filter);
 
+		}
+
+		$query=$this->db->get();
+
+		return $this->query_to_array($query);
+	}
 	public function asignar_material($prod_id,$mat) 
 	{
 		$insertData=array();
