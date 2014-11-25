@@ -107,7 +107,7 @@ class Productos_model extends Generic_model
 		}
 		return $asig;
 	}
-	
+
 	public function producto($id)
 	{
 		$query = $this->db->get_where("productos", array('id' => $id));
