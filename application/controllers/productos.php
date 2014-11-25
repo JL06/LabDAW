@@ -28,7 +28,7 @@ class Productos extends MY_Controller
 		$data['tipo']=$this->productos_model->leer('tipoproducto');
 		$data['main_content']="producto_form";
 		$data['title']="Registrar Producto";
-		$data['materiales']=$this->materiales_model->get_materiales();
+		$data['materiales']=$this->materiales_model->get_materiales("materiales.activo = 1");
 		$this->load->view('templates/template',$data);
 	}
 
@@ -198,7 +198,7 @@ class Productos extends MY_Controller
 				$data['tipo']=$this->productos_model->leer('tipoproducto');
 				$data['main_content']="producto_form";
 				$data['title']="Actualizar Producto";
-				$data['materiales']=$this->materiales_model->get_materiales();
+				$data['materiales']=$this->materiales_model->get_materiales("materiales.activo = 1 OR ");
 				$data['producto']=json_encode($this->productos_model->get_productos(array('productos.id' => $prod_id))[0]);
 				$data['prod_id']=$prod_id;
 				$data['mat_actuales']=json_encode($this->materiales_model->get_materiales_producto($prod_id));
