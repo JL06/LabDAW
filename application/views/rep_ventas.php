@@ -27,6 +27,7 @@
 							</div>
 						</div>
 						<div class="form-group col-md-6">
+							<div id="note"></div>
 							<div id="filter"></div>
 						</div>
 						<div class="form-group col-lg-7">
@@ -73,6 +74,7 @@
 					data: {filter:criterio},
 					success: function(data) {
 						$("#filter").html("<select multiple name='filtro[]' class='form-control' required><option value='todos' selected>Ver todos</option></select>");
+						$("#note").html("<div class=\"alert alert-info\">Para seleccionar 2 o más opciones presiona la tecla Ctrl</div>");
 						options=jQuery.parseJSON(data);
 						$.each(options,function(i,val){
 							$("select").append("<option value='"+val.id+"'>"+val.nombre+"</option>")

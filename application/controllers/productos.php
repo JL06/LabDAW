@@ -372,7 +372,7 @@ class Productos extends MY_Controller
 			public function asignar()
 			{
 				$data['productos']=$this->productos_model->get_productos(array('productos.activo'=>1));
-				$data['usuarios']=$this->usuario_model->listar(array("usuario.activo"=>1));
+				$data['usuarios']=$this->usuario_model->listar("usuario.activo = 1 AND usuario.idRol <> 1");
 				$data['main_content']="asignar_producto";
 				$data['title']="Asignar productos a vendedor";
 				$data['link'] = "guardar_asignacion";

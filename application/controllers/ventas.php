@@ -264,10 +264,10 @@ class Ventas extends MY_Controller{
 	{
 		$id_prod=$this->input->post("selProd");
 		if ($id_prod !=NULL) {
-			if($this->session->userdata('id')===1)
+			if($this->session->userdata('id')==='1')
 				echo $this->ventas_model->leer("productos",array("id"=>$id_prod))[0]["cantidadProducto"];
 			else
-				echo $this->ventas_model->leer('asignacion', array('idProducto'=>$id_prod))[0]['cantidad'];
+				echo $this->ventas_model->leer('asignacion', 'idProducto = '.$id_prod.' AND idVendedor = '.$this->session->userdata('id'))[0]['cantidad'];
 		}
 	}
 }

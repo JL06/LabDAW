@@ -7,6 +7,10 @@
 					<span class="glyphicon glyphicon-plus-sign"></span>
 					Agregar
 				</a>
+				<a href="<?php echo base_url('productos/asignaciones')?>" class="btn btn-info">
+					<span class="glyphicon glyphicon-plus-sign"></span>
+					Asignar
+				</a>
 			</span>
 		</h3>
 		<div class="row mt">
