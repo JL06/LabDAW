@@ -353,7 +353,7 @@ class Productos extends MY_Controller
 				{
 					list($idmat, $cantidad) = explode(":", $mat);
 					$ultimo = $this->materiales_model->ultimo_comprado($idmat);
-					$costo = $ultimo["costo"]/$ultimo["cantidad"];
+					$costo = $ultimo["costo"];
 					$costo_producto = $costo * floatval($cantidad);
 					$costo_total += $costo_producto;
 				}
