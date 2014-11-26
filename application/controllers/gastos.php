@@ -210,13 +210,13 @@ class Gastos extends MY_Controller{
 			);
 		$valid=$this->validate_form($rules, $form_values, 'tipogasto');
 		
-		if($valid!==1 OR $valid !==0){
+		if($valid !=="1" && $valid !=="0"){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('inicio/subcatalogos');
 
 		}
-		else if($valid == 0)
+		else if($valid === "0")
 		{
 			$this->session->set_flashdata('class','alert alert-success');
 			$this->session->set_flashdata('mensaje','El tipo de gasto se agregó exitosamente');

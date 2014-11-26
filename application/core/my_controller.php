@@ -68,7 +68,7 @@ class MY_Controller extends CI_Controller
 							$this->generic_model->actualizar($entity,array($r['field']=>$form_values[$r['field']]),array("activo"=>1));
 							$valid = 0;
 						}
-						else
+						else if($rep)
 						{
 							$unique_error ='El '.$r['label'].' ya está registrado. Registre uno diferente o modifique el que ya existe.';
 							$valid=FALSE;

@@ -365,18 +365,19 @@ class Materiales extends MY_Controller {
 				)
 			);
 		$valid=$this->validate_form($rules, $form_values, 'color');
-		if($valid!==1 OR $valid!==0){
+		//var_dump($valid);
+		if ($valid === "0")
+		{
+			$this->session->set_flashdata('mensaje',"El color se agregó exitosamente");
+			$this->session->set_flashdata('class','alert alert-success');
+			redirect('inicio/subcatalogos');
+		}
+		if($valid!=="1" && $valid!=="0"){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('inicio/subcatalogos');
 		}
-		if ($valid == 0)
-		{
-			$this->session->set_flashdata('mensaje',"El color se agregó exitosamente");
-			$this->session->set_flashdata('class','alert alert-danger');
-			redirect('inicio/subcatalogos');
-		}
-		if($this->materiales_model->crear('color', $form_values)){
+		else if($this->materiales_model->crear('color', $form_values)){
 			$this->session->set_flashdata('class','alert alert-success');
 			$this->session->set_flashdata('mensaje','El color se agregó exitosamente');
 			redirect('inicio/subcatalogos');
