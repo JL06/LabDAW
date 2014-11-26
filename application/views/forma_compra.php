@@ -28,11 +28,11 @@
 							<div class="col-md-5">
 								<div class="input-group">
 									<input value="<?php if (isset($cantidad)) echo $cantidad; ?>" type="number" name="cantidad" class="form-control" min="1" required>
-									<?php if (isset($unidad)): ?>
+									<!--<?php if (isset($unidad)): ?>
 										<div class="input-group-addon"><?php echo $unidad; ?></div>
 									<?php else: ?>
 										<div class="input-group-addon">unidad</div>
-									<?php endif;?>
+									<?php endif;?>-->
 								</div>
 							</div>
 						</div>

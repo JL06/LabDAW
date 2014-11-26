@@ -28,7 +28,7 @@ class Productos extends MY_Controller
 		$data['tipo']=$this->productos_model->leer('tipoproducto');
 		$data['main_content']="producto_form";
 		$data['title']="Registrar Producto";
-		$data['materiales']=$this->materiales_model->get_materiales("materiales.activo = 1");
+		$data['materiales']=$this->materiales_model->get_materiales("material.activo = 1");
 		$this->load->view('templates/template',$data);
 	}
 
