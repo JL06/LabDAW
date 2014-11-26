@@ -66,7 +66,7 @@ class Materiales extends MY_Controller {
 				);
 			$valid = $this->validate_form($rules,$data1,'tipomaterial');
 
-			if ($valid !== 1)
+			if ($valid !== "1")
 			{
 				$this->session->set_flashdata('mensaje',$valid);
 				$this->session->set_flashdata('class','alert alert-danger');
@@ -99,7 +99,7 @@ class Materiales extends MY_Controller {
 				);
 			$valid = $this->validate_form($rules,$data2,'color');
 
-			if ($valid !== 1)
+			if ($valid !== "1")
 			{
 				$this->session->set_flashdata('mensaje',$valid);
 				$this->session->set_flashdata('class','alert alert-danger');
@@ -128,7 +128,7 @@ class Materiales extends MY_Controller {
 			);
 		$valid = $this->validate_form($rules,$data,'material');
 
-		if ($valid !== 1)
+		if ($valid !== "1")
 		{
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
@@ -191,7 +191,7 @@ class Materiales extends MY_Controller {
 				);
 			$valid = $this->validate_form($rules,$data1,'tipomaterial');
 
-			if ($valid !== 1)
+			if ($valid !== "1")
 			{
 				$this->session->set_flashdata('mensaje',$valid);
 				$this->session->set_flashdata('class','alert alert-danger');
@@ -225,7 +225,7 @@ class Materiales extends MY_Controller {
 				$valid=FALSE;
 			}
 		}
-		if ($valid !== 1)
+		if ($valid != 1)
 		{
 			$valid.=$error;
 			$this->session->set_flashdata('mensaje',$valid);
@@ -287,7 +287,7 @@ class Materiales extends MY_Controller {
 			);
 		$valid=$this->validate_form($rules, $form_values, 'tipomaterial');
 		
-		if($valid!==1){
+		if($valid!=="1"){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('inicio/subcatalogos');
@@ -329,7 +329,7 @@ class Materiales extends MY_Controller {
 
 		$valid=$this->validate_form($rules, $form_values, 'tipomaterial');
 
-		if($valid!==1){
+		if($valid!=="1"){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('inicio/subcatalogos');
@@ -405,7 +405,7 @@ class Materiales extends MY_Controller {
 				)
 			);
 		$valid=$this->validate_form($rules, $form_values, 'color');
-		if($valid!==1){
+		if($valid!=="1"){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('inicio/subcatalogos');
