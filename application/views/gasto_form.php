@@ -67,11 +67,6 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 
-				if ()
-				{
-
-				}
-
 				$("#input-show").click(function(){
 					if($("#input-name").css("display") == "none"){
 						$("#input-show").text("-Elegir tipo existente");
