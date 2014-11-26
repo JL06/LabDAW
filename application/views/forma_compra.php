@@ -11,11 +11,15 @@
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">Material</label>
 							<div class="col-md-5">
+								<?php if (isset($materiales)): ?>
 								<select name="material" class="form-control">
 									<?php foreach ($materiales as $material) :?> 
 										<option value="<?php echo $material['id'] ?>" <?php if (isset($matid)) if ($matid == $material['id']) echo "selected" ?>><?php echo $material["nombre"]." ".$material["color"]." en ".$material['unidad']; ?></option>
 									<?php endforeach ?>
 								</select>
+								<?php else: ?>
+								<input value="<?php if (isset($mat)) echo $mat['nombre']; ?>" type="text" class="form-control" disabled>
+								<?php endif;?>
 							</div>
 						</div>
 

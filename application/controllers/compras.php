@@ -69,7 +69,8 @@ class Compras extends MY_Controller {
 		if ($id != NULL) 
 		{
 			$data = $this->compras_model->compra(array('compras.id'=>$id));
-			$data['materiales'] = $this->compras_model->materiales();
+			//$data['materiales'] = $this->compras_model->materiales();
+			$data['mat'] = $this->materiales_model->material($data['matid']);
 			$data['main_content'] = 'forma_compra';
 			$data['title'] = 'Actualizar compra';
 			$data['link'] = "guarda_actual/".$id;
@@ -98,12 +99,13 @@ class Compras extends MY_Controller {
 				return;
 			}
 
-			$data['idmaterial'] = $this->input->post('material');
+			//$data['idmaterial'] = $this->input->post('material');
 			$data['cantidad'] = $this->input->post('cantidad');
 			$data['costo'] = $this->input->post('costo');
 			$data['fecha'] = $this->input->post('fecha');
 
 			$compra = $this->compras_model->compra(array('compras.id'=>$id));
+			$data['idmaterial'] = $compra['matid'];
 			$material = $this->materiales_model->material($data['idmaterial']);
 
 			if($this->compras_model->actualizar('compras', array('id' => $id), $data))
@@ -123,7 +125,7 @@ class Compras extends MY_Controller {
 		} 
 		else 
 		{
-			redirect("lugares");
+			redirect("/compras");
 		}
 	}
 
