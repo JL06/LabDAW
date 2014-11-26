@@ -77,18 +77,7 @@ if (gastos != "")
 	});
 
 }
-if (compras !="")
-{
-	new Morris.Bar({
-		element: 'reporte2',
-		data: compras,
-		xkey: 'fecha',
-		ykeys: ['total'],
-		labels: ['total'],
-		barColors:['#37bc9b']
 
-	});
-}
 if (gastos == "" && compras==""){
 	$("#reporte").html("<div class='well'><p class='text-center'>No hay gastos que mostrar</p>");
 

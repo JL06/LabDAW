@@ -118,21 +118,21 @@ class Reportes extends MY_Controller {
 		
 		if($ver == FALSE)
 		{
-			$gastos = $this->reportes_model->get("gastos",$f1,$f2);
-			$compras = $this->reportes_model->get("compras",$f1,$f2);
+			$gastos = $this->reportes_model->get_gastos($f1,$f2);
 			$data['sel'] = "compras,gastos";
 
 		}
-		else if (count($ver) === 2)
+		else if (count($ver) == 2)
 		{
-			$gastos = $this->reportes_model->get("gastos",$f1,$f2);
-			$compras = $this->reportes_model->get("compras",$f1,$f2);
+			$gastos = $this->reportes_model->get_gastos($f1,$f2);
 			$data['sel'] = implode(",", $ver);
 
 		}
-		else if(count($ver) === 1)
+		else if(count($ver) == 1)
 		{
 			$gastos = $this->reportes_model->get($ver[0],$f1,$f2);
+
+
 			$data['sel'] = implode(",", $ver);
 
 		}
@@ -140,10 +140,6 @@ class Reportes extends MY_Controller {
 		if (isset($gastos))
 		{
 			$data['gastos'] = json_encode($gastos);		
-		}
-		if (isset($compras))
-		{
-			$datos['compras'] = json_encode($compras);
 		}
 
 		$data['fecha1'] =$f1;

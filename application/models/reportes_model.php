@@ -45,7 +45,7 @@ class Reportes_model extends Generic_model
 		{
 			$this->db->select("fecha, costo as total");	
 		}
-		$this->db->from("compras");
+		$this->db->from($element);
 		$this->db->where("fecha BETWEEN  ".$this->db->escape($date1)." AND ".$this->db->escape($date2));
 		$query = $this->query_to_array($this->db->get());
 		return $query;	

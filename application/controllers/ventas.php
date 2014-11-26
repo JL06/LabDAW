@@ -80,7 +80,7 @@ class Ventas extends MY_Controller{
 			else
 			{
 				if( $this->ventas_model->crear("ventas",$form_values)){
-					$new_stock = $producto['cantidadProducto'] - 1;
+					$new_stock = $producto['cantidadProducto'] - $form_values['cantidad'];
 					$this->ventas_model->actualizar('productos',array('id'=>$id_producto),array("cantidadProducto"=>$new_stock));
 					$this->session->set_flashdata('mensaje', 'La venta se registró exitosamente');
 					$this->session->set_flashdata('class','alert alert-success');

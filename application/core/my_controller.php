@@ -40,7 +40,7 @@ class MY_Controller extends CI_Controller
 
 	protected function validate_form($rules,$form_values,$entity="")
 	{
-		$valid="1";
+		$valid=1;
 		$unique_error="";
 		foreach ($rules as $r) 
 		{
@@ -66,7 +66,7 @@ class MY_Controller extends CI_Controller
 						if ($rep && $active[0]['activo'] == 0)
 						{
 							$this->generic_model->actualizar($entity,array($r['field']=>$form_values[$r['field']]),array("activo"=>1));
-							$valid = "0";
+							$valid = 0;
 						}
 						else if($rep)
 						{

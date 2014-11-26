@@ -66,7 +66,7 @@ class Materiales extends MY_Controller {
 				);
 			$valid = $this->validate_form($rules,$data1,'tipomaterial');
 
-			if ($valid !== "1")
+			if ($valid !=1)
 			{
 				$this->session->set_flashdata('mensaje',$valid);
 				$this->session->set_flashdata('class','alert alert-danger');
@@ -99,7 +99,7 @@ class Materiales extends MY_Controller {
 				);
 			$valid = $this->validate_form($rules,$data2,'color');
 
-			if ($valid !== "1")
+			if ($valid !=1)
 			{
 				$this->session->set_flashdata('mensaje',$valid);
 				$this->session->set_flashdata('class','alert alert-danger');
@@ -128,7 +128,7 @@ class Materiales extends MY_Controller {
 			);
 		$valid = $this->validate_form($rules,$data,'material');
 
-		if ($valid !== "1")
+		if ($valid !=1)
 		{
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
@@ -191,7 +191,7 @@ class Materiales extends MY_Controller {
 				);
 			$valid = $this->validate_form($rules,$data1,'tipomaterial');
 
-			if ($valid !== "1")
+			if ($valid !=1)
 			{
 				$this->session->set_flashdata('mensaje',$valid);
 				$this->session->set_flashdata('class','alert alert-danger');
@@ -219,6 +219,8 @@ class Materiales extends MY_Controller {
 		$existe = $this->materiales_model->repite('material','idTipo',array('idTipo'=>$data['idTipo'],'idColor'=>$data['idColor']));
 		if ($existe)
 		{
+			$form_values['idTipo'] = $this->input->post("idMaterial");
+			$form_values['idColor'] = $this->input->post("color");
 			$original=$this->materiales_model->leer('material',array('id'=>$id));
 			if ( $original[0]['idTipo'] !== $form_values['idTipo'] &&  $original[0]['idColor'] !== $form_values['idColor']){
 				$error = "El material ya está registrado. Registre uno diferente o modifique el que ya existe\n";
@@ -233,7 +235,7 @@ class Materiales extends MY_Controller {
 			redirect('materiales/actualizar/'.$id);
 		}
 		
-		if ($this->materiales_model->actualizar('material', array("id"=>$id),$data)) 
+		else if ($this->materiales_model->actualizar('material', array("id"=>$id),$data)) 
 		{
 			$this->session->set_flashdata('mensaje','El material se actualizó exitosamente');
 			$this->session->set_flashdata('class','alert alert-success');
@@ -287,7 +289,7 @@ class Materiales extends MY_Controller {
 			);
 		$valid=$this->validate_form($rules, $form_values, 'tipomaterial');
 		
-		if($valid!=="1"){
+		if($valid!=1){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('inicio/subcatalogos');
@@ -329,7 +331,7 @@ class Materiales extends MY_Controller {
 
 		$valid=$this->validate_form($rules, $form_values, 'tipomaterial');
 
-		if($valid!=="1"){
+		if($valid!=1){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('inicio/subcatalogos');
@@ -366,13 +368,13 @@ class Materiales extends MY_Controller {
 			);
 		$valid=$this->validate_form($rules, $form_values, 'color');
 		//var_dump($valid);
-		if ($valid === "0")
+		if ($valid ==0)
 		{
 			$this->session->set_flashdata('mensaje',"El color se agregó exitosamente");
 			$this->session->set_flashdata('class','alert alert-success');
 			redirect('inicio/subcatalogos');
 		}
-		if($valid!=="1" && $valid!=="0"){
+		if($valid!=1 && $valid!=0){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('inicio/subcatalogos');
@@ -405,7 +407,7 @@ class Materiales extends MY_Controller {
 				)
 			);
 		$valid=$this->validate_form($rules, $form_values, 'color');
-		if($valid!=="1"){
+		if($valid!=1){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('inicio/subcatalogos');

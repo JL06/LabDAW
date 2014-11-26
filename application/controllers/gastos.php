@@ -55,7 +55,7 @@ class Gastos extends MY_Controller{
 			$form_values=array("nombre"=>$nombre);
 			$valid = $this->validate_form($rules,$form_values,'tipogasto');
 
-			if ($valid !== "1")
+			if ($valid != 1)
 			{
 				$this->session->set_flashdata('mensaje',$valid);
 				$this->session->set_flashdata('class','alert alert-danger');
@@ -85,7 +85,7 @@ class Gastos extends MY_Controller{
 			"fecha"=>$this->input->post("fecha"));
 		$valid = $this->validate_form($rules,$form_values,'tipogasto');
 
-		if ($valid !== "1")
+		if ($valid !=1)
 		{
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
@@ -126,7 +126,7 @@ class Gastos extends MY_Controller{
 				);
 			$valid = $this->validate_form($rules,$form_values,'tipogasto');
 
-			if ($valid !== "1")
+			if ($valid !=1)
 			{
 				$this->session->set_flashdata('mensaje',$valid);
 				$this->session->set_flashdata('class','alert alert-danger');
@@ -155,7 +155,7 @@ class Gastos extends MY_Controller{
 			);
 		$valid = $this->validate_form($rules,$form_values,'gastos');
 
-		if ($valid !== "1")
+		if ($valid !=1)
 		{
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
@@ -210,13 +210,13 @@ class Gastos extends MY_Controller{
 			);
 		$valid=$this->validate_form($rules, $form_values, 'tipogasto');
 		
-		if($valid !=="1" && $valid !=="0"){
+		if($valid !=1 && $valid !=0){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('inicio/subcatalogos');
 
 		}
-		else if($valid === "0")
+		else if($valid == 0)
 		{
 			$this->session->set_flashdata('class','alert alert-success');
 			$this->session->set_flashdata('mensaje','El tipo de gasto se agregó exitosamente');
@@ -253,7 +253,7 @@ class Gastos extends MY_Controller{
 			);
 		$valid=$this->validate_form($rules, $form_values, 'tipogasto');
 
-		if($valid!=="1"){
+		if($valid!= 1){
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
 			redirect('inicio/subcatalogos');

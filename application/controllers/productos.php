@@ -57,7 +57,7 @@ class Productos extends MY_Controller
 					)
 				);
 			$valid=$this->validate_form($rules, $data, 'tipoproducto');
-			if ($valid !== 1){
+			if ($valid != 1){
 				$this->session->set_flashdata('mensaje',$valid);
 				$this->session->set_flashdata('class','alert alert-danger');
 				redirect('productos/registrar');
@@ -103,7 +103,7 @@ class Productos extends MY_Controller
 		//valid es true si la forma pasó la validación y un arreglo de mensajes de error si no pasó
 		$valid = $this->validate_form($rules,$form_values,'productos');
 
-		if ($valid !== 1)
+		if ($valid != 1)
 		{
 			$this->session->set_flashdata('mensaje',$valid);
 			$this->session->set_flashdata('class','alert alert-danger');
@@ -228,7 +228,7 @@ class Productos extends MY_Controller
 							)
 						);
 					$valid=$this->validate_form($rules, $data, 'tipoproducto');
-					if ($valid !== 1){
+					if ($valid != 1){
 						$this->session->set_flashdata('mensaje',$valid);
 						$this->session->set_flashdata('class','alert alert-danger');
 						redirect('productos/registrar');
@@ -278,7 +278,7 @@ class Productos extends MY_Controller
 					}
 				}
 
-				if ( $valid !== 1 OR $error !== "")
+				if ( $valid != 1 OR $error !== "")
 				{
 					$this->session->set_flashdata('mensaje',$error.$valid);
 					$this->session->set_flashdata('class','alert alert-danger');
@@ -588,15 +588,14 @@ class Productos extends MY_Controller
 						)
 					);
 				$valid=$this->validate_form($rules, $form_values, 'tipoproducto');
-				if($valid!=="1" && $valid !== "0")
+				if($valid!=1 && $valid !=0)
 				{
 					$this->session->set_flashdata('mensaje',$valid);
 					$this->session->set_flashdata('class','alert alert-danger');
 					redirect('inicio/subcatalogos');
 				}
-				if ($valid === "0")
+				if ($valid ==0)
 				{
-					//var_dump($valid);
 					$this->session->set_flashdata('mensaje','El tipo de producto se agregó exitosamente');
 					$this->session->set_flashdata('class','alert alert-success');
 					redirect('inicio/subcatalogos');	
@@ -630,7 +629,7 @@ class Productos extends MY_Controller
 					);
 				$valid=$this->validate_form($rules, $form_values, 'tipoproducto');
 
-				if($valid!=="1"){
+				if($valid!=1){
 					$this->session->set_flashdata('mensaje',$valid);
 					$this->session->set_flashdata('class','alert alert-danger');
 					redirect('inicio/subcatalogos');
