@@ -65,7 +65,6 @@
 														<?php endif; ?>
 														<td>Producto</td>
 														<td>Cantidad</td>
-														<td>Fecha</td>
 													</tr>
 												</thead>
 												<tbody>
@@ -81,7 +80,6 @@
 															</td>
 															<td><?php echo $a['nombre']; ?></td>
 															<td><?php echo $a['cantidadProducto']; ?></td>
-															<td><?php echo $a['fecha']; ?></td>
 														</tr>
 													<?php endforeach;?>
 
